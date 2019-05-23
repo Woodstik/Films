@@ -1,4 +1,4 @@
-package com.example.films.presentation
+package com.example.films.presentation.main
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.films.R
+import com.example.films.presentation.discover.DiscoverFragment
+import com.example.films.presentation.home.HomeFragment
+import com.example.films.presentation.lists.ListsFragment
+import com.example.films.presentation.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 fun Context.mainIntent(): Intent {

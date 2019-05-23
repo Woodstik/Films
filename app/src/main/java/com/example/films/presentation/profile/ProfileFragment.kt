@@ -1,4 +1,4 @@
-package com.example.films.presentation
+package com.example.films.presentation.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.films.R
 
-class ListsFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_lists, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     companion object {
-        fun newInstance(): ListsFragment {
+        fun newInstance(): ProfileFragment {
             val bundle = Bundle()
-            return ListsFragment().apply {
+            return ProfileFragment().apply {
                 arguments = bundle
             }
         }
