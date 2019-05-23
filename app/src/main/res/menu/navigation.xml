@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/item_home"
+          android:title="@string/menu_item_home"
+          android:icon="@drawable/ic_menu_home"
+          app:showAsAction="ifRoom"/>
+    <item android:id="@+id/item_discover"
+          android:title="@string/menu_item_discover"
+          android:icon="@drawable/ic_menu_discover"
+          app:showAsAction="ifRoom"/>
+    <item android:id="@+id/item_lists"
+          android:title="@string/menu_item_lists"
+          android:icon="@drawable/ic_menu_lists"
+          app:showAsAction="ifRoom"/>
+    <item android:id="@+id/item_profile"
+          android:title="@string/menu_item_profile"
+          android:icon="@drawable/ic_menu_profile"
+          app:showAsAction="ifRoom"/>
+</menu>

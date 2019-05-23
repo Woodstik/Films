@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Films</string>
+
+    <!--MAIN-->
+    <string name="menu_item_home">Home</string>
+    <string name="menu_item_discover">Discover</string>
+    <string name="menu_item_lists">Lists</string>
+    <string name="menu_item_profile">Profile</string>
+</resources>
