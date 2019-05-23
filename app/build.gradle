@@ -4,32 +4,72 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+def versionMajor = 0
+def versionMinor = 0
+def versionPatch = 0
+def versionBuild = 1
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.example.films"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode getVersionCode(versionMajor, versionMinor, versionPatch, versionBuild)
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationVariants.all { variant ->
+            renameAPK(variant, defaultConfig)
+        }
+    }
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
     }
     buildTypes {
+        debug {
+            debuggable true
+            applicationIdSuffix ".dev"
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        staging{
+            initWith release
+            applicationIdSuffix ".dev"
+        }
+    }
+}
+
+static def getVersionCode(versionMajor, versionMinor, versionPatch, versionBuild) {
+    return versionMajor * 1000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
+}
+
+static def renameAPK(variant, defaultConfig) {
+    variant.outputs.all { output ->
+        outputFileName = "films_v" + defaultConfig.versionName + "(" + defaultConfig.versionCode + ").apk"
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
