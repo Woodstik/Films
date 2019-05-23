@@ -1,23 +1,22 @@
-package com.example.films
+package com.example.films.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.films.R
 
-
-
-class HomeFragment : Fragment() {
+class DiscoverFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_discover, container, false)
     }
 
     companion object {
-        fun newInstance(): HomeFragment {
+        fun newInstance(): DiscoverFragment {
             val bundle = Bundle()
-            return HomeFragment().apply {
+            return DiscoverFragment().apply {
                 arguments = bundle
             }
         }
