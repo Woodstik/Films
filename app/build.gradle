@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 def versionMajor = 0
 def versionMinor = 0
 def versionPatch = 0
@@ -35,17 +37,27 @@ android {
         }
     }
     buildTypes {
-        debug {
-            debuggable true
-            applicationIdSuffix ".dev"
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        staging{
-            initWith release
-            applicationIdSuffix ".dev"
+    }
+    flavorDimensions "server"
+    productFlavors {
+        mock {
+            dimension "server"
+            applicationIdSuffix ".mock"
+            versionNameSuffix "-mock"
+        }
+        staging {
+            dimension "server"
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-staging"
+        }
+        prod {
+            dimension "server"
+            applicationIdSuffix ".prod"
+            versionNameSuffix "-prod"
         }
     }
 }
@@ -72,7 +84,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

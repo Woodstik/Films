@@ -6,4 +6,10 @@
     <string name="menu_item_discover">Discover</string>
     <string name="menu_item_lists">Lists</string>
     <string name="menu_item_profile">Profile</string>
+
+    <!--HOME-->
+    <string name="format_item_number">%1$d/%2$d</string>
+    <string name="label_new_releases">New Releases</string>
+    <string name="label_upcoming">Upcoming</string>
+    <string name="label_popular">Popular</string>
 </resources>

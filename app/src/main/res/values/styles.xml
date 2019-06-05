@@ -1,11 +1,45 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SplashTheme" parent="@style/BaseTheme">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/BaseTheme">
+    </style>
+
+    <style name="Text"/>
+
+    <style name="Text.Small" parent="TextAppearance.AppCompat.Caption">
+    </style>
+
+    <style name="Text.Small.Inverse" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">?android:textColorSecondaryInverse</item>
+    </style>
+
+    <style name="Text.Normal" parent="TextAppearance.AppCompat.Small">
+    </style>
+
+    <style name="Text.Normal.Inverse" parent="TextAppearance.AppCompat.Small.Inverse">
+    </style>
+
+    <style name="Text.Medium" parent="TextAppearance.AppCompat.Medium">
+    </style>
+
+    <style name="Text.Medium.Inverse" parent="TextAppearance.AppCompat.Medium.Inverse">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+    </style>
+
+    <style name="Text.Large" parent="TextAppearance.AppCompat.Large">
+    </style>
+
+    <style name="Text.Large.Inverse" parent="TextAppearance.AppCompat.Large.Inverse">
     </style>
 
 </resources>

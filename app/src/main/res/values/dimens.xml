@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="icon_size">24dp</dimen>
+
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="radius_card">2dp</dimen>
+
+    <dimen name="spacing_nano">2dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">32dp</dimen>
+
+    <dimen name="upcoming_movies_height">216dp</dimen>
+    <dimen name="upcoming_movies_width">376dp</dimen>
+    <dimen name="new_release_poster_height">176dp</dimen>
+    <dimen name="new_release_poster_width">120dp</dimen>
+    <dimen name="popular_poster_height">152dp</dimen>
+
+</resources>
