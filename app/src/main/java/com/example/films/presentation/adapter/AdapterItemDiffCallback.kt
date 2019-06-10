@@ -1,7 +1,7 @@
-package com.example.films.adapter
+package com.example.films.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.films.adapter.items.AdapterItem
+import com.example.films.presentation.adapter.items.AdapterItem
 
 class AdapterItemDiffCallback(
     private val oldAdapterItems: List<AdapterItem>,

@@ -1,4 +1,4 @@
-package com.example.films.adapter.items
+package com.example.films.presentation.adapter.items
 
 import androidx.annotation.StringRes
 import com.example.films.R

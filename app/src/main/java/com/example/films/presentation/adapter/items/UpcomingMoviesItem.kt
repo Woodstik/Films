@@ -1,7 +1,7 @@
-package com.example.films.adapter.items
+package com.example.films.presentation.adapter.items
 
 import com.example.films.R
-import com.example.films.data.Movie
+import com.example.films.data.models.Movie
 
 class UpcomingMoviesItem(val upcomingMovies: List<Movie>) : AdapterItem {
 

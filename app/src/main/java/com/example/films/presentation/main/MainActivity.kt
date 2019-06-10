@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.films.R
 import com.example.films.presentation.discover.DiscoverFragment
@@ -23,7 +24,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar as Toolbar)
         navigation.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
+            showTitle(menuItem.itemId)
             when (menuItem.itemId) {
                 R.id.item_home -> showFragment(HomeFragment.newInstance())
                 R.id.item_discover -> showFragment(DiscoverFragment.newInstance())
@@ -38,5 +41,14 @@ class MainActivity : AppCompatActivity() {
     private fun showFragment(fragment: Fragment): Boolean {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
         return true
+    }
+
+    private fun showTitle(menuId: Int) {
+        when (menuId) {
+            R.id.item_home -> supportActionBar!!.setTitle(R.string.menu_item_home)
+            R.id.item_discover -> supportActionBar!!.setTitle(R.string.menu_item_discover)
+            R.id.item_lists -> supportActionBar!!.setTitle(R.string.menu_item_lists)
+            R.id.item_profile -> supportActionBar!!.setTitle(R.string.menu_item_profile)
+        }
     }
 }

@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.GlideApp
 import com.example.films.R
-import com.example.films.adapter.AdapterItemDiffCallback
-import com.example.films.adapter.AdapterItemViewHolder
-import com.example.films.adapter.items.*
-import com.example.films.data.Movie
+import com.example.films.data.models.HomeMovies
+import com.example.films.presentation.adapter.AdapterItemDiffCallback
+import com.example.films.presentation.adapter.AdapterItemViewHolder
+import com.example.films.presentation.adapter.NewReleasesAdapter
+import com.example.films.presentation.adapter.UpcomingMoviesAdapter
+import com.example.films.presentation.adapter.items.*
 import kotlinx.android.synthetic.main.row_home_label.view.*
 import kotlinx.android.synthetic.main.row_new_releases.view.*
 import kotlinx.android.synthetic.main.row_popular_movie.view.*
@@ -45,7 +47,8 @@ class HomeAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
         return items[position].getSpan()
     }
 
-    fun addMovies(newReleases: List<Movie>, upcoming: List<Movie>, popularMovies: List<Movie>) {
+    fun setMovies(homeMovies: HomeMovies) {
+        val (newReleases, upcoming, popularMovies) = homeMovies
         val newItems = mutableListOf<AdapterItem>()
 
         newItems.add(HomeLabelItem(R.string.label_new_releases))

@@ -1,4 +1,4 @@
-package com.example.films.presentation.home
+package com.example.films.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.GlideApp
 import com.example.films.R
-import com.example.films.data.Movie
+import com.example.films.data.models.Movie
 import kotlinx.android.synthetic.main.row_upcoming_movie.view.*
 
 class UpcomingMoviesAdapter : RecyclerView.Adapter<UpcomingMovieViewHolder>() {

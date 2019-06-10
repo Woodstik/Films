@@ -1,4 +1,4 @@
-package com.example.films.data
+package com.example.films.data.models
 
 import java.util.*
 
