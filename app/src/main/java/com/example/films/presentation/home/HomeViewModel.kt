@@ -18,9 +18,7 @@ class HomeViewModel(
     private val schedulerMainThread: Scheduler
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
-    val movies: MutableLiveData<LoadState<HomeMovies>> by lazy {
-        MutableLiveData<LoadState<HomeMovies>>()
-    }
+    val movies: MutableLiveData<LoadState<HomeMovies>> by lazy { MutableLiveData<LoadState<HomeMovies>>() }
 
     fun loadMovies() {
         val disposable = Flowable.zip(

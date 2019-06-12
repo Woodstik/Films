@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import com.example.films.R
 import com.example.films.presentation.discover.DiscoverFragment
 import com.example.films.presentation.home.HomeFragment
 import com.example.films.presentation.lists.ListsFragment
 import com.example.films.presentation.profile.ProfileFragment
+import com.example.films.utils.replaceFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 fun Context.mainIntent(): Intent {
@@ -28,22 +28,18 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
             showTitle(menuItem.itemId)
             showFragment(menuItem.itemId)
+            true
         }
         navigation.selectedItemId = R.id.item_home
     }
 
-    private fun showFragment(menuId: Int): Boolean {
-        val fragment: Fragment? = when (menuId) {
-            R.id.item_home -> HomeFragment.newInstance()
-            R.id.item_discover -> DiscoverFragment.newInstance()
-            R.id.item_lists -> ListsFragment.newInstance()
-            R.id.item_profile -> ProfileFragment.newInstance()
-            else -> null
+    private fun showFragment(menuId: Int) {
+        when (menuId) {
+            R.id.item_home -> replaceFragment(R.id.fragmentContainer, HomeFragment.newInstance())
+            R.id.item_discover -> replaceFragment(R.id.fragmentContainer, DiscoverFragment.newInstance())
+            R.id.item_lists -> replaceFragment(R.id.fragmentContainer, ListsFragment.newInstance())
+            R.id.item_profile -> replaceFragment(R.id.fragmentContainer, ProfileFragment.newInstance())
         }
-        if (fragment != null) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
-        }
-        return fragment != null
     }
 
     private fun showTitle(menuId: Int) {
