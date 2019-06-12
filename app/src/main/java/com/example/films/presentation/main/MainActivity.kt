@@ -27,20 +27,23 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar as Toolbar)
         navigation.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
             showTitle(menuItem.itemId)
-            when (menuItem.itemId) {
-                R.id.item_home -> showFragment(HomeFragment.newInstance())
-                R.id.item_discover -> showFragment(DiscoverFragment.newInstance())
-                R.id.item_lists -> showFragment(ListsFragment.newInstance())
-                R.id.item_profile -> showFragment(ProfileFragment.newInstance())
-                else -> false
-            }
+            showFragment(menuItem.itemId)
         }
         navigation.selectedItemId = R.id.item_home
     }
 
-    private fun showFragment(fragment: Fragment): Boolean {
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
-        return true
+    private fun showFragment(menuId: Int): Boolean {
+        val fragment: Fragment? = when (menuId) {
+            R.id.item_home -> HomeFragment.newInstance()
+            R.id.item_discover -> DiscoverFragment.newInstance()
+            R.id.item_lists -> ListsFragment.newInstance()
+            R.id.item_profile -> ProfileFragment.newInstance()
+            else -> null
+        }
+        if (fragment != null) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
+        }
+        return fragment != null
     }
 
     private fun showTitle(menuId: Int) {

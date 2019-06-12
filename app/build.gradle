@@ -48,17 +48,34 @@ android {
             dimension "server"
             applicationIdSuffix ".mock"
             versionNameSuffix "-mock"
+            buildConfigField("String", "BASE_URL", "\"${base_url_mock}\"")
         }
         staging {
             dimension "server"
             applicationIdSuffix ".staging"
             versionNameSuffix "-staging"
+            buildConfigField("String", "BASE_URL", "\"${base_url_staging}\"")
         }
         prod {
             dimension "server"
             applicationIdSuffix ".prod"
             versionNameSuffix "-prod"
+            buildConfigField("String", "BASE_URL", "\"${base_url_prod}\"")
         }
+    }
+    sourceSets {
+        staging.java.srcDir 'src/common/java'
+        prod.java.srcDir 'src/common/java'
+    }
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (names.contains("mock") && variant.buildType.name == "release") {
+            setIgnore(true)
+        }
+    }
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
     }
 }
 
@@ -75,6 +92,7 @@ static def renameAPK(variant, defaultConfig) {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    //AndroidX
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
@@ -90,15 +108,25 @@ dependencies {
     implementation 'org.koin:koin-androidx-scope:2.0.1'
     implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
 
+    //Networking
+    implementation 'com.squareup.okhttp3:okhttp:3.14.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:okhttp-integration:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+
     //ReactiveX
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
     implementation "io.reactivex.rxjava2:rxjava:2.2.9"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
+    //Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
+    //Testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

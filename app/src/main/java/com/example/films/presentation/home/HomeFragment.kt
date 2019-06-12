@@ -18,9 +18,7 @@ class HomeFragment : Fragment() {
 
     private val model: HomeViewModel by viewModel()
 
-    private val homeAdapter by lazy {
-        HomeAdapter()
-    }
+    private val homeAdapter by lazy { HomeAdapter() }
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -53,12 +51,8 @@ class HomeFragment : Fragment() {
 
     private fun handleMovieState(state: LoadState<HomeMovies>) {
         when (state) {
-            is LoadState.Error -> {
-                TODO("Show error")
-            }
-            is LoadState.Loading -> {
-                TODO("Show loading")
-            }
+            is LoadState.Error -> TODO("Show error")
+            is LoadState.Loading -> TODO("Show loading")
             is LoadState.Data -> homeAdapter.setMovies(state.data)
         }
     }

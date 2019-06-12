@@ -7,14 +7,14 @@ import io.reactivex.Flowable
 class MovieRepository(private val movieService: MovieService) : MovieDataSource {
 
     override fun getNewReleases(): Flowable<List<Movie>> {
-        return Flowable.just(movieService.newReleases())
+        return movieService.newReleases()
     }
 
     override fun getPopularMovies(): Flowable<List<Movie>> {
-        return Flowable.just(movieService.popularMovies())
+        return movieService.popularMovies()
     }
 
     override fun getUpcomingMovies(): Flowable<List<Movie>> {
-        return Flowable.just(movieService.upcomingMovies())
+        return movieService.upcomingMovies()
     }
 }

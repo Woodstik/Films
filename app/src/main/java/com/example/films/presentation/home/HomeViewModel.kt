@@ -7,13 +7,16 @@ import com.example.films.data.models.HomeMovies
 import com.example.films.data.models.Movie
 import com.example.films.data.sources.MovieDataSource
 import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 
-class HomeViewModel(private val movieDataSource: MovieDataSource) : ViewModel() {
+class HomeViewModel(
+    private val movieDataSource: MovieDataSource,
+    private val schedulerIo: Scheduler,
+    private val schedulerMainThread: Scheduler
+) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     val movies: MutableLiveData<LoadState<HomeMovies>> by lazy {
         MutableLiveData<LoadState<HomeMovies>>()
@@ -27,8 +30,8 @@ class HomeViewModel(private val movieDataSource: MovieDataSource) : ViewModel() 
             Function3 { newReleases: List<Movie>, upcomingMovies: List<Movie>, popularMovies: List<Movie> ->
                 HomeMovies(newReleases, upcomingMovies, popularMovies)
             })
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
             .subscribeBy(
                 onNext = { movies.value = LoadState.Data(it) },
                 onError = { movies.value = LoadState.Error() }

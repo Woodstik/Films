@@ -1,20 +1,15 @@
 package com.example.films
 
 import android.app.Application
-import com.example.films.data.sources.MovieDataSource
-import com.example.films.data.sources.MovieRepository
-import com.example.films.di.homeModule
+import com.example.films.di.appModule
 import com.example.films.di.remoteModule
+import com.example.films.di.repositoryModule
+import com.example.films.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
 import timber.log.Timber
 
 class FilmApp : Application() {
-
-    private val appModule = module {
-        single<MovieDataSource> { MovieRepository(get()) }
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -24,7 +19,7 @@ class FilmApp : Application() {
 
         startKoin {
             androidContext(this@FilmApp)
-            modules(listOf(remoteModule, appModule, homeModule))
+            modules(listOf(appModule, remoteModule, repositoryModule, viewModelModule))
         }
     }
 }
