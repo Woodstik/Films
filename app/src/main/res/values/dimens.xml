@@ -4,6 +4,7 @@
 
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="radius_card">2dp</dimen>
+    <dimen name="search_bar_height">56dp</dimen>
 
     <dimen name="spacing_nano">2dp</dimen>
     <dimen name="spacing_micro">4dp</dimen>

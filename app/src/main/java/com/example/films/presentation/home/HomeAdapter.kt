@@ -11,17 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.films.GlideApp
 import com.example.films.R
 import com.example.films.data.models.HomeMovies
-import com.example.films.presentation.adapter.AdapterItemDiffCallback
-import com.example.films.presentation.adapter.AdapterItemViewHolder
-import com.example.films.presentation.adapter.NewReleasesAdapter
-import com.example.films.presentation.adapter.UpcomingMoviesAdapter
+import com.example.films.presentation.adapter.*
 import com.example.films.presentation.adapter.items.*
+import com.example.films.utils.HorizontalSpacingDecoration
 import kotlinx.android.synthetic.main.row_home_label.view.*
 import kotlinx.android.synthetic.main.row_new_releases.view.*
 import kotlinx.android.synthetic.main.row_popular_movie.view.*
 import kotlinx.android.synthetic.main.row_upcoming_movies.view.*
 
-class HomeAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
+class HomeAdapter(
+    private val newReleaseCallbacks: NewReleaseCallbacks,
+    private val upcomingCallbacks: UpcomingCallbacks
+) :
+    RecyclerView.Adapter<AdapterItemViewHolder>() {
 
     private val items = mutableListOf<AdapterItem>()
 
@@ -29,9 +31,9 @@ class HomeAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
         val rowView = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
             R.layout.row_home_label -> HomeLabelViewHolder(rowView)
-            R.layout.row_new_releases -> NewReleasesViewHolder(rowView)
+            R.layout.row_new_releases -> NewReleasesViewHolder(rowView, newReleaseCallbacks)
             R.layout.row_popular_movie -> PopularMovieViewHolder(rowView)
-            R.layout.row_upcoming_movies -> UpcomingMoviesViewHolder(rowView)
+            R.layout.row_upcoming_movies -> UpcomingMoviesViewHolder(rowView, upcomingCallbacks)
             else -> throw IllegalArgumentException("HomeAdapter: Unknown viewType: $viewType")
         }
     }
@@ -57,11 +59,13 @@ class HomeAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
         newItems.add(HomeLabelItem(R.string.label_upcoming))
         newItems.add(UpcomingMoviesItem(upcoming))
         newItems.add(HomeLabelItem(R.string.label_popular))
-        popularMovies.forEach { popularMovie -> newItems.add(
-            PopularMovieItem(
-                popularMovie
+        popularMovies.forEach { popularMovie ->
+            newItems.add(
+                PopularMovieItem(
+                    popularMovie
+                )
             )
-        ) }
+        }
 
         val diffResult = DiffUtil.calculateDiff(AdapterItemDiffCallback(items, newItems))
         items.clear()
@@ -77,14 +81,21 @@ class HomeLabelViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
     }
 }
 
-class NewReleasesViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
+class NewReleasesViewHolder(itemView: View, callbacks: NewReleaseCallbacks) : AdapterItemViewHolder(itemView) {
 
-    private var adapter = NewReleasesAdapter()
+    private var adapter = NewReleasesAdapter(callbacks)
 
     init {
         itemView.listNewReleases.layoutManager =
             LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
         itemView.listNewReleases.adapter = adapter
+        itemView.listNewReleases.addItemDecoration(
+            HorizontalSpacingDecoration(
+                itemView.context.resources.getDimensionPixelSize(
+                    R.dimen.spacing_normal
+                )
+            )
+        )
         LinearSnapHelper().attachToRecyclerView(itemView.listNewReleases)
     }
 
@@ -103,14 +114,16 @@ class PopularMovieViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
     }
 }
 
-class UpcomingMoviesViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
+class UpcomingMoviesViewHolder(itemView: View, callbacks: UpcomingCallbacks) : AdapterItemViewHolder(itemView) {
 
-    private var adapter = UpcomingMoviesAdapter()
+    private var adapter = UpcomingMoviesAdapter(callbacks)
 
     init {
-        itemView.listUpcomingMovies.layoutManager =
-            LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
-        itemView.listUpcomingMovies.adapter = adapter
+        itemView.listUpcomingMovies.also {
+            it.layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
+            it.adapter = adapter
+            it.addItemDecoration(HorizontalSpacingDecoration(itemView.context.resources.getDimensionPixelSize(R.dimen.spacing_normal)))
+        }
         LinearSnapHelper().attachToRecyclerView(itemView.listUpcomingMovies)
     }
 

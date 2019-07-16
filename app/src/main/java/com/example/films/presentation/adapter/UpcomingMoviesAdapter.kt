@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.films.GlideApp
 import com.example.films.R
 import com.example.films.data.models.Movie
+import com.example.films.utils.formatReleaseDateShort
 import kotlinx.android.synthetic.main.row_upcoming_movie.view.*
 
-class UpcomingMoviesAdapter : RecyclerView.Adapter<UpcomingMovieViewHolder>() {
+class UpcomingMoviesAdapter(private val callbacks: UpcomingCallbacks) :
+    RecyclerView.Adapter<UpcomingMovieViewHolder>() {
 
     private val items = mutableListOf<Movie>()
 
@@ -19,7 +21,8 @@ class UpcomingMoviesAdapter : RecyclerView.Adapter<UpcomingMovieViewHolder>() {
                 R.layout.row_upcoming_movie,
                 parent,
                 false
-            )
+            ),
+            callbacks
         )
     }
 
@@ -36,14 +39,22 @@ class UpcomingMoviesAdapter : RecyclerView.Adapter<UpcomingMovieViewHolder>() {
     }
 }
 
-class UpcomingMovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class UpcomingMovieViewHolder(itemView: View, private val callbacks: UpcomingCallbacks) :
+    RecyclerView.ViewHolder(itemView) {
 
     fun bindMovie(movie: Movie) {
         itemView.apply {
-            textRating.text = "${movie.rating}"
+            textReleaseDate.text = formatReleaseDateShort(movie.releaseDate)
+            btnReminder.setOnClickListener { callbacks.onRemind(movie) }
+            setOnClickListener { callbacks.onClick(movie)}
             GlideApp.with(imagePoster)
                 .load(movie.poster)
                 .into(imagePoster)
         }
     }
+}
+
+interface UpcomingCallbacks {
+    fun onClick(movie: Movie)
+    fun onRemind(movie: Movie)
 }

@@ -10,7 +10,7 @@ import com.example.films.data.models.Movie
 import com.example.films.utils.formatReleaseDate
 import kotlinx.android.synthetic.main.row_new_release.view.*
 
-class NewReleasesAdapter : RecyclerView.Adapter<NewReleaseViewHolder>() {
+class NewReleasesAdapter(private val callbacks: NewReleaseCallbacks) : RecyclerView.Adapter<NewReleaseViewHolder>() {
 
     private val items = mutableListOf<Movie>()
 
@@ -20,14 +20,15 @@ class NewReleasesAdapter : RecyclerView.Adapter<NewReleaseViewHolder>() {
                 R.layout.row_new_release,
                 parent,
                 false
-            )
+            ),
+            callbacks
         )
     }
 
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: NewReleaseViewHolder, position: Int) {
-        holder.bindMovie(items[position], itemCount)
+        holder.bindMovie(items[position])
     }
 
     fun addItems(newReleases: List<Movie>) {
@@ -37,17 +38,27 @@ class NewReleasesAdapter : RecyclerView.Adapter<NewReleaseViewHolder>() {
     }
 }
 
-class NewReleaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class NewReleaseViewHolder(itemView: View, private val callbacks: NewReleaseCallbacks) :
+    RecyclerView.ViewHolder(itemView) {
 
-    fun bindMovie(movie: Movie, total: Int) {
+    fun bindMovie(movie: Movie) {
         itemView.apply {
             textTitle.text = movie.title
-            textDescription.text = movie.description
             textReleaseDate.text = formatReleaseDate(movie.releaseDate)
-            textNumber.text = context.getString(R.string.format_item_number, adapterPosition + 1, total)
+            btnAddToList.setOnClickListener { callbacks.onAddToList(movie) }
+            btnTrailer.setOnClickListener { callbacks.onTrailer("http://www.trailer.com") }
+            btnShare.setOnClickListener { callbacks.onShare(movie) }
+            setOnClickListener { callbacks.onClick(movie) }
             GlideApp.with(imageBackdrop)
                 .load(movie.backdrop)
                 .into(imageBackdrop)
         }
     }
+}
+
+interface NewReleaseCallbacks {
+    fun onAddToList(movie: Movie)
+    fun onTrailer(url: String)
+    fun onShare(movie: Movie)
+    fun onClick(movie: Movie)
 }

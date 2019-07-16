@@ -4,8 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.example.films.R
 import com.example.films.presentation.discover.DiscoverFragment
 import com.example.films.presentation.home.HomeFragment
@@ -24,13 +25,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar as Toolbar)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorWindowBackground)
         navigation.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
-            showTitle(menuItem.itemId)
+            //            showTitle(menuItem.itemId)
             showFragment(menuItem.itemId)
             true
         }
         navigation.selectedItemId = R.id.item_home
+        cardSearch.setOnClickListener { Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show() }
     }
 
     private fun showFragment(menuId: Int) {

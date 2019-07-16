@@ -1,10 +1,7 @@
 package com.example.films
 
 import android.app.Application
-import com.example.films.di.appModule
-import com.example.films.di.remoteModule
-import com.example.films.di.repositoryModule
-import com.example.films.di.viewModelModule
+import com.example.films.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -19,7 +16,7 @@ class FilmApp : Application() {
 
         startKoin {
             androidContext(this@FilmApp)
-            modules(listOf(appModule, remoteModule, repositoryModule, viewModelModule))
+            modules(listOf(appModule, remoteModule, repositoryModule, domainModule, viewModelModule))
         }
     }
 }
