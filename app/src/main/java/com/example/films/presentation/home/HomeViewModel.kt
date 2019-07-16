@@ -19,7 +19,7 @@ class HomeViewModel(
             .doOnSubscribe { movies.value = LoadState.Loading() }
             .subscribeBy(
                 onNext = { movies.value = LoadState.Data(it) },
-                onError = { movies.value = LoadState.Error() }
+                onError = { movies.value = LoadState.Error(it) }
             )
         compositeDisposable.add(disposable)
     }

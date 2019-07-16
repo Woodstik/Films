@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.films.R
+import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.HomeMovies
 import com.example.films.data.models.Movie
@@ -16,6 +17,7 @@ import com.example.films.presentation.adapter.NewReleaseCallbacks
 import com.example.films.presentation.adapter.UpcomingCallbacks
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class HomeFragment : Fragment() {
@@ -52,17 +54,31 @@ class HomeFragment : Fragment() {
         }
         model.loadMovies()
         swipeRefresh.setOnRefreshListener { model.loadMovies() }
+        btnRetry.setOnClickListener { model.loadMovies() }
     }
 
     private fun handleMovieState(state: LoadState<HomeMovies>) {
         swipeRefresh.isRefreshing = state is LoadState.Loading
         when (state) {
-            is LoadState.Error -> TODO("Show error")
-            is LoadState.Data -> homeAdapter.setMovies(state.data)
+            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Data -> {
+                groupLoadStatus.visibility = View.GONE
+                homeAdapter.setMovies(state.data)
+            }
         }
     }
 
-    private val newReleaseCallbacks = object: NewReleaseCallbacks{
+    private fun handleError(reason: ErrorReason) {
+        when (reason) {
+            ErrorReason.HTTP -> Timber.e("Http Error")
+            ErrorReason.NETWORK -> Toast.makeText(context, "Network Error", Toast.LENGTH_SHORT).show()
+            ErrorReason.UNKNOWN -> {
+                groupLoadStatus.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private val newReleaseCallbacks = object : NewReleaseCallbacks {
         override fun onAddToList(movie: Movie) {
             Toast.makeText(context, "Add to list: ${movie.title}", Toast.LENGTH_SHORT).show()
         }
@@ -81,7 +97,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    private val upcomingCallbacks = object: UpcomingCallbacks{
+    private val upcomingCallbacks = object : UpcomingCallbacks {
         override fun onRemind(movie: Movie) {
             Toast.makeText(context, "Create reminder for movie: ${movie.title}", Toast.LENGTH_SHORT).show()
         }

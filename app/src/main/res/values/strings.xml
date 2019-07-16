@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Films</string>
 
+    <!--BUTTONS-->
+    <string name="btn_retry">Retry</string>
+
+    <!--ERROR-->
+    <string name="error_loading_home">Error loading home</string>
+
     <!--MAIN-->
     <string name="menu_item_home">Home</string>
     <string name="menu_item_discover">Discover</string>
