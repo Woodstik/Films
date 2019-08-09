@@ -8,10 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.films.R
-import com.example.films.presentation.discover.DiscoverFragment
 import com.example.films.presentation.home.HomeFragment
-import com.example.films.presentation.lists.ListsFragment
 import com.example.films.presentation.profile.ProfileFragment
+import com.example.films.presentation.userlists.UserListsFragment
 import com.example.films.utils.replaceFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -38,8 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun showFragment(menuId: Int) {
         when (menuId) {
             R.id.item_home -> replaceFragment(R.id.fragmentContainer, HomeFragment.newInstance())
-            R.id.item_discover -> replaceFragment(R.id.fragmentContainer, DiscoverFragment.newInstance())
-            R.id.item_lists -> replaceFragment(R.id.fragmentContainer, ListsFragment.newInstance())
+            R.id.item_lists -> replaceFragment(R.id.fragmentContainer, UserListsFragment.newInstance())
             R.id.item_profile -> replaceFragment(R.id.fragmentContainer, ProfileFragment.newInstance())
         }
     }
@@ -47,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     private fun showTitle(menuId: Int) {
         when (menuId) {
             R.id.item_home -> supportActionBar!!.setTitle(R.string.menu_item_home)
-            R.id.item_discover -> supportActionBar!!.setTitle(R.string.menu_item_discover)
             R.id.item_lists -> supportActionBar!!.setTitle(R.string.menu_item_lists)
             R.id.item_profile -> supportActionBar!!.setTitle(R.string.menu_item_profile)
         }

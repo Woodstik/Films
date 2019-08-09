@@ -16,7 +16,7 @@ class FilmApp : Application() {
 
         startKoin {
             androidContext(this@FilmApp)
-            modules(listOf(appModule, remoteModule, repositoryModule, domainModule, viewModelModule))
+            modules(listOf(appModule, remoteModule, localModule, repositoryModule, domainModule, viewModelModule))
         }
     }
 }

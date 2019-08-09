@@ -47,8 +47,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val gridLayoutManager = GridLayoutManager(context, resources.getInteger(R.integer.home_max_span))
-        listHome.layoutManager = gridLayoutManager
-        listHome.adapter = homeAdapter
+        listHome.also{
+            it.layoutManager = gridLayoutManager
+            it.adapter = homeAdapter
+        }
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int = resources.getInteger(homeAdapter.getItemSpan(position))
         }
@@ -84,26 +86,26 @@ class HomeFragment : Fragment() {
         }
 
         override fun onTrailer(url: String) {
-            Toast.makeText(context, "Watch trailer: $url", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Trailer: $url", Toast.LENGTH_SHORT).show()
         }
 
         override fun onShare(movie: Movie) {
-            Toast.makeText(context, "Share movie: ${movie.title}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Share: ${movie.title}", Toast.LENGTH_SHORT).show()
         }
 
         override fun onClick(movie: Movie) {
-            Toast.makeText(context, "Click on movie: ${movie.title}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Click: ${movie.title}", Toast.LENGTH_SHORT).show()
         }
 
     }
 
     private val upcomingCallbacks = object : UpcomingCallbacks {
         override fun onRemind(movie: Movie) {
-            Toast.makeText(context, "Create reminder for movie: ${movie.title}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Remind: ${movie.title}", Toast.LENGTH_SHORT).show()
         }
 
         override fun onClick(movie: Movie) {
-            Toast.makeText(context, "Click on movie: ${movie.title}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Click: ${movie.title}", Toast.LENGTH_SHORT).show()
         }
     }
 }

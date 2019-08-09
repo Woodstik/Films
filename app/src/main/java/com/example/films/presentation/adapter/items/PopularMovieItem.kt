@@ -12,6 +12,6 @@ class PopularMovieItem(val movie: Movie) : AdapterItem {
     }
 
     override fun isSameContent(otherItem: AdapterItem): Boolean {
-        return isSameType(otherItem) && movie == (otherItem as PopularMovieItem).movie
+        return movie == (otherItem as PopularMovieItem).movie
     }
 }

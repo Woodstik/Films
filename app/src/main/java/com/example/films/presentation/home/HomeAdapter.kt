@@ -14,7 +14,6 @@ import com.example.films.data.models.HomeMovies
 import com.example.films.presentation.adapter.*
 import com.example.films.presentation.adapter.items.*
 import com.example.films.utils.HorizontalSpacingDecoration
-import kotlinx.android.synthetic.main.row_home_label.view.*
 import kotlinx.android.synthetic.main.row_new_releases.view.*
 import kotlinx.android.synthetic.main.row_popular_movie.view.*
 import kotlinx.android.synthetic.main.row_upcoming_movies.view.*
@@ -30,7 +29,7 @@ class HomeAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterItemViewHolder {
         val rowView = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.row_home_label -> HomeLabelViewHolder(rowView)
+            R.layout.row_section_label -> SectionLabelViewHolder(rowView)
             R.layout.row_new_releases -> NewReleasesViewHolder(rowView, newReleaseCallbacks)
             R.layout.row_popular_movie -> PopularMovieViewHolder(rowView)
             R.layout.row_upcoming_movies -> UpcomingMoviesViewHolder(rowView, upcomingCallbacks)
@@ -53,12 +52,12 @@ class HomeAdapter(
         val (newReleases, upcoming, popularMovies) = homeMovies
         val newItems = mutableListOf<AdapterItem>()
 
-        newItems.add(HomeLabelItem(R.string.label_new_releases))
+        newItems.add(SectionLabelItem(R.string.label_new_releases))
         newItems.add(NewReleasesItem(newReleases))
 
-        newItems.add(HomeLabelItem(R.string.label_upcoming))
+        newItems.add(SectionLabelItem(R.string.label_upcoming))
         newItems.add(UpcomingMoviesItem(upcoming))
-        newItems.add(HomeLabelItem(R.string.label_popular))
+        newItems.add(SectionLabelItem(R.string.label_popular))
         popularMovies.forEach { popularMovie ->
             newItems.add(
                 PopularMovieItem(
@@ -71,13 +70,6 @@ class HomeAdapter(
         items.clear()
         items.addAll(newItems)
         diffResult.dispatchUpdatesTo(this)
-    }
-}
-
-class HomeLabelViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
-    override fun bindItem(item: AdapterItem) {
-        val homeLabelItem = item as HomeLabelItem
-        itemView.textLabel.setText(homeLabelItem.label)
     }
 }
 

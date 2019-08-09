@@ -8,11 +8,14 @@
     </style>
 
     <style name="SplashTheme" parent="@style/BaseTheme">
+        <item name="colorPrimaryDark">@color/colorWindowBackground</item>
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/BaseTheme">
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
     </style>
 
     <style name="Text"/>

@@ -14,6 +14,6 @@ class UpcomingMoviesItem(val upcomingMovies: List<Movie>) : AdapterItem {
     }
 
     override fun isSameContent(otherItem: AdapterItem): Boolean {
-        return isSameType(otherItem) && upcomingMovies == (otherItem as UpcomingMoviesItem).upcomingMovies
+        return upcomingMovies == (otherItem as UpcomingMoviesItem).upcomingMovies
     }
 }

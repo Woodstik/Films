@@ -1,13 +1,13 @@
 package com.example.films.data.sources.remote
 
 import com.example.films.data.models.Movie
-import io.reactivex.Flowable
+import io.reactivex.Single
 import java.util.*
 
 class MockMovieService : MovieService {
 
-    override fun newReleases(): Flowable<List<Movie>> {
-        return Flowable.just(
+    override fun newReleases(): Single<List<Movie>> {
+        return Single.just(
             listOf(
                 Movie(
                     320288,
@@ -58,8 +58,8 @@ class MockMovieService : MovieService {
         )
     }
 
-    override fun upcomingMovies(): Flowable<List<Movie>> {
-        return Flowable.just(
+    override fun upcomingMovies(): Single<List<Movie>> {
+        return Single.just(
             listOf(
                 Movie(
                     420817,
@@ -110,8 +110,8 @@ class MockMovieService : MovieService {
         )
     }
 
-    override fun popularMovies(): Flowable<List<Movie>> {
-        return Flowable.just(
+    override fun popularMovies(): Single<List<Movie>> {
+        return Single.just(
             listOf(
                 Movie(
                     320288,
