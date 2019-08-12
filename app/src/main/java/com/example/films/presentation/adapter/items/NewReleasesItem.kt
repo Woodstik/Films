@@ -7,8 +7,6 @@ class NewReleasesItem(val newReleases: List<Movie>) : AdapterItem {
 
     override fun getViewType(): Int = R.layout.row_new_releases
 
-    override fun getSpan(): Int = R.integer.home_max_span
-
     override fun isSameItem(otherItem: AdapterItem): Boolean {
         return isSameType(otherItem)
     }

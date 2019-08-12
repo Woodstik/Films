@@ -17,7 +17,11 @@
     <!--HOME-->
     <string name="label_new_releases">New Releases</string>
     <string name="label_upcoming">Upcoming</string>
-    <string name="label_popular">Popular</string>
+    <string name="label_movie_subreddit">r/movies</string>
+    <plurals name="number_comments_source">
+        <item quantity="one">%d comment · %s</item>
+        <item quantity="other">%d comments · %s</item>
+    </plurals>
 
     <!--USER LISTS-->
     <string name="label_lists">Lists</string>

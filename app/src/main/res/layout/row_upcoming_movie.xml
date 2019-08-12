@@ -44,6 +44,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/imagePoster"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:padding="@dimen/spacing_normal"
-                app:srcCompat="@drawable/ic_reminder"/>
+                app:srcCompat="@drawable/ic_reminder_small"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

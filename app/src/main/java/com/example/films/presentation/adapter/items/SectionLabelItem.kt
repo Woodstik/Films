@@ -7,8 +7,6 @@ class SectionLabelItem(@StringRes val label: Int) : AdapterItem {
 
     override fun getViewType(): Int = R.layout.row_section_label
 
-    override fun getSpan(): Int = R.integer.home_max_span
-
     override fun isSameItem(otherItem: AdapterItem): Boolean {
         return isSameType(otherItem)
     }

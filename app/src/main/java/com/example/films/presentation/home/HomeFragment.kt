@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
@@ -46,13 +46,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val gridLayoutManager = GridLayoutManager(context, resources.getInteger(R.integer.home_max_span))
-        listHome.also{
-            it.layoutManager = gridLayoutManager
+        listHome.also {
+            it.layoutManager = LinearLayoutManager(context)
             it.adapter = homeAdapter
-        }
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int = resources.getInteger(homeAdapter.getItemSpan(position))
         }
         model.loadMovies()
         swipeRefresh.setOnRefreshListener { model.loadMovies() }

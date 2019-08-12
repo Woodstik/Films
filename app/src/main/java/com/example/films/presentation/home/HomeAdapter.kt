@@ -1,9 +1,12 @@
 package com.example.films.presentation.home
 
+import android.graphics.Typeface.BOLD
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IntegerRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -14,8 +17,9 @@ import com.example.films.data.models.HomeMovies
 import com.example.films.presentation.adapter.*
 import com.example.films.presentation.adapter.items.*
 import com.example.films.utils.HorizontalSpacingDecoration
+import com.example.films.utils.formatPostTime
 import kotlinx.android.synthetic.main.row_new_releases.view.*
-import kotlinx.android.synthetic.main.row_popular_movie.view.*
+import kotlinx.android.synthetic.main.row_post.view.*
 import kotlinx.android.synthetic.main.row_upcoming_movies.view.*
 
 class HomeAdapter(
@@ -31,7 +35,7 @@ class HomeAdapter(
         return when (viewType) {
             R.layout.row_section_label -> SectionLabelViewHolder(rowView)
             R.layout.row_new_releases -> NewReleasesViewHolder(rowView, newReleaseCallbacks)
-            R.layout.row_popular_movie -> PopularMovieViewHolder(rowView)
+            R.layout.row_post -> PostViewHolder(rowView)
             R.layout.row_upcoming_movies -> UpcomingMoviesViewHolder(rowView, upcomingCallbacks)
             else -> throw IllegalArgumentException("HomeAdapter: Unknown viewType: $viewType")
         }
@@ -43,13 +47,8 @@ class HomeAdapter(
 
     override fun getItemViewType(position: Int): Int = items[position].getViewType()
 
-    @IntegerRes
-    fun getItemSpan(position: Int): Int {
-        return items[position].getSpan()
-    }
-
     fun setMovies(homeMovies: HomeMovies) {
-        val (newReleases, upcoming, popularMovies) = homeMovies
+        val (newReleases, upcoming, posts) = homeMovies
         val newItems = mutableListOf<AdapterItem>()
 
         newItems.add(SectionLabelItem(R.string.label_new_releases))
@@ -57,14 +56,8 @@ class HomeAdapter(
 
         newItems.add(SectionLabelItem(R.string.label_upcoming))
         newItems.add(UpcomingMoviesItem(upcoming))
-        newItems.add(SectionLabelItem(R.string.label_popular))
-        popularMovies.forEach { popularMovie ->
-            newItems.add(
-                PopularMovieItem(
-                    popularMovie
-                )
-            )
-        }
+        newItems.add(SectionLabelItem(R.string.label_movie_subreddit))
+        posts.forEach { post -> newItems.add(PostItem(post)) }
 
         val diffResult = DiffUtil.calculateDiff(AdapterItemDiffCallback(items, newItems))
         items.clear()
@@ -97,12 +90,22 @@ class NewReleasesViewHolder(itemView: View, callbacks: NewReleaseCallbacks) : Ad
     }
 }
 
-class PopularMovieViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
+class PostViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
     override fun bindItem(item: AdapterItem) {
-        val popularMovieItem = item as PopularMovieItem
-        GlideApp.with(itemView.imagePoster)
-            .load(popularMovieItem.movie.poster)
-            .into(itemView.imagePoster)
+        val postItem = item as PostItem
+        val info = itemView.resources.getQuantityString(
+            R.plurals.number_comments_source,
+            postItem.post.comments.size,
+            postItem.post.comments.size, postItem.post.source
+        )
+        val infoSpannable = SpannableString(info)
+        infoSpannable.setSpan(StyleSpan(BOLD), 0, info.indexOf("·"), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        itemView.apply {
+            textTitle.text = postItem.post.title
+            textInfo.text = infoSpannable
+            textTime.text = formatPostTime(postItem.post.createdDate)
+            GlideApp.with(imageThumbnail).load(postItem.post.thumbnail).centerCrop().into(imageThumbnail)
+        }
     }
 }
 

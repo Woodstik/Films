@@ -8,6 +8,4 @@ interface MovieService {
     fun newReleases() : Single<List<Movie>>
 
     fun upcomingMovies() : Single<List<Movie>>
-
-    fun popularMovies() : Single<List<Movie>>
 }

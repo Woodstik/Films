@@ -12,11 +12,6 @@ class MovieRepository(private val movieService: MovieService) : MovieDataSource 
             .toFlowable()
     }
 
-    override fun getPopularMovies(): Flowable<List<Movie>> {
-        return movieService.popularMovies()
-            .toFlowable()
-    }
-
     override fun getUpcomingMovies(): Flowable<List<Movie>> {
         return movieService.upcomingMovies()
             .toFlowable()
