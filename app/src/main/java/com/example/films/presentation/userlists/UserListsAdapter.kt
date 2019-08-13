@@ -1,8 +1,10 @@
 package com.example.films.presentation.userlists
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.GlideApp
@@ -16,6 +18,7 @@ import com.example.films.presentation.adapter.items.MovieListItem
 import com.example.films.presentation.adapter.items.RemindersItem
 import com.example.films.presentation.adapter.items.SectionLabelItem
 import com.example.films.utils.formatReleaseDate
+import com.example.films.utils.lightenColor
 import kotlinx.android.synthetic.main.row_reminders.view.*
 import kotlinx.android.synthetic.main.row_user_list.view.*
 
@@ -68,10 +71,16 @@ class RemindersViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
 class UserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
     override fun bindItem(item: AdapterItem) {
         val movieListItem = item as MovieListItem
+        val color = Color.parseColor(movieListItem.movieList.color)
         itemView.apply {
             textListTitle.text = movieListItem.movieList.title
-            textCount.text = movieListItem.movieList.movies.size.toString()
-            textAuthor.text = movieListItem.movieList.author
+            textMovieCount.text = resources.getQuantityString(
+                R.plurals.number_movies,
+                movieListItem.movieList.movies.size,
+                movieListItem.movieList.movies.size
+            )
+            DrawableCompat.setTint(DrawableCompat.wrap(imageMovieList.background), color)
+            DrawableCompat.setTint(DrawableCompat.wrap(imageMovieList.drawable.mutate()), lightenColor(color, 0.25f))
         }
     }
 }

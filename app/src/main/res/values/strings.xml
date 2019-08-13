@@ -7,6 +7,7 @@
 
     <!--ERROR-->
     <string name="error_loading_home">Error loading home</string>
+    <string name="error_loading_lists">Error loading lists</string>
 
     <!--MAIN-->
     <string name="menu_item_home">Home</string>
@@ -26,4 +27,19 @@
     <!--USER LISTS-->
     <string name="label_lists">Lists</string>
     <string name="next_reminder">Next Reminder</string>
+    <plurals name="number_movies">
+        <item quantity="one">%d movie</item>
+        <item quantity="other">%d movies</item>
+    </plurals>
+
+    <!--PROFILE-->
+    <string name="option_stats_title">Statistics</string>
+    <string name="option_stats_description">Statistics on movies watched</string>
+    <string name="option_logout_title">Logout</string>
+    <string name="option_logout_description">Close session for user</string>
+    <string name="option_comment_title">Comment</string>
+    <string name="option_comment_description">Send us any suggestions or comments</string>
+    <string name="option_about_title">About</string>
+    <string name="option_about_description">General app information</string>
+    <string name="format_date_joined">joined %s</string>
 </resources>

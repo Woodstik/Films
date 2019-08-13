@@ -14,6 +14,7 @@ import com.example.films.data.enums.LoadState
 import com.example.films.data.models.UsersMovieLists
 import kotlinx.android.synthetic.main.fragment_lists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class UserListsFragment : Fragment() {
 
@@ -46,19 +47,28 @@ class UserListsFragment : Fragment() {
             it.adapter = userListsAdapter
         }
         model.loadLists()
+        swipeRefresh.setOnRefreshListener { model.loadLists() }
+        btnRetry.setOnClickListener { model.loadLists() }
     }
 
-    private fun handleUserListsState(state: LoadState<UsersMovieLists>){
-//        swipeRefresh.isRefreshing = state is LoadState.Loading
+    private fun handleUserListsState(state: LoadState<UsersMovieLists>) {
+        swipeRefresh.isRefreshing = state is LoadState.Loading
         when (state) {
             is LoadState.Error -> handleError(state.reason())
             is LoadState.Data -> {
+                groupLoadStatus.visibility = View.GONE
                 userListsAdapter.setUserLists(state.data)
             }
         }
     }
 
     private fun handleError(reason: ErrorReason) {
-        TODO("not implemented")
+        when (reason) {
+            ErrorReason.HTTP -> Timber.e("Http Error")
+            ErrorReason.NETWORK -> Toast.makeText(context, "Network Error", Toast.LENGTH_SHORT).show()
+            ErrorReason.UNKNOWN -> {
+                groupLoadStatus.visibility = View.VISIBLE
+            }
+        }
     }
 }

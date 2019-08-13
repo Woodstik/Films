@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?listPreferredItemHeight"
+        android:paddingStart="@dimen/spacing_normal"
+        android:paddingEnd="@dimen/spacing_normal"
+        android:background="?selectableItemBackground">
+
+    <ImageView
+            android:id="@+id/imageOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@drawable/ic_option_about"/>
+
+    <TextView
+            android:id="@+id/textOptionTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textOptionDescription"
+            app:layout_constraintStart_toEndOf="@+id/imageOption"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_marginStart="@dimen/spacing_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="bold"
+            tools:text="About"/>
+
+    <TextView
+            android:id="@+id/textOptionDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            app:layout_constraintStart_toEndOf="@+id/imageOption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textOptionTitle"
+            android:textAppearance="@style/Text.Small"
+            tools:text="General app information"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

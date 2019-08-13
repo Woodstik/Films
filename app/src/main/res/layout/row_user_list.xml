@@ -8,51 +8,55 @@
         android:minHeight="?listPreferredItemHeight"
         android:paddingStart="@dimen/spacing_normal"
         android:paddingEnd="@dimen/spacing_normal"
+        android:paddingTop="@dimen/spacing_normal"
+        android:paddingBottom="@dimen/spacing_normal"
         android:background="?selectableItemBackground">
 
-    <TextView
-            android:id="@+id/textCount"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+    <ImageView
+            android:id="@+id/imageMovieList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/Text.Normal"
             android:textStyle="bold"
-            tools:text="34"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_movie_list"
             android:background="@drawable/bg_user_list"/>
 
     <TextView
             android:id="@+id/textListTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/textCount"
+            app:layout_constraintStart_toEndOf="@+id/imageMovieList"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/textAuthor"
+            app:layout_constraintBottom_toTopOf="@+id/textMovieCount"
             app:layout_constraintEnd_toStartOf="@+id/btnOptions"
             android:layout_marginEnd="@dimen/spacing_normal"
             app:layout_constraintVertical_chainStyle="packed"
             android:layout_marginStart="@dimen/spacing_normal"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/Text.Normal"
             tools:text="Favorites List"/>
 
     <TextView
-            android:id="@+id/textAuthor"
+            android:id="@+id/textMovieCount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/textCount"
+            app:layout_constraintStart_toEndOf="@+id/imageMovieList"
+            app:layout_constraintTop_toBottomOf="@+id/textListTitle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnOptions"
             android:layout_marginEnd="@dimen/spacing_normal"
+            app:layout_constraintVertical_chainStyle="packed"
             android:layout_marginStart="@dimen/spacing_normal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@+id/textListTitle"
-            tools:text="Created by Author"/>
+            android:textAppearance="@style/Text.Small"
+            tools:text="0 Movies"/>
 
     <ImageButton
             android:id="@+id/btnOptions"

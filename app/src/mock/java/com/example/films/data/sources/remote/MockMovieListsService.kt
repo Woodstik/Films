@@ -30,8 +30,17 @@ class MockMovieListsService : MovieListsService {
 
     override fun getMovieLists(): Single<List<MovieList>> {
         val movieLists = mutableListOf<MovieList>()
-        movieLists.add(MovieList(1, "Watchlist", "Movies You want to watch", Date(), emptyList()))
-        movieLists.add(MovieList(2, "Collection", "I have these movies", Date(), emptyList()))
+        movieLists.add(MovieList(1, "Watchlist", Date(), emptyList(), "#F44336"))
+        movieLists.add(MovieList(2, "Collection", Date(), emptyList(), "#E91E63"))
+        movieLists.add(MovieList(3, "Animated Favorites", Date(), emptyList(), "#9C27B0"))
+        movieLists.add(MovieList(4, "List #4", Date(), emptyList(), "#673AB7"))
+        movieLists.add(MovieList(5, "List #5", Date(), emptyList(), "#3F51B5"))
+        movieLists.add(MovieList(6, "List #6", Date(), emptyList(), "#2196F3"))
+        movieLists.add(MovieList(7, "List #7", Date(), emptyList(), "#03A9F4"))
+        movieLists.add(MovieList(8, "List #8", Date(), emptyList(), "#00BCD4"))
+        movieLists.add(MovieList(9, "List #9", Date(), emptyList(), "#009688"))
+        movieLists.add(MovieList(10, "List #10", Date(), emptyList(), "#4CAF50"))
+        movieLists.add(MovieList(11, "List #11", Date(), emptyList(), "#8BC34A"))
         return Single.just(movieLists)
     }
 }
