@@ -9,5 +9,6 @@ data class Movie(
     val releaseDate: Date,
     val rating: Double,
     val poster: String,
-    val backdrop: String
+    val backdrop: String,
+    val cast: List<String> = emptyList()
 )

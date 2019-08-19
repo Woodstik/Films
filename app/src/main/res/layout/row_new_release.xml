@@ -23,18 +23,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/spacing_medium">
+            android:layout_height="match_parent">
 
         <TextView
                 android:id="@+id/textTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
+                android:maxLines="2"
                 style="@style/Text.Medium"
                 app:layout_constraintBottom_toTopOf="@+id/textReleaseDate"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnAddToList"
                 app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
                 tools:text="Movie Name"/>
 
         <TextView
@@ -42,20 +43,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/Text.Small"
-                app:layout_constraintBottom_toTopOf="@+id/btnAddToList"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginBottom="@dimen/spacing_normal"
                 tools:text="November 5, 2017"/>
-
 
         <ImageButton
                 android:id="@+id/btnAddToList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_add_to_list"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnTrailer"
+                android:layout_marginEnd="@dimen/spacing_normal"
                 android:background="?selectableItemBackground"/>
 
         <ImageButton
@@ -63,9 +66,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_trailer"
-                app:layout_constraintStart_toEndOf="@+id/btnAddToList"
+                app:layout_constraintEnd_toStartOf="@+id/btnShare"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="@dimen/spacing_large"
+                android:layout_marginEnd="@dimen/spacing_normal"
                 android:background="?selectableItemBackground"/>
 
         <ImageButton
@@ -73,9 +76,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_share"
-                app:layout_constraintStart_toEndOf="@+id/btnTrailer"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="@dimen/spacing_large"
+                android:layout_marginEnd="@dimen/spacing_normal"
                 android:background="?selectableItemBackground"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

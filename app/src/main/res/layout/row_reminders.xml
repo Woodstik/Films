@@ -9,6 +9,19 @@
         android:paddingEnd="@dimen/spacing_normal">
 
     <TextView
+            android:id="@+id/textNoReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/btnViewAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/no_reminders"
+            android:drawableStart="@drawable/ic_reminder_small"
+            android:drawablePadding="@dimen/spacing_normal"
+            android:visibility="gone"/>
+
+    <TextView
             android:id="@+id/textReminders"
             android:layout_width="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,6 +40,12 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="imgPoster, textMovieTitle, textReleaseDate, textMovieDescription, btnTrailer, btnShare"/>
 
     <ImageView
             android:id="@+id/imgPoster"
@@ -65,6 +84,7 @@
             android:layout_height="wrap_content"
             tools:text="This movie is cool and new and this is an example description"
             android:maxLines="5"
+            android:ellipsize="end"
             android:textAppearance="@style/Text.Normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgPoster"
@@ -76,9 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_trailer"
-            app:layout_constraintStart_toEndOf="@+id/imgPoster"
+            app:layout_constraintEnd_toStartOf="@+id/btnShare"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
             android:background="?selectableItemBackground"/>
 
     <ImageButton
@@ -86,9 +106,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_share"
-            app:layout_constraintStart_toEndOf="@+id/btnTrailer"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="@dimen/spacing_large"
+            app:layout_constraintEnd_toEndOf="parent"
             android:background="?selectableItemBackground"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

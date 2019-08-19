@@ -6,4 +6,5 @@ import io.reactivex.Flowable
 interface MovieDataSource {
     fun getNewReleases(): Flowable<List<Movie>>
     fun getUpcomingMovies(): Flowable<List<Movie>>
+    fun search(query: String) : Flowable<List<Movie>>
 }

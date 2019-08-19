@@ -5,57 +5,71 @@ import io.reactivex.Single
 import java.util.*
 
 class MockMovieService : MovieService {
+    private val movies = listOf(
+        Movie(
+            320288,
+            "Dark Phoenix",
+            "The X-Men face their most formidable and powerful foe when one of their own, Jean Grey, starts to spiral out of control. During a rescue mission in outer space, Jean is nearly killed when she's hit by a mysterious cosmic force. Once she returns home, this force not only makes her infinitely more powerful, but far more unstable. The X-Men must now band together to save her soul and battle aliens that want to use Grey's new abilities to rule the galaxy.",
+            Date(),
+            6.0,
+            "https://image.tmdb.org/t/p/w185/kZv92eTc0Gg3mKxqjjDAM73z9cy.jpg",
+            "https://image.tmdb.org/t/p/w780/phxiKFDvPeQj4AbkvJLmuZEieDU.jpg",
+            listOf("Jessica Chastain, James McAvoy, Micheal Fassbender")
+        ),
+        Movie(
+            412117,
+            "The Secret Life of Pets 2",
+            "What happens with our pets when weâ€™re not home? This movie continues the original movie with Max and his friends.",
+            Date(),
+            6.1,
+            "https://image.tmdb.org/t/p/w185/q3mKnSkzp1doIsCye6ap4KIUAbu.jpg",
+            "https://image.tmdb.org/t/p/w780/etaok7q2E5tV36oXe7GQzhUQ4fX.jpg",
+            listOf("Kevin Hart", "Jenny Slate", "Eric Stonestreet")
+        ),
+        Movie(
+            535581,
+            "The Dead Don't Die",
+            "In a small peaceful town, zombies suddenly rise to terrorize the town. Now three bespectacled police officers and a strange Scottish morgue expert must band together to defeat the undead.",
+            Date(),
+            5.7,
+            "https://image.tmdb.org/t/p/w185/ycMSfP8KRFsVUWfbSxSFpD97QfD.jpg",
+            "https://image.tmdb.org/t/p/w780/cXyfAViYly0Lk2CVpEKgYbt9wKQ.jpg",
+            listOf("Bill Murray", "Adam Driver", "Selena Gomez")
+        ),
+        Movie(
+            329996,
+            "Dumbo",
+            "A young elephant, whose oversized ears enable him to fly, helps save a struggling circus, but when the circus plans a new venture, Dumbo and his friends discover dark secrets beneath its shiny veneer.",
+            Date(),
+            6.6,
+            "https://image.tmdb.org/t/p/w185/279PwJAcelI4VuBtdzrZASqDPQr.jpg",
+            "https://image.tmdb.org/t/p/w780/5tFt6iuGnKapHl5tw0X0cKcnuVo.jpg",
+            listOf("Eva Green", "Colin Farrell", "Danny DeVito")
+        ),
+        Movie(
+            301528,
+            "Toy Story 4",
+            "Woody has always been confident about his place in the world and that his priority is taking care of his kid, whether that's Andy or Bonnie. But when Bonnie adds a reluctant new toy called \"Forky\" to her room, a road trip adventure alongside old and new friends will show Woody how big the world can be for a toy.",
+            Date(),
+            0.8,
+            "https://image.tmdb.org/t/p/w185/pDCiYUc09wnmg855P3gFTZOoBCv.jpg",
+            "https://image.tmdb.org/t/p/w780/3FXLxOnd5LnvK8F5jUbIXOF9p9Y.jpg",
+            listOf("Keanu Reeves", "Tom Hanks", "Tim Allen")
+        )
+    )
+
+    override fun search(query: String): Single<List<Movie>> {
+        val results = mutableListOf<Movie>()
+        for (movie in movies) {
+            if (movie.title.contains(query, true)) {
+                results.add(movie)
+            }
+        }
+        return Single.just(results)
+    }
 
     override fun newReleases(): Single<List<Movie>> {
-        return Single.just(
-            listOf(
-                Movie(
-                    320288,
-                    "Dark Phoenix",
-                    "The X-Men face their most formidable and powerful foe when one of their own, Jean Grey, starts to spiral out of control. During a rescue mission in outer space, Jean is nearly killed when she's hit by a mysterious cosmic force. Once she returns home, this force not only makes her infinitely more powerful, but far more unstable. The X-Men must now band together to save her soul and battle aliens that want to use Grey's new abilities to rule the galaxy.",
-                    Date(),
-                    6.0,
-                    "https://image.tmdb.org/t/p/w185/kZv92eTc0Gg3mKxqjjDAM73z9cy.jpg",
-                    "https://image.tmdb.org/t/p/w780/phxiKFDvPeQj4AbkvJLmuZEieDU.jpg"
-                ),
-                Movie(
-                    412117,
-                    "The Secret Life of Pets 2",
-                    "What happens with our pets when weâ€™re not home? This movie continues the original movie with Max and his friends.",
-                    Date(),
-                    6.1,
-                    "https://image.tmdb.org/t/p/w185/q3mKnSkzp1doIsCye6ap4KIUAbu.jpg",
-                    "https://image.tmdb.org/t/p/w780/etaok7q2E5tV36oXe7GQzhUQ4fX.jpg"
-                ),
-                Movie(
-                    535581,
-                    "The Dead Don't Die",
-                    "In a small peaceful town, zombies suddenly rise to terrorize the town. Now three bespectacled police officers and a strange Scottish morgue expert must band together to defeat the undead.",
-                    Date(),
-                    5.7,
-                    "https://image.tmdb.org/t/p/w185/ycMSfP8KRFsVUWfbSxSFpD97QfD.jpg",
-                    "https://image.tmdb.org/t/p/w780/cXyfAViYly0Lk2CVpEKgYbt9wKQ.jpg"
-                ),
-                Movie(
-                    329996,
-                    "Dumbo",
-                    "A young elephant, whose oversized ears enable him to fly, helps save a struggling circus, but when the circus plans a new venture, Dumbo and his friends discover dark secrets beneath its shiny veneer.",
-                    Date(),
-                    6.6,
-                    "https://image.tmdb.org/t/p/w185/279PwJAcelI4VuBtdzrZASqDPQr.jpg",
-                    "https://image.tmdb.org/t/p/w780/5tFt6iuGnKapHl5tw0X0cKcnuVo.jpg"
-                ),
-                Movie(
-                    301528,
-                    "Toy Story 4",
-                    "Woody has always been confident about his place in the world and that his priority is taking care of his kid, whether that's Andy or Bonnie. But when Bonnie adds a reluctant new toy called \"Forky\" to her room, a road trip adventure alongside old and new friends will show Woody how big the world can be for a toy.",
-                    Date(),
-                    0.8,
-                    "https://image.tmdb.org/t/p/w185/pDCiYUc09wnmg855P3gFTZOoBCv.jpg",
-                    "https://image.tmdb.org/t/p/w780/3FXLxOnd5LnvK8F5jUbIXOF9p9Y.jpg"
-                )
-            )
-        )
+        return Single.just(movies)
     }
 
     override fun upcomingMovies(): Single<List<Movie>> {

@@ -9,6 +9,8 @@ fun formatReleaseDate(releaseDate: Date): String = formatDate(releaseDate, "MMMM
 
 fun formatReleaseDateShort(releaseDate: Date): String = formatDate(releaseDate, "M/d/yyyy")
 
+fun formatReleaseYear(joinedDate: Date): String = formatDate(joinedDate, "yyyy")
+
 fun formatJoinedDate(joinedDate: Date): String = formatDate(joinedDate, "MMMM d, yyyy")
 
 fun formatDate(date: Date, format: String): String {

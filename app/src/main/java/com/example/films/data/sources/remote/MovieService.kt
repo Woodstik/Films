@@ -8,4 +8,6 @@ interface MovieService {
     fun newReleases() : Single<List<Movie>>
 
     fun upcomingMovies() : Single<List<Movie>>
+
+    fun search(query: String) : Single<List<Movie>>
 }

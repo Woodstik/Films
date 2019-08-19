@@ -13,8 +13,6 @@ import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.HomeMovies
 import com.example.films.data.models.Movie
-import com.example.films.presentation.adapter.NewReleaseCallbacks
-import com.example.films.presentation.adapter.UpcomingCallbacks
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -22,7 +20,7 @@ import timber.log.Timber
 
 class HomeFragment : Fragment() {
 
-    private val model: HomeViewModel by viewModel()
+    private val viewModel: HomeViewModel by viewModel()
 
     private val homeAdapter by lazy { HomeAdapter(newReleaseCallbacks, upcomingCallbacks) }
 
@@ -37,7 +35,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        model.movies.observe(this, Observer { handleMovieState(it) })
+        viewModel.movies.observe(this, Observer { handleMovieState(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,9 +48,9 @@ class HomeFragment : Fragment() {
             it.layoutManager = LinearLayoutManager(context)
             it.adapter = homeAdapter
         }
-        model.loadMovies()
-        swipeRefresh.setOnRefreshListener { model.loadMovies() }
-        btnRetry.setOnClickListener { model.loadMovies() }
+        viewModel.loadMovies()
+        swipeRefresh.setOnRefreshListener { viewModel.loadMovies() }
+        btnRetry.setOnClickListener { viewModel.loadMovies() }
     }
 
     private fun handleMovieState(state: LoadState<HomeMovies>) {

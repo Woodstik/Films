@@ -31,6 +31,7 @@
         <item quantity="one">%d movie</item>
         <item quantity="other">%d movies</item>
     </plurals>
+    <string name="no_reminders">No reminders</string>
 
     <!--PROFILE-->
     <string name="option_stats_title">Statistics</string>
@@ -42,4 +43,8 @@
     <string name="option_about_title">About</string>
     <string name="option_about_description">General app information</string>
     <string name="format_date_joined">joined %s</string>
+
+    <!--SEARCH-->
+    <string name="format_movie_title_year">%1$s (%2$s)</string>
+    <string name="no_search_results">No movie results</string>
 </resources>

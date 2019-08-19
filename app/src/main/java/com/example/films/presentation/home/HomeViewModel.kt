@@ -8,9 +8,7 @@ import com.example.films.domain.GetHomeUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 
-class HomeViewModel(
-    private val getHomeUseCase: GetHomeUseCase
-) : ViewModel() {
+class HomeViewModel(private val getHomeUseCase: GetHomeUseCase) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     val movies: MutableLiveData<LoadState<HomeMovies>> by lazy { MutableLiveData<LoadState<HomeMovies>>() }
 

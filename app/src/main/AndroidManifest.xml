@@ -21,6 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.main.MainActivity"/>
+        <activity android:name=".presentation.search.SearchActivity"/>
+
+        <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="@string/ad_mob_app_id"/>
     </application>
 
 </manifest>

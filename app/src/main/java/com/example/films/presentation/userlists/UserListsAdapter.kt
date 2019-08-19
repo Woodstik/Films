@@ -60,10 +60,14 @@ class RemindersViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
     override fun bindItem(item: AdapterItem) {
         val remindersItem = item as RemindersItem
         itemView.apply {
-            textMovieTitle.text = remindersItem.reminder.movie.title
-            textMovieDescription.text = remindersItem.reminder.movie.description
-            textReleaseDate.text = formatReleaseDate(remindersItem.reminder.movie.releaseDate)
-            GlideApp.with(imgPoster).load(remindersItem.reminder.movie.poster).into(imgPoster)
+            groupContent.visibility = if (remindersItem.reminder == null) View.GONE else View.VISIBLE
+            textNoReminder.visibility = if (remindersItem.reminder == null) View.VISIBLE else View.GONE
+            if (remindersItem.reminder != null) {
+                textMovieTitle.text = remindersItem.reminder.movie.title
+                textMovieDescription.text = remindersItem.reminder.movie.description
+                textReleaseDate.text = formatReleaseDate(remindersItem.reminder.movie.releaseDate)
+                GlideApp.with(imgPoster).load(remindersItem.reminder.movie.poster).into(imgPoster)
+            }
         }
     }
 }

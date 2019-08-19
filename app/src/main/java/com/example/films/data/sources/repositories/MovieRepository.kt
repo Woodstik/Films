@@ -7,6 +7,11 @@ import io.reactivex.Flowable
 
 class MovieRepository(private val movieService: MovieService) : MovieDataSource {
 
+    override fun search(query: String): Flowable<List<Movie>> {
+        return movieService.search(query)
+            .toFlowable()
+    }
+
     override fun getNewReleases(): Flowable<List<Movie>> {
         return movieService.newReleases()
             .toFlowable()
