@@ -4,6 +4,7 @@ import com.example.films.data.models.MovieList
 import com.example.films.data.models.MovieReminder
 import com.example.films.data.models.UsersMovieLists
 import com.example.films.data.sources.MovieListDataSource
+import com.example.films.utils.Optional
 import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.functions.BiFunction
@@ -15,12 +16,12 @@ class GetUserListsUseCase(
 ) : UseCase<Void, UsersMovieLists>(schedulerIO, schedulerMainThread) {
 
     override fun onCreate(parameter: Void?): Flowable<UsersMovieLists> {
-        return Flowable.zip(
+        return Flowable.combineLatest(
             movieListDataSource.getNextReminder(),
             movieListDataSource.getMovieLists(),
-            BiFunction { nextReminder: MovieReminder, movieLists: List<MovieList> ->
+            BiFunction { optional: Optional<MovieReminder>, movieLists: List<MovieList> ->
                 UsersMovieLists(
-                    nextReminder,
+                    optional.value,
                     movieLists
                 )
             }

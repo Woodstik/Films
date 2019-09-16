@@ -1,113 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/spacing_normal"
-        android:paddingEnd="@dimen/spacing_normal">
+        android:paddingEnd="@dimen/spacing_normal"
+        android:minHeight="96dp">
 
     <TextView
             android:id="@+id/textNoReminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/btnViewAll"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/no_reminders"
             android:drawableStart="@drawable/ic_reminder_small"
             android:drawablePadding="@dimen/spacing_normal"
-            android:visibility="gone"/>
+            android:text="@string/no_reminders"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnViewAll" />
 
     <TextView
             android:id="@+id/textReminders"
             android:layout_width="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnViewAll"
-            app:layout_constraintBottom_toBottomOf="@+id/btnViewAll"
-            android:textAppearance="@style/Text.Medium"
             android:layout_height="wrap_content"
             android:text="@string/next_reminder"
-            tools:text="Next Reminder"/>
+            android:textAppearance="@style/Text.Medium"
+            app:layout_constraintBottom_toBottomOf="@+id/btnViewAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnViewAll"
+            tools:text="Next Reminder" />
 
     <Button
             android:id="@+id/btnViewAll"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_view_all"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Group
             android:id="@+id/groupContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="imgPoster, textMovieTitle, textReleaseDate, textMovieDescription, btnTrailer, btnShare"/>
+            app:constraint_referenced_ids="imgPoster, textMovieTitle, textReleaseDate, textMovieDescription, btnTrailer, btnShare" />
 
     <ImageView
             android:id="@+id/imgPoster"
             android:layout_width="@dimen/new_release_poster_width"
             android:layout_height="@dimen/new_release_poster_height"
-            android:adjustViewBounds="true"
-            app:layout_constraintTop_toBottomOf="@+id/btnViewAll"
             android:layout_marginTop="@dimen/spacing_normal"
-            app:layout_constraintStart_toStartOf="parent"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnViewAll"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
             android:id="@+id/textMovieTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Avengers"
+            android:layout_marginStart="@dimen/spacing_normal"
             android:textAppearance="@style/Text.Medium"
-            app:layout_constraintTop_toTopOf="@+id/imgPoster"
             app:layout_constraintStart_toEndOf="@+id/imgPoster"
-            android:layout_marginStart="@dimen/spacing_normal"/>
+            app:layout_constraintTop_toTopOf="@+id/imgPoster"
+            tools:text="Avengers" />
 
     <TextView
             android:id="@+id/textReleaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="June 18, 2030"
-            android:textAppearance="@style/Text.Small"
             android:layout_marginStart="@dimen/spacing_normal"
+            android:textAppearance="@style/Text.Small"
             app:layout_constraintStart_toEndOf="@+id/imgPoster"
-            app:layout_constraintTop_toBottomOf="@+id/textMovieTitle"/>
+            app:layout_constraintTop_toBottomOf="@+id/textMovieTitle"
+            tools:text="June 18, 2030" />
 
     <TextView
             android:id="@+id/textMovieDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="This movie is cool and new and this is an example description"
-            android:maxLines="5"
+            android:layout_marginStart="@dimen/spacing_normal"
             android:ellipsize="end"
+            android:maxLines="5"
             android:textAppearance="@style/Text.Normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgPoster"
             app:layout_constraintTop_toBottomOf="@+id/textReleaseDate"
-            android:layout_marginStart="@dimen/spacing_normal"/>
+            tools:text="This movie is cool and new and this is an example description" />
 
     <ImageButton
             android:id="@+id/btnTrailer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_trailer"
-            app:layout_constraintEnd_toStartOf="@+id/btnShare"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="@dimen/spacing_normal"
-            android:background="?selectableItemBackground"/>
+            android:background="?selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnShare"
+            app:srcCompat="@drawable/ic_trailer" />
 
     <ImageButton
             android:id="@+id/btnShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_share"
+            android:background="?selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="?selectableItemBackground"/>
+            app:srcCompat="@drawable/ic_share" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

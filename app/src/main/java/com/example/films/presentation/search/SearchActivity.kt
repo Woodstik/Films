@@ -39,6 +39,7 @@ class SearchActivity : AppCompatActivity() {
             adapter = searchAdapter
             addItemDecoration(DividerItemDecoration(this@SearchActivity, DividerItemDecoration.VERTICAL))
         }
+        editTextSearch.requestFocus()
         editTextSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.queryChanged(s.toString())
