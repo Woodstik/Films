@@ -32,6 +32,7 @@
         <item quantity="other">%d movies</item>
     </plurals>
     <string name="no_reminders">No reminders</string>
+    <string name="empty_user_lists">You have not created any lists</string>
 
     <!--PROFILE-->
     <string name="option_stats_title">Statistics</string>

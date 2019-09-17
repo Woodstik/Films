@@ -13,10 +13,7 @@ import com.example.films.data.models.UsersMovieLists
 import com.example.films.presentation.adapter.AdapterItemDiffCallback
 import com.example.films.presentation.adapter.AdapterItemViewHolder
 import com.example.films.presentation.adapter.SectionLabelViewHolder
-import com.example.films.presentation.adapter.items.AdapterItem
-import com.example.films.presentation.adapter.items.MovieListItem
-import com.example.films.presentation.adapter.items.RemindersItem
-import com.example.films.presentation.adapter.items.SectionLabelItem
+import com.example.films.presentation.adapter.items.*
 import com.example.films.utils.formatReleaseDate
 import com.example.films.utils.lightenColor
 import kotlinx.android.synthetic.main.row_reminders.view.*
@@ -32,6 +29,7 @@ class UserListsAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
             R.layout.row_reminders -> RemindersViewHolder(rowView)
             R.layout.row_section_label -> SectionLabelViewHolder(rowView)
             R.layout.row_user_list -> UserListViewHolder(rowView)
+            R.layout.row_empty_user_list -> EmptyUserListViewHolder(rowView)
             else -> throw IllegalArgumentException("UserListsAdapter: Unknown viewType: $viewType")
         }
     }
@@ -47,7 +45,11 @@ class UserListsAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
         newItems.add(RemindersItem(userLists.nextReminder))
         newItems.add(SectionLabelItem(R.string.label_lists))
 
-        userLists.movieLists.forEach { newItems.add(MovieListItem(it)) }
+        if(userLists.movieLists.isNotEmpty()) {
+            userLists.movieLists.forEach { newItems.add(MovieListItem(it)) }
+        } else{
+            newItems.add(EmptyUserListItem())
+        }
 
         val diffResult = DiffUtil.calculateDiff(AdapterItemDiffCallback(items, newItems))
         items.clear()
@@ -86,5 +88,10 @@ class UserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
             DrawableCompat.setTint(DrawableCompat.wrap(imageMovieList.background), color)
             DrawableCompat.setTint(DrawableCompat.wrap(imageMovieList.drawable.mutate()), lightenColor(color, 0.25f))
         }
+    }
+}
+
+class EmptyUserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
+    override fun bindItem(item: AdapterItem) {
     }
 }
