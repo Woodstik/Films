@@ -46,7 +46,8 @@ class NewReleaseViewHolder(itemView: View, private val callbacks: NewReleaseCall
             textTitle.text = movie.title
             textReleaseDate.text = formatReleaseDate(movie.releaseDate)
             btnAddToList.setOnClickListener { callbacks.onAddToList(movie) }
-            btnTrailer.setOnClickListener { callbacks.onTrailer("http://www.trailer.com") }
+            btnTrailer.setOnClickListener { callbacks.onTrailer(movie.trailerUrl) }
+            btnTrailer.visibility = if (movie.trailerUrl.isEmpty()) View.GONE else View.VISIBLE
             btnShare.setOnClickListener { callbacks.onShare(movie) }
             setOnClickListener { callbacks.onClick(movie) }
             GlideApp.with(imageBackdrop)

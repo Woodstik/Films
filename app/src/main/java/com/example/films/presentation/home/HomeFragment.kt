@@ -13,6 +13,7 @@ import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.HomeMovies
 import com.example.films.data.models.Movie
+import com.example.films.utils.openUrl
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -80,7 +81,7 @@ class HomeFragment : Fragment() {
         }
 
         override fun onTrailer(url: String) {
-            Toast.makeText(context, "Trailer: $url", Toast.LENGTH_SHORT).show()
+            context?.openUrl(url)
         }
 
         override fun onShare(movie: Movie) {

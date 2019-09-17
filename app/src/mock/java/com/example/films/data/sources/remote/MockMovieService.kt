@@ -14,7 +14,8 @@ class MockMovieService : MovieService {
             6.0,
             "https://image.tmdb.org/t/p/w185/kZv92eTc0Gg3mKxqjjDAM73z9cy.jpg",
             "https://image.tmdb.org/t/p/w780/phxiKFDvPeQj4AbkvJLmuZEieDU.jpg",
-            listOf("Jessica Chastain, James McAvoy, Micheal Fassbender")
+            listOf("Jessica Chastain, James McAvoy, Micheal Fassbender"),
+        "https://youtu.be/QWbMckU3AOQ"
         ),
         Movie(
             412117,
@@ -24,7 +25,8 @@ class MockMovieService : MovieService {
             6.1,
             "https://image.tmdb.org/t/p/w185/q3mKnSkzp1doIsCye6ap4KIUAbu.jpg",
             "https://image.tmdb.org/t/p/w780/etaok7q2E5tV36oXe7GQzhUQ4fX.jpg",
-            listOf("Kevin Hart", "Jenny Slate", "Eric Stonestreet")
+            listOf("Kevin Hart", "Jenny Slate", "Eric Stonestreet"),
+            "https://youtu.be/pKLGUuJftl0"
         ),
         Movie(
             535581,
@@ -34,7 +36,8 @@ class MockMovieService : MovieService {
             5.7,
             "https://image.tmdb.org/t/p/w185/ycMSfP8KRFsVUWfbSxSFpD97QfD.jpg",
             "https://image.tmdb.org/t/p/w780/cXyfAViYly0Lk2CVpEKgYbt9wKQ.jpg",
-            listOf("Bill Murray", "Adam Driver", "Selena Gomez")
+            listOf("Bill Murray", "Adam Driver", "Selena Gomez"),
+        "https://youtu.be/bs5ZOcU6Bnw"
         ),
         Movie(
             329996,
@@ -44,7 +47,8 @@ class MockMovieService : MovieService {
             6.6,
             "https://image.tmdb.org/t/p/w185/279PwJAcelI4VuBtdzrZASqDPQr.jpg",
             "https://image.tmdb.org/t/p/w780/5tFt6iuGnKapHl5tw0X0cKcnuVo.jpg",
-            listOf("Eva Green", "Colin Farrell", "Danny DeVito")
+            listOf("Eva Green", "Colin Farrell", "Danny DeVito"),
+            "https://youtu.be/7NiYVoqBt-8"
         ),
         Movie(
             301528,
@@ -54,7 +58,8 @@ class MockMovieService : MovieService {
             0.8,
             "https://image.tmdb.org/t/p/w185/pDCiYUc09wnmg855P3gFTZOoBCv.jpg",
             "https://image.tmdb.org/t/p/w780/3FXLxOnd5LnvK8F5jUbIXOF9p9Y.jpg",
-            listOf("Keanu Reeves", "Tom Hanks", "Tim Allen")
+            listOf("Keanu Reeves", "Tom Hanks", "Tim Allen"),
+            "https://youtu.be/wmiIUN-7qhE"
         )
     )
 
@@ -82,7 +87,8 @@ class MockMovieService : MovieService {
                     Date(),
                     7.2,
                     "https://image.tmdb.org/t/p/w185/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg",
-                    "https://image.tmdb.org/t/p/w780/v4yVTbbl8dE1UP2dWu5CLyaXOku.jpg"
+                    "https://image.tmdb.org/t/p/w780/v4yVTbbl8dE1UP2dWu5CLyaXOku.jpg",
+                    trailerUrl = "https://youtu.be/foyufD52aog"
                 ),
                 Movie(
                     373571,

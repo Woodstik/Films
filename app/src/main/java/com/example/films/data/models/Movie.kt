@@ -10,5 +10,6 @@ data class Movie(
     val rating: Double,
     val poster: String,
     val backdrop: String,
-    val cast: List<String> = emptyList()
+    val cast: List<String> = emptyList(),
+    val trailerUrl : String = ""
 )
