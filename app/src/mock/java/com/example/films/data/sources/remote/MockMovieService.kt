@@ -47,8 +47,7 @@ class MockMovieService : MovieService {
             6.6,
             "https://image.tmdb.org/t/p/w185/279PwJAcelI4VuBtdzrZASqDPQr.jpg",
             "https://image.tmdb.org/t/p/w780/5tFt6iuGnKapHl5tw0X0cKcnuVo.jpg",
-            listOf("Eva Green", "Colin Farrell", "Danny DeVito"),
-            "https://youtu.be/7NiYVoqBt-8"
+            listOf("Eva Green", "Colin Farrell", "Danny DeVito")
         ),
         Movie(
             301528,

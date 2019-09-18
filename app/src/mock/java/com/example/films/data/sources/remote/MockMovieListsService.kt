@@ -20,7 +20,8 @@ class MockMovieListsService : MovieListsService {
                         Date(),
                         6.0,
                         "https://image.tmdb.org/t/p/w185/kZv92eTc0Gg3mKxqjjDAM73z9cy.jpg",
-                        "https://image.tmdb.org/t/p/w780/phxiKFDvPeQj4AbkvJLmuZEieDU.jpg"
+                        "https://image.tmdb.org/t/p/w780/phxiKFDvPeQj4AbkvJLmuZEieDU.jpg",
+                        trailerUrl = "https://youtu.be/QWbMckU3AOQ"
                     ),
                     Date()
                 )

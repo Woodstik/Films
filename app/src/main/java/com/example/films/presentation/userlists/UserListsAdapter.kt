@@ -19,14 +19,14 @@ import com.example.films.utils.lightenColor
 import kotlinx.android.synthetic.main.row_reminders.view.*
 import kotlinx.android.synthetic.main.row_user_list.view.*
 
-class UserListsAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
+class UserListsAdapter(private val remindersCallbacks: RemindersCallbacks) : RecyclerView.Adapter<AdapterItemViewHolder>() {
 
     private val items = mutableListOf<AdapterItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterItemViewHolder {
         val rowView = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.row_reminders -> RemindersViewHolder(rowView)
+            R.layout.row_reminders -> RemindersViewHolder(rowView, remindersCallbacks)
             R.layout.row_section_label -> SectionLabelViewHolder(rowView)
             R.layout.row_user_list -> UserListViewHolder(rowView)
             R.layout.row_empty_user_list -> EmptyUserListViewHolder(rowView)
@@ -58,7 +58,7 @@ class UserListsAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
     }
 }
 
-class RemindersViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
+class RemindersViewHolder(itemView: View, private val callbacks: RemindersCallbacks) : AdapterItemViewHolder(itemView) {
     override fun bindItem(item: AdapterItem) {
         val remindersItem = item as RemindersItem
         itemView.apply {
@@ -68,6 +68,8 @@ class RemindersViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
                 textMovieTitle.text = remindersItem.reminder.movie.title
                 textMovieDescription.text = remindersItem.reminder.movie.description
                 textReleaseDate.text = formatReleaseDate(remindersItem.reminder.movie.releaseDate)
+                btnTrailer.visibility = if (remindersItem.reminder.movie.trailerUrl.isEmpty()) View.GONE else View.VISIBLE
+                btnTrailer.setOnClickListener { callbacks.onClickTrailer(remindersItem.reminder.movie.trailerUrl)}
                 GlideApp.with(imgPoster).load(remindersItem.reminder.movie.poster).into(imgPoster)
             }
         }
@@ -94,4 +96,8 @@ class UserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
 class EmptyUserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
     override fun bindItem(item: AdapterItem) {
     }
+}
+
+interface RemindersCallbacks{
+    fun onClickTrailer(url: String)
 }

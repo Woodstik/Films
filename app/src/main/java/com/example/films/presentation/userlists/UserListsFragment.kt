@@ -12,6 +12,7 @@ import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.UsersMovieLists
+import com.example.films.utils.openUrl
 import kotlinx.android.synthetic.main.fragment_lists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -19,7 +20,7 @@ import timber.log.Timber
 class UserListsFragment : Fragment() {
 
     private val model: UserListsViewModel by viewModel()
-    private val userListsAdapter by lazy { UserListsAdapter() }
+    private val userListsAdapter by lazy { UserListsAdapter(remindersCallbacks) }
 
     companion object {
         fun newInstance(): UserListsFragment {
@@ -69,6 +70,12 @@ class UserListsFragment : Fragment() {
             ErrorReason.UNKNOWN -> {
                 groupLoadStatus.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private val remindersCallbacks = object : RemindersCallbacks {
+        override fun onClickTrailer(url: String) {
+            context?.openUrl(url)
         }
     }
 }
