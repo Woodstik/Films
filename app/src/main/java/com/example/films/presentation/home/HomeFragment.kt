@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,8 @@ import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.HomeMovies
 import com.example.films.data.models.Movie
+import com.example.films.presentation.createlist.CreateListDialogFragment
+import com.example.films.presentation.selectlist.SelectListDialogFragment
 import com.example.films.utils.openUrl
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -77,7 +80,8 @@ class HomeFragment : Fragment() {
 
     private val newReleaseCallbacks = object : NewReleaseCallbacks {
         override fun onAddToList(movie: Movie) {
-            Toast.makeText(context, "Add to list: ${movie.title}", Toast.LENGTH_SHORT).show()
+            val bottomSheet = SelectListDialogFragment.newInstance(movie.id)
+            bottomSheet.show(activity?.supportFragmentManager, "bottomSheet")
         }
 
         override fun onTrailer(url: String) {
@@ -91,7 +95,6 @@ class HomeFragment : Fragment() {
         override fun onClick(movie: Movie) {
             Toast.makeText(context, "Click: ${movie.title}", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private val upcomingCallbacks = object : UpcomingCallbacks {

@@ -4,6 +4,9 @@
     <!--BUTTONS-->
     <string name="btn_retry">Retry</string>
     <string name="btn_view_all">View All</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_create">Create</string>
+    <string name="btn_new_list">+ New List</string>
 
     <!--ERROR-->
     <string name="error_loading_home">Error loading home</string>
@@ -48,4 +51,11 @@
     <!--SEARCH-->
     <string name="format_movie_title_year">%1$s (%2$s)</string>
     <string name="no_search_results">No movie results</string>
+
+    <!--SELECT LIST-->
+    <string name="save_movie_to">Save movie to…</string>
+
+    <!--CREATE LIST-->
+    <string name="create_list_title">New List</string>
+    <string name="hint_list_title">Title</string>
 </resources>
