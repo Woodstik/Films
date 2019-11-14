@@ -17,14 +17,14 @@ import com.example.films.presentation.adapter.items.SelectListItem
 import com.example.films.utils.lightenColor
 import kotlinx.android.synthetic.main.row_select_list.view.*
 
-class SelectListAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
+class SelectListAdapter(private val selectListCallbacks: SelectListCallbacks) : RecyclerView.Adapter<AdapterItemViewHolder>() {
 
     private val items = mutableListOf<AdapterItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterItemViewHolder {
         val rowView = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.row_select_list -> SelectListViewHolder(rowView)
+            R.layout.row_select_list -> SelectListViewHolder(rowView, selectListCallbacks)
             else -> throw IllegalArgumentException("SelectListAdapter: Unknown viewType: $viewType")
         }
     }
@@ -49,7 +49,10 @@ class SelectListAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
     }
 }
 
-class SelectListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
+class SelectListViewHolder(
+    itemView: View,
+    private val selectListCallbacks: SelectListCallbacks
+) : AdapterItemViewHolder(itemView) {
 
     override fun bindItem(item: AdapterItem) {
         val selectListItem = item as SelectListItem
@@ -59,6 +62,10 @@ class SelectListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
             DrawableCompat.setTint(DrawableCompat.wrap(imageMovieList.background), color)
             DrawableCompat.setTint(DrawableCompat.wrap(imageMovieList.drawable.mutate()), lightenColor(color, 0.25f))
         }
-        itemView.setOnClickListener { Toast.makeText(itemView.context, "Selected:${selectListItem.movieList.id}", Toast.LENGTH_SHORT).show() }
+        itemView.setOnClickListener { selectListCallbacks.onSelectList(selectListItem.movieList) }
     }
+}
+
+interface SelectListCallbacks {
+    fun onSelectList(movieList: MovieList)
 }

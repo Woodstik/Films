@@ -1,11 +1,12 @@
 package com.example.films.data.sources.repositories
 
+import com.example.films.TestData
 import com.example.films.data.sources.remote.MockMovieService
 import org.junit.Test
 
 class MovieRepositoryTest {
 
-    private val movieRepository = MovieRepository(MockMovieService())
+    private val movieRepository = MovieRepository(MockMovieService(TestData.Movies))
 
     @Test
     fun getNewReleases() {

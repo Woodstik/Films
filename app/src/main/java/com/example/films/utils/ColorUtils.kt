@@ -6,6 +6,11 @@ import androidx.annotation.Size
 import kotlin.math.max
 import kotlin.math.min
 
+
+fun randomListColor() : String {
+    return listOf("#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A").random()
+}
+
 @ColorInt
 fun lightenColor(
     @ColorInt color: Int,

@@ -1,5 +1,6 @@
 package com.example.films.presentation.home
 
+import com.example.films.TestData
 import com.example.films.data.sources.remote.MockMovieService
 import com.example.films.data.sources.remote.MockPostService
 import com.example.films.data.sources.repositories.MovieRepository
@@ -14,7 +15,7 @@ class HomeViewModelTest {
     fun loadMovies() {
         val viewModel = HomeViewModel(
             GetHomeUseCase(
-                MovieRepository(MockMovieService()),
+                MovieRepository(MockMovieService(TestData.Movies)),
                 PostRepository(MockPostService()),
                 Schedulers.trampoline(),
                 Schedulers.trampoline()

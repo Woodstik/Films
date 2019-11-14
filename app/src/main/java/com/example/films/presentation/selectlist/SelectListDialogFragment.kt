@@ -21,10 +21,10 @@ class SelectListDialogFragment : BottomSheetDialogFragment() {
 
     private val model: SelectListViewModel by viewModel()
 
-    private val adapter: SelectListAdapter by lazy { SelectListAdapter() }
+    private val adapter: SelectListAdapter by lazy { SelectListAdapter(selectListCallbacks) }
 
     companion object {
-    private const val ARG_MOVIE_ID = "arg_movie_id"
+        private const val ARG_MOVIE_ID = "arg_movie_id"
 
         fun newInstance(id: Int): SelectListDialogFragment {
             val bundle = Bundle()
@@ -37,7 +37,8 @@ class SelectListDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        model.movieLists.observe(this, Observer { handleMovieListsState(it) })
+        model.movieListsState.observe(this, Observer { handleMovieListsState(it) })
+        model.addMovieToListState.observe(this, Observer { handleAddMovieToListState(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,6 +65,16 @@ class SelectListDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun handleAddMovieToListState(state: LoadState<Boolean>) {
+        when (state) {
+            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Data -> {
+                Toast.makeText(context, "Added movie to list", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
+        }
+    }
+
     private fun handleError(reason: ErrorReason) {
         when (reason) {
             ErrorReason.HTTP -> Timber.e("Http Error")
@@ -79,7 +90,13 @@ class SelectListDialogFragment : BottomSheetDialogFragment() {
             transaction?.remove(prev)
         }
         transaction?.addToBackStack(null)
-        val dialog = CreateListDialogFragment.newInstance()
+        val dialog = CreateListDialogFragment.newInstance(arguments?.getInt(ARG_MOVIE_ID)!!)
         dialog.show(activity?.supportFragmentManager, "dialog")
+    }
+
+    private val selectListCallbacks = object : SelectListCallbacks {
+        override fun onSelectList(movieList: MovieList) {
+            model.addMovieToList( arguments?.getInt(ARG_MOVIE_ID)!!, movieList.id)
+        }
     }
 }

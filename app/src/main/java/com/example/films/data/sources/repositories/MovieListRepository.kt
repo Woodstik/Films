@@ -2,6 +2,7 @@ package com.example.films.data.sources.repositories
 
 import com.example.films.data.models.MovieList
 import com.example.films.data.models.MovieReminder
+import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.sources.MovieListDataSource
 import com.example.films.data.sources.remote.MovieListsService
@@ -11,15 +12,14 @@ import io.reactivex.Flowable
 
 class MovieListRepository(private val movieListsService: MovieListsService) : MovieListDataSource {
 
-    override fun createList(request: CreateMovieListRequest): Flowable<Int> {
+    override fun addMovieToList(request: AddMovieToListRequest): Completable {
+        return movieListsService.addMovieToList(request)
+    }
+
+    override fun createList(request: CreateMovieListRequest): Flowable<Long> {
         return movieListsService.createMovieList(request)
             .toFlowable()
     }
-
-    override fun addMovieToList(movieId: Int, listId: Int): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getMovieLists(): Flowable<List<MovieList>> {
         return movieListsService.getMovieLists()
             .toFlowable()
