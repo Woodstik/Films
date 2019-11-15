@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Films</string>
 
+    <!--NOTIFICATION CHANNELS-->
+    <string name="channel_reminders_name">Movie Reminders</string>
+    <string name="channel_reminders_description">Reminders for movie release dates</string>
+
     <!--BUTTONS-->
     <string name="btn_retry">Retry</string>
     <string name="btn_view_all">View All</string>
@@ -64,4 +68,7 @@
     <string name="create_list_title">New List</string>
     <string name="hint_list_title">Title</string>
     <string name="create_list_success">List created!</string>
+
+    <!--REMINDER JOB-->
+    <string name="movie_released">Movie Released</string>
 </resources>

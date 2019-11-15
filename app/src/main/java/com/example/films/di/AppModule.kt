@@ -1,8 +1,8 @@
 package com.example.films.di
 
 import com.example.films.BuildConfig
-import com.example.films.data.jobs.AppJobs
-import com.example.films.data.jobs.JobManager
+import com.example.films.jobs.AppJobs
+import com.example.films.jobs.JobManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient

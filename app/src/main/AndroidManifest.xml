@@ -27,7 +27,7 @@
 
 
         <service
-                android:name=".data.jobs.ReminderJob"
+                android:name="com.example.films.jobs.ReminderJob"
                 android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <meta-data

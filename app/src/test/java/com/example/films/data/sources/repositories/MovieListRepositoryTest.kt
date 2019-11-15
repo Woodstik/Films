@@ -1,12 +1,13 @@
 package com.example.films.data.sources.repositories
 
-import com.example.films.data.jobs.JobManager
+import com.example.films.jobs.JobManager
 import com.example.films.data.models.Movie
 import com.example.films.data.models.MovieList
 import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.requests.CreateReminderRequest
+import com.example.films.data.requests.RemoveReminderRequest
 import com.example.films.data.sources.remote.MovieListsService
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -18,6 +19,14 @@ class MovieListRepositoryTest {
     @Test
     fun nextReminderNotFound() {
         val movieListDataSource = MovieListRepository(object : MovieListsService {
+            override fun getReminder(id: Long): Single<MovieReminder> {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun removeReminder(request: RemoveReminderRequest): Completable {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             override fun createMovieList(request: CreateMovieListRequest): Single<Long> {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -26,7 +35,7 @@ class MovieListRepositoryTest {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun createReminder(request: CreateReminderRequest): Completable {
+            override fun createReminder(request: CreateReminderRequest): Single<Long> {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
@@ -47,11 +56,19 @@ class MovieListRepositoryTest {
     @Test
     fun emptyMovieLists() {
         val movieListDataSource = MovieListRepository(object : MovieListsService {
+            override fun getReminder(id: Long): Single<MovieReminder> {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun removeReminder(request: RemoveReminderRequest): Completable {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             override fun addMovieToList(request: AddMovieToListRequest): Completable {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun createReminder(request: CreateReminderRequest): Completable {
+            override fun createReminder(request: CreateReminderRequest): Single<Long> {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 

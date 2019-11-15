@@ -1,4 +1,4 @@
-package com.example.films.data.jobs
+package com.example.films.jobs
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -55,16 +55,18 @@ class ReminderJob : JobService() {
             splashIntent(),
             PendingIntent.FLAG_UPDATE_CURRENT
         )
+        val extras = params!!.extras
         val builder = NotificationCompat.Builder(this, REMINDERS_CHANNEL_ID)
-            .setContentTitle("Movie Reminder")
-            .setContentText("Movie Released: ${params!!.extras.getString(EXTRA_MOVIE_TITLE)}")
+            .setContentTitle(getString(R.string.movie_released))
+            .setContentText(extras.getString(EXTRA_MOVIE_TITLE))
             .setContentIntent(pendingIntent)
             .setSmallIcon(R.drawable.ic_movie_reminder)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setAutoCancel(true)
 
-        notifyManager.notify(0, builder.build())
+        notifyManager.notify(extras.getInt(EXTRA_MOVIE_ID), builder.build())
+        //TODO: Remove reminder from list
         return false
     }
 
@@ -76,14 +78,14 @@ class ReminderJob : JobService() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
                 REMINDERS_CHANNEL_ID,
-                "Movie Reminders",
+                getString(R.string.channel_reminders_name),
                 NotificationManager.IMPORTANCE_HIGH
             )
 
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.BLUE
             notificationChannel.enableVibration(true)
-            notificationChannel.description = "Reminders for movies"
+            notificationChannel.description = getString(R.string.channel_reminders_description)
             notifyManager.createNotificationChannel(notificationChannel)
         }
     }

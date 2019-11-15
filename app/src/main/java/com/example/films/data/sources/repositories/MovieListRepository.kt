@@ -1,7 +1,6 @@
 package com.example.films.data.sources.repositories
 
-import com.example.films.TestData
-import com.example.films.data.jobs.JobManager
+import com.example.films.jobs.JobManager
 import com.example.films.data.models.MovieList
 import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
@@ -12,7 +11,6 @@ import com.example.films.data.sources.remote.MovieListsService
 import com.example.films.utils.Optional
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import java.util.*
 
 class MovieListRepository(
     private val movieListsService: MovieListsService,
@@ -44,15 +42,13 @@ class MovieListRepository(
 
     override fun createReminder(request: CreateReminderRequest): Completable {
         return movieListsService.createReminder(request)
-            .andThen(scheduleReminder(request))
+            .flatMapCompletable { scheduleReminder(it) }
+
     }
 
-    private fun scheduleReminder(request: CreateReminderRequest): Completable {
-        //FIXME: This should not reference TestData.Movies
-        val movie = TestData.Movies.getById(request.movieId)
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.SECOND, 60)
-        jobManager.scheduleReminder(movie, request.remindDate ?: calendar.time)
-        return Completable.complete()
+    private fun scheduleReminder(reminderId: Long): Completable {
+        return movieListsService.getReminder(reminderId)
+            .map { jobManager.scheduleReminder(it.movie, it.remindDate) }
+            .flatMapCompletable { if (it) Completable.complete() else Completable.error(IllegalStateException("Reminder job not scheduled!")) }
     }
 }

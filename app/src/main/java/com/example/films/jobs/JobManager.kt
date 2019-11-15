@@ -1,4 +1,4 @@
-package com.example.films.data.jobs
+package com.example.films.jobs
 
 import com.example.films.data.models.Movie
 import java.util.*

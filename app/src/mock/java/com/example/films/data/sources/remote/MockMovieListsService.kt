@@ -6,6 +6,7 @@ import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.requests.CreateReminderRequest
+import com.example.films.data.requests.RemoveReminderRequest
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.util.*
@@ -39,9 +40,19 @@ class MockMovieListsService(private val movies: TestData.Movies) : MovieListsSer
         return Single.just(reminders)
     }
 
-    override fun createReminder(request: CreateReminderRequest): Completable {
+    override fun createReminder(request: CreateReminderRequest): Single<Long> {
         val movie = movies.getById(request.movieId)
-        reminders.add(MovieReminder((movieLists.size + 1).toLong(), movie, request.remindDate ?: movie.releaseDate))
+        val reminderId = (movieLists.size + 1).toLong()
+        reminders.add(MovieReminder(reminderId, movie, request.remindDate ?: movie.releaseDate))
+        return Single.just(reminderId)
+    }
+
+    override fun removeReminder(request: RemoveReminderRequest): Completable {
+        reminders.remove(reminders.find { it.id == request.reminderId })
         return Completable.complete()
+    }
+
+    override fun getReminder(id: Long): Single<MovieReminder> {
+        return Single.just(reminders.find { it.id == id }!!)
     }
 }

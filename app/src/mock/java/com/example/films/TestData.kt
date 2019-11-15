@@ -65,7 +65,7 @@ object TestData {
                 420817,
                 "Aladdin",
                 "A kindhearted street urchin named Aladdin embarks on a magical adventure after finding a lamp that releases a wisecracking genie while a power-hungry Grand Vizier vies for the same lamp that has the power to make their deepest wishes come true.",
-                Date(),
+                getFutureDate(minute = 2),
                 7.2,
                 "https://image.tmdb.org/t/p/w185/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg",
                 "https://image.tmdb.org/t/p/w780/v4yVTbbl8dE1UP2dWu5CLyaXOku.jpg",
@@ -75,7 +75,7 @@ object TestData {
                 373571,
                 "Godzilla: King of the Monsters",
                 "The new story follows the heroic efforts of the crypto-zoological agency Monarch as its members face off against a battery of god-sized monsters, including the mighty Godzilla, who collides with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah. When these ancient super-speciesâ€”thought to be mere mythsâ€”rise again, they all vie for supremacy, leaving humanityâ€™s very existence hanging in the balance.",
-                Date(),
+                getFutureDate(minute = 10),
                 6.5,
                 "https://image.tmdb.org/t/p/w185/pU3bnutJU91u3b4IeRPQTOP8jhV.jpg",
                 "https://image.tmdb.org/t/p/w780/uovH5k4BAEPqXqxgwVrTtqH169g.jpg"
@@ -84,7 +84,7 @@ object TestData {
                 458156,
                 "John Wick: Chapter 3 Parabellum",
                 "Super-assassin John Wick returns with a \$14 million price tag on his head and an army of bounty-hunting killers on his trail. After killing a member of the shadowy international assassin’s guild, the High Table, John Wick is excommunicado, but the world’s most ruthless hit men and women await his every turn.",
-                Date(),
+                getFutureDate(hour = 2),
                 7.3,
                 "https://image.tmdb.org/t/p/w185/ziEuG1essDuWuC5lpWUaw1uXY2O.jpg",
                 "https://image.tmdb.org/t/p/w780/vVpEOvdxVBP2aV166j5Xlvb5Cdc.jpg"
@@ -93,7 +93,7 @@ object TestData {
                 299534,
                 "Avengers: Endgame",
                 "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
-                Date(),
+                getFutureDate(day = 1),
                 8.5,
                 "https://image.tmdb.org/t/p/w185/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
                 "https://image.tmdb.org/t/p/w780/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg"
@@ -102,7 +102,7 @@ object TestData {
                 502416,
                 "Ma",
                 "Sue Ann is a loner who keeps to herself in her quiet Ohio town. One day, she is asked by Maggie, a new teenager in town, to buy some booze for her and her friends, and Sue Ann sees the chance to make some unsuspecting, if younger, friends of her own.",
-                Date(),
+                getFutureDate(day = 2),
                 5.7,
                 "https://image.tmdb.org/t/p/w185/6n7ASmQ1wY2cxTubFFGlcvPpyk7.jpg",
                 "https://image.tmdb.org/t/p/w780/mBOv5YrX5QGr5CusK0PKSHuxOt9.jpg"
@@ -123,4 +123,13 @@ object TestData {
             return all.find { it.id == id }!!
         }
     }
+}
+
+private fun getFutureDate(day:Int = 0, hour: Int = 0, minute: Int = 0, second: Int = 0) : Date{
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, day)
+    calendar.add(Calendar.HOUR, hour)
+    calendar.add(Calendar.MINUTE, minute)
+    calendar.add(Calendar.SECOND, second)
+    return calendar.time
 }
