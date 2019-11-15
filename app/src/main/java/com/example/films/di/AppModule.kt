@@ -1,10 +1,13 @@
 package com.example.films.di
 
 import com.example.films.BuildConfig
+import com.example.films.data.jobs.AppJobs
+import com.example.films.data.jobs.JobManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -33,4 +36,5 @@ val appModule = module {
     }
     single(named(SCHEDULER_IO)) { Schedulers.io() }
     single(named(SCHEDULER_MAIN_THREAD)) { AndroidSchedulers.mainThread() }
+    single<JobManager> { AppJobs(androidContext()) }
 }

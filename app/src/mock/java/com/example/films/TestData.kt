@@ -83,7 +83,7 @@ object TestData {
             Movie(
                 458156,
                 "John Wick: Chapter 3 Parabellum",
-                "This is a description for a movie",
+                "Super-assassin John Wick returns with a \$14 million price tag on his head and an army of bounty-hunting killers on his trail. After killing a member of the shadowy international assassin’s guild, the High Table, John Wick is excommunicado, but the world’s most ruthless hit men and women await his every turn.",
                 Date(),
                 7.3,
                 "https://image.tmdb.org/t/p/w185/ziEuG1essDuWuC5lpWUaw1uXY2O.jpg",
