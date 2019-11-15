@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +13,11 @@ import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.HomeMovies
 import com.example.films.data.models.Movie
-import com.example.films.presentation.createlist.CreateListDialogFragment
 import com.example.films.presentation.selectlist.SelectListDialogFragment
 import com.example.films.utils.openUrl
+import com.example.films.utils.showDialogFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 
 class HomeFragment : Fragment() {
@@ -39,7 +37,8 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.movies.observe(this, Observer { handleMovieState(it) })
+        viewModel.moviesState.observe(this, Observer { handleMovieState(it) })
+        viewModel.createReminderState.observe(this, Observer { handleCreateReminderState(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -68,10 +67,18 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun handleCreateReminderState(state: LoadState<Unit>) {
+        swipeRefresh.isRefreshing = state is LoadState.Loading
+        when (state) {
+            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Data -> Toast.makeText(context, getString(R.string.create_reminder_success), Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun handleError(reason: ErrorReason) {
         when (reason) {
-            ErrorReason.HTTP -> Timber.e("Http Error")
-            ErrorReason.NETWORK -> Toast.makeText(context, "Network Error", Toast.LENGTH_SHORT).show()
+            ErrorReason.HTTP -> Toast.makeText(context, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
+            ErrorReason.NETWORK -> Toast.makeText(context, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
             ErrorReason.UNKNOWN -> {
                 groupLoadStatus.visibility = View.VISIBLE
             }
@@ -80,8 +87,7 @@ class HomeFragment : Fragment() {
 
     private val newReleaseCallbacks = object : NewReleaseCallbacks {
         override fun onAddToList(movie: Movie) {
-            val bottomSheet = SelectListDialogFragment.newInstance(movie.id)
-            bottomSheet.show(activity?.supportFragmentManager, "bottomSheet")
+            activity?.showDialogFragment(SelectListDialogFragment.newInstance(movie.id), "bottomSheet")
         }
 
         override fun onTrailer(url: String) {
@@ -99,7 +105,7 @@ class HomeFragment : Fragment() {
 
     private val upcomingCallbacks = object : UpcomingCallbacks {
         override fun onRemind(movie: Movie) {
-            Toast.makeText(context, "Remind: ${movie.title}", Toast.LENGTH_SHORT).show()
+            viewModel.createReminder(movie.id)
         }
 
         override fun onClick(movie: Movie) {

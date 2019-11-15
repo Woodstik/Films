@@ -67,11 +67,9 @@ class SearchActivity : AppCompatActivity() {
 
     private fun handleError(reason: ErrorReason) {
         when (reason) {
-            ErrorReason.HTTP -> Timber.e("Http Error")
-            ErrorReason.NETWORK -> Toast.makeText(this, "Network Error", Toast.LENGTH_SHORT).show()
-            ErrorReason.UNKNOWN -> {
-                Toast.makeText(this, "Unknown Error", Toast.LENGTH_SHORT).show()
-            }
+            ErrorReason.HTTP -> Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
+            ErrorReason.NETWORK -> Toast.makeText(this, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
+            ErrorReason.UNKNOWN -> Toast.makeText(this, getString(R.string.error_generic), Toast.LENGTH_SHORT).show()
         }
     }
 }

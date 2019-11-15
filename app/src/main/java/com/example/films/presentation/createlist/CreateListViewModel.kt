@@ -17,7 +17,7 @@ class CreateListViewModel(
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
-    val createListState: MutableLiveData<LoadState<Boolean>> by lazy { MutableLiveData<LoadState<Boolean>>() }
+    val createListState: MutableLiveData<LoadState<Unit>> by lazy { MutableLiveData<LoadState<Unit>>() }
 
     fun createMovieList(title: String, movieId: Int) {
         val disposable = createMovieListUseCase.execute(CreateMovieListRequest(title))
@@ -30,7 +30,7 @@ class CreateListViewModel(
             }
             .doOnSubscribe { createListState.value = LoadState.Loading() }
             .subscribeBy(
-                onNext = { createListState.value = LoadState.Data(it) },
+                onNext = { createListState.value = LoadState.Data(Unit) },
                 onError = { createListState.value = LoadState.Error(it) }
             )
         compositeDisposable.add(disposable)

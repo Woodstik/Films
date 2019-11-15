@@ -66,11 +66,11 @@ class CreateListDialogFragment : DialogFragment() {
 
     }
 
-    private fun handleCreateListState(state: LoadState<Boolean>) {
+    private fun handleCreateListState(state: LoadState<Unit>) {
         when (state) {
             is LoadState.Error -> handleError(state.reason())
             is LoadState.Data -> {
-                Toast.makeText(context, "List Created", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.create_list_success), Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }
@@ -78,9 +78,9 @@ class CreateListDialogFragment : DialogFragment() {
 
     private fun handleError(reason: ErrorReason) {
         when (reason) {
-            ErrorReason.HTTP -> Timber.e("Http Error")
-            ErrorReason.NETWORK -> Toast.makeText(context, "Network Error", Toast.LENGTH_SHORT).show()
-            ErrorReason.UNKNOWN -> { Timber.e("Unknown Error") }
+            ErrorReason.HTTP -> Toast.makeText(context, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
+            ErrorReason.NETWORK -> Toast.makeText(context, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
+            ErrorReason.UNKNOWN -> Toast.makeText(context, getString(R.string.error_generic), Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -4,6 +4,7 @@ import com.example.films.data.models.MovieList
 import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
+import com.example.films.data.requests.CreateReminderRequest
 import com.example.films.data.sources.MovieListDataSource
 import com.example.films.data.sources.remote.MovieListsService
 import com.example.films.utils.Optional
@@ -32,5 +33,10 @@ class MovieListRepository(private val movieListsService: MovieListsService) : Mo
             .take(1)
             .map {reminder -> Optional(reminder)}
             .defaultIfEmpty(Optional(null))
+    }
+
+    override fun createReminder(request: CreateReminderRequest): Completable {
+        //TODO: Create job for reminder
+        return movieListsService.createReminder(request)
     }
 }

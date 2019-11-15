@@ -12,6 +12,8 @@ import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.UsersMovieLists
+import com.example.films.presentation.createlist.CreateListDialogFragment
+import com.example.films.presentation.selectlist.SelectListDialogFragment
 import com.example.films.utils.openUrl
 import kotlinx.android.synthetic.main.fragment_lists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,7 +44,7 @@ class UserListsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnCreateList.setOnClickListener { Toast.makeText(context, "Create List", Toast.LENGTH_SHORT).show() }
+        btnCreateList.setOnClickListener { createList() }
         listUserLists.also {
             it.layoutManager = LinearLayoutManager(context)
             it.adapter = userListsAdapter
@@ -65,12 +67,23 @@ class UserListsFragment : Fragment() {
 
     private fun handleError(reason: ErrorReason) {
         when (reason) {
-            ErrorReason.HTTP -> Timber.e("Http Error")
-            ErrorReason.NETWORK -> Toast.makeText(context, "Network Error", Toast.LENGTH_SHORT).show()
+            ErrorReason.HTTP -> Toast.makeText(context, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
+            ErrorReason.NETWORK -> Toast.makeText(context, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
             ErrorReason.UNKNOWN -> {
                 groupLoadStatus.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun createList() {
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        val prev = activity?.supportFragmentManager?.findFragmentByTag("dialog")
+        if(prev != null){
+            transaction?.remove(prev)
+        }
+        transaction?.addToBackStack(null)
+        val dialog = CreateListDialogFragment.newInstance()
+        dialog.show(activity?.supportFragmentManager, "dialog")
     }
 
     private val remindersCallbacks = object : RemindersCallbacks {

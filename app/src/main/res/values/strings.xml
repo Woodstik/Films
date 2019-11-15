@@ -11,6 +11,9 @@
     <!--ERROR-->
     <string name="error_loading_home">Error loading home</string>
     <string name="error_loading_lists">Error loading lists</string>
+    <string name="error_network">Network error. Please check your connection</string>
+    <string name="error_server">Server error. Please wait and try again</string>
+    <string name="error_generic">An error occurred. Please wait and try again</string>
 
     <!--MAIN-->
     <string name="menu_item_home">Home</string>
@@ -26,6 +29,7 @@
         <item quantity="one">%d comment · %s</item>
         <item quantity="other">%d comments · %s</item>
     </plurals>
+    <string name="create_reminder_success">Reminder created</string>
 
     <!--USER LISTS-->
     <string name="label_lists">Lists</string>
@@ -54,8 +58,10 @@
 
     <!--SELECT LIST-->
     <string name="save_movie_to">Save movie to…</string>
+    <string name="add_movie_to_list_success">Added movie to list!</string>
 
     <!--CREATE LIST-->
     <string name="create_list_title">New List</string>
     <string name="hint_list_title">Title</string>
+    <string name="create_list_success">List created!</string>
 </resources>
