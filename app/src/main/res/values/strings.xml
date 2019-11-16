@@ -6,8 +6,10 @@
     <string name="channel_reminders_description">Reminders for movie release dates</string>
 
     <!--NOTIFICATIONS-->
-    <string name="notification_title_movie_released">Movie Released</string>
-
+    <plurals name="notification_title_movie_released">
+        <item quantity="one">%s New Movie Released</item>
+        <item quantity="other">%s New Movies Released</item>
+    </plurals>
     <!--BUTTONS-->
     <string name="btn_retry">Retry</string>
     <string name="btn_view_all">View All</string>

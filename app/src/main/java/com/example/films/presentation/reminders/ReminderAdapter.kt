@@ -15,12 +15,12 @@ import com.example.films.presentation.adapter.items.ReminderItem
 import com.example.films.utils.formatReminderDate
 import kotlinx.android.synthetic.main.row_reminder.view.*
 
-class ReminderAdapter :RecyclerView.Adapter<AdapterItemViewHolder>() {
+class ReminderAdapter(private val callbacks: ReminderCallbacks) :RecyclerView.Adapter<AdapterItemViewHolder>() {
 
     private val items = mutableListOf<AdapterItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterItemViewHolder {
-        return ReminderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_reminder, parent, false))
+        return ReminderViewHolder(callbacks, LayoutInflater.from(parent.context).inflate(R.layout.row_reminder, parent, false))
     }
 
     override fun getItemCount(): Int = items.size
@@ -39,7 +39,10 @@ class ReminderAdapter :RecyclerView.Adapter<AdapterItemViewHolder>() {
     }
 }
 
-class ReminderViewHolder(itemView: View) : AdapterItemViewHolder(itemView){
+class ReminderViewHolder(
+    private val callbacks: ReminderCallbacks,
+    itemView: View
+) : AdapterItemViewHolder(itemView){
 
     override fun bindItem(item: AdapterItem) {
         val reminderItem = item as ReminderItem
@@ -47,6 +50,13 @@ class ReminderViewHolder(itemView: View) : AdapterItemViewHolder(itemView){
             textMovieTitle.text = reminderItem.movieReminder.movie.title
             textReminderDate.text = formatReminderDate(reminderItem.movieReminder.remindDate)
             GlideApp.with(imagePoster).load(reminderItem.movieReminder.movie.poster).into(imagePoster)
+            btnDelete.setOnClickListener { callbacks.onDelete(reminderItem.movieReminder) }
         }
+        itemView.setOnClickListener { callbacks.onClickReminder(reminderItem.movieReminder) }
     }
+}
+
+interface ReminderCallbacks{
+    fun onClickReminder(reminder: MovieReminder)
+    fun onDelete(reminder: MovieReminder)
 }

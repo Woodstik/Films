@@ -1,12 +1,13 @@
 package com.example.films.data.sources.remote
 
+import android.text.format.DateUtils
 import com.example.films.TestData
 import com.example.films.data.models.MovieList
 import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.requests.CreateReminderRequest
-import com.example.films.data.requests.RemoveReminderRequest
+import com.example.films.data.requests.DeleteRemindersRequest
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.util.*
@@ -40,15 +41,21 @@ class MockMovieListsService(private val movies: TestData.Movies) : MovieListsSer
         return Single.just(reminders)
     }
 
+    override fun getTodayReminders(): Single<List<MovieReminder>> {
+        return Single.just(reminders.filter { DateUtils.isToday(it.remindDate.time) })
+    }
+
     override fun createReminder(request: CreateReminderRequest): Single<Long> {
         val movie = movies.getById(request.movieId)
-        val reminderId = (movieLists.size + 1).toLong()
+        val reminderId = (reminders.size + 1).toLong()
         reminders.add(MovieReminder(reminderId, movie, request.remindDate ?: movie.releaseDate))
         return Single.just(reminderId)
     }
 
-    override fun removeReminder(request: RemoveReminderRequest): Completable {
-        reminders.remove(reminders.find { it.id == request.reminderId })
+    override fun deleteReminders(request: DeleteRemindersRequest): Completable {
+        for(id in request.reminderIds){
+            reminders.remove(reminders.find { it.id == id })
+        }
         return Completable.complete()
     }
 

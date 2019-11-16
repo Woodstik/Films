@@ -5,17 +5,18 @@ import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.requests.CreateReminderRequest
-import com.example.films.data.requests.RemoveReminderRequest
+import com.example.films.data.requests.DeleteRemindersRequest
 import com.example.films.utils.Optional
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
 interface MovieListDataSource {
-    fun getNextReminder(): Flowable<Optional<MovieReminder>>
     fun getMovieLists(): Flowable<List<MovieList>>
     fun createList(request: CreateMovieListRequest): Flowable<Long>
     fun addMovieToList(request: AddMovieToListRequest): Completable
     fun createReminder(request: CreateReminderRequest): Completable
-    fun removeReminder(request: RemoveReminderRequest): Completable
+    fun deleteReminders(request: DeleteRemindersRequest): Completable
+    fun getNextReminder(): Flowable<Optional<MovieReminder>>
     fun getReminders(): Flowable<List<MovieReminder>>
+    fun getTodayReminders(): Flowable<List<MovieReminder>>
 }

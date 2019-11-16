@@ -7,7 +7,7 @@ import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.requests.CreateReminderRequest
-import com.example.films.data.requests.RemoveReminderRequest
+import com.example.films.data.requests.DeleteRemindersRequest
 import com.example.films.data.sources.remote.MovieListsService
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -19,11 +19,15 @@ class MovieListRepositoryTest {
     @Test
     fun nextReminderNotFound() {
         val movieListDataSource = MovieListRepository(object : MovieListsService {
+            override fun getTodayReminders(): Single<List<MovieReminder>> {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             override fun getReminder(id: Long): Single<MovieReminder> {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun removeReminder(request: RemoveReminderRequest): Completable {
+            override fun deleteReminders(request: DeleteRemindersRequest): Completable {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
@@ -42,11 +46,6 @@ class MovieListRepositoryTest {
             override fun getReminders(): Single<List<MovieReminder>> = Single.just(emptyList())
             override fun getMovieLists(): Single<List<MovieList>> =
                 Single.error(UnsupportedOperationException("Method not implemented"))
-        }, object : JobManager{
-            override fun scheduleReminder(movie: Movie, remindDate: Date): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
         })
         val testSubscriber = movieListDataSource.getNextReminder().test()
         testSubscriber.assertValueCount(1)
@@ -56,11 +55,15 @@ class MovieListRepositoryTest {
     @Test
     fun emptyMovieLists() {
         val movieListDataSource = MovieListRepository(object : MovieListsService {
+            override fun getTodayReminders(): Single<List<MovieReminder>> {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             override fun getReminder(id: Long): Single<MovieReminder> {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun removeReminder(request: RemoveReminderRequest): Completable {
+            override fun deleteReminders(request: DeleteRemindersRequest): Completable {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
@@ -80,11 +83,6 @@ class MovieListRepositoryTest {
                 Single.error(UnsupportedOperationException("Method not implemented"))
 
             override fun getMovieLists(): Single<List<MovieList>> = Single.just(emptyList())
-        }, object : JobManager{
-            override fun scheduleReminder(movie: Movie, remindDate: Date): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
         })
         val testSubscriber = movieListDataSource.getMovieLists().test()
         testSubscriber.assertValueCount(1)

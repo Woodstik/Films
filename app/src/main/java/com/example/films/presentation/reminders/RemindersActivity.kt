@@ -23,7 +23,7 @@ fun Context.remindersIntent() = Intent(this, RemindersActivity::class.java)
 class RemindersActivity : AppCompatActivity() {
 
     private val model: RemindersViewModel by viewModel()
-    private val adapter = ReminderAdapter()
+    private val adapter: ReminderAdapter by lazy { ReminderAdapter(reminderCallbacks)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +65,16 @@ class RemindersActivity : AppCompatActivity() {
             ErrorReason.HTTP -> Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
             ErrorReason.NETWORK -> Toast.makeText(this, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
             ErrorReason.UNKNOWN -> textEmptyReminders.visibility = View.VISIBLE
+        }
+    }
+
+    private val reminderCallbacks = object : ReminderCallbacks{
+        override fun onDelete(reminder: MovieReminder) {
+            model.deleteReminder(reminder.id)
+        }
+
+        override fun onClickReminder(reminder: MovieReminder) {
+            Toast.makeText(this@RemindersActivity, "Clicked reminder: ${reminder.id}", Toast.LENGTH_SHORT).show()
         }
     }
 }

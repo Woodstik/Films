@@ -10,7 +10,7 @@ class AppJobs(val context: Context) : JobManager {
 
     private val jobScheduler: JobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
 
-    override fun scheduleReminder(reminderId: Long, movie: Movie, remindDate: Date) : Boolean {
-        return jobScheduler.schedule(reminderJob(reminderId, movie, remindDate)) == JobScheduler.RESULT_SUCCESS
+    override fun scheduleRemindersJob(): Boolean {
+        return jobScheduler.schedule(remindersJob()) == JobScheduler.RESULT_SUCCESS
     }
 }

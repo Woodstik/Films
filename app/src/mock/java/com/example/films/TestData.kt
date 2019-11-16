@@ -65,7 +65,7 @@ object TestData {
                 420817,
                 "Aladdin",
                 "A kindhearted street urchin named Aladdin embarks on a magical adventure after finding a lamp that releases a wisecracking genie while a power-hungry Grand Vizier vies for the same lamp that has the power to make their deepest wishes come true.",
-                getFutureDate(minute = 2),
+                getFutureDate(minute = 20),
                 7.2,
                 "https://image.tmdb.org/t/p/w185/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg",
                 "https://image.tmdb.org/t/p/w780/v4yVTbbl8dE1UP2dWu5CLyaXOku.jpg",
@@ -75,7 +75,7 @@ object TestData {
                 373571,
                 "Godzilla: King of the Monsters",
                 "The new story follows the heroic efforts of the crypto-zoological agency Monarch as its members face off against a battery of god-sized monsters, including the mighty Godzilla, who collides with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah. When these ancient super-speciesâ€”thought to be mere mythsâ€”rise again, they all vie for supremacy, leaving humanityâ€™s very existence hanging in the balance.",
-                getFutureDate(minute = 10),
+                getFutureDate(minute = 30),
                 6.5,
                 "https://image.tmdb.org/t/p/w185/pU3bnutJU91u3b4IeRPQTOP8jhV.jpg",
                 "https://image.tmdb.org/t/p/w780/uovH5k4BAEPqXqxgwVrTtqH169g.jpg"

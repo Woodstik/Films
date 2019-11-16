@@ -17,5 +17,5 @@ val viewModelModule = module {
     viewModel { SearchViewModel(get()) }
     viewModel { SelectListViewModel(get(), get()) }
     viewModel { CreateListViewModel(get(), get()) }
-    viewModel { RemindersViewModel(get()) }
+    viewModel { RemindersViewModel(get(), get()) }
 }

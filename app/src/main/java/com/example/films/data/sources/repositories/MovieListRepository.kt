@@ -1,22 +1,18 @@
 package com.example.films.data.sources.repositories
 
-import com.example.films.jobs.JobManager
 import com.example.films.data.models.MovieList
 import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.requests.CreateReminderRequest
-import com.example.films.data.requests.RemoveReminderRequest
+import com.example.films.data.requests.DeleteRemindersRequest
 import com.example.films.data.sources.MovieListDataSource
 import com.example.films.data.sources.remote.MovieListsService
 import com.example.films.utils.Optional
 import io.reactivex.Completable
 import io.reactivex.Flowable
 
-class MovieListRepository(
-    private val movieListsService: MovieListsService,
-    private val jobManager: JobManager
-) : MovieListDataSource {
+class MovieListRepository(private val movieListsService: MovieListsService) : MovieListDataSource {
 
     override fun addMovieToList(request: AddMovieToListRequest): Completable {
         return movieListsService.addMovieToList(request)
@@ -46,19 +42,16 @@ class MovieListRepository(
             .toFlowable()
     }
 
+    override fun getTodayReminders(): Flowable<List<MovieReminder>> {
+        return movieListsService.getTodayReminders()
+            .toFlowable()    }
+
     override fun createReminder(request: CreateReminderRequest): Completable {
         return movieListsService.createReminder(request)
-            .flatMapCompletable { scheduleReminder(it) }
-
+            .flatMapCompletable { Completable.complete() }
     }
 
-    private fun scheduleReminder(reminderId: Long): Completable {
-        return movieListsService.getReminder(reminderId)
-            .map { jobManager.scheduleReminder(reminderId, it.movie, it.remindDate) }
-            .flatMapCompletable { if (it) Completable.complete() else Completable.error(IllegalStateException("Reminder job not scheduled!")) }
-    }
-
-    override fun removeReminder(request: RemoveReminderRequest): Completable {
-        return movieListsService.removeReminder(request)
+    override fun deleteReminders(request: DeleteRemindersRequest): Completable {
+        return movieListsService.deleteReminders(request)
     }
 }

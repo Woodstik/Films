@@ -10,6 +10,6 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     single<MovieDataSource> { MovieRepository(get()) }
-    single<MovieListDataSource> { MovieListRepository(get(), get()) }
+    single<MovieListDataSource> { MovieListRepository(get()) }
     single<PostDataSource> { PostRepository(get()) }
 }
