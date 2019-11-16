@@ -24,7 +24,7 @@
         </activity>
         <activity android:name=".presentation.main.MainActivity"/>
         <activity android:name=".presentation.search.SearchActivity"/>
-
+        <activity android:name=".presentation.reminders.RemindersActivity" />
 
         <service
                 android:name="com.example.films.jobs.ReminderJob"

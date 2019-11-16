@@ -17,7 +17,7 @@ class SelectListViewModel(
 
     private val compositeDisposable = CompositeDisposable()
     val movieListsState: MutableLiveData<LoadState<List<MovieList>>> by lazy { MutableLiveData<LoadState<List<MovieList>>>() }
-    val addMovieToListState: MutableLiveData<LoadState<Boolean>> by lazy { MutableLiveData<LoadState<Boolean>>() }
+    val addMovieToListState: MutableLiveData<LoadState<Unit>> by lazy { MutableLiveData<LoadState<Unit>>() }
 
     fun loadLists() {
         val disposable = getMovieListsUseCase.execute()

@@ -13,6 +13,8 @@ fun formatReleaseYear(joinedDate: Date): String = formatDate(joinedDate, "yyyy")
 
 fun formatJoinedDate(joinedDate: Date): String = formatDate(joinedDate, "MMMM d, yyyy")
 
+fun formatReminderDate(reminderDate: Date): String = formatDate(reminderDate, "MMMM d, yyyy")
+
 fun formatDate(date: Date, format: String): String {
     val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
     return simpleDateFormat.format(date)

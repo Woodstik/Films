@@ -6,6 +6,7 @@ import com.example.films.data.models.MovieReminder
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.requests.CreateReminderRequest
+import com.example.films.data.requests.RemoveReminderRequest
 import com.example.films.data.sources.MovieListDataSource
 import com.example.films.data.sources.remote.MovieListsService
 import com.example.films.utils.Optional
@@ -40,6 +41,11 @@ class MovieListRepository(
             .defaultIfEmpty(Optional(null))
     }
 
+    override fun getReminders(): Flowable<List<MovieReminder>> {
+        return movieListsService.getReminders()
+            .toFlowable()
+    }
+
     override fun createReminder(request: CreateReminderRequest): Completable {
         return movieListsService.createReminder(request)
             .flatMapCompletable { scheduleReminder(it) }
@@ -48,7 +54,11 @@ class MovieListRepository(
 
     private fun scheduleReminder(reminderId: Long): Completable {
         return movieListsService.getReminder(reminderId)
-            .map { jobManager.scheduleReminder(it.movie, it.remindDate) }
+            .map { jobManager.scheduleReminder(reminderId, it.movie, it.remindDate) }
             .flatMapCompletable { if (it) Completable.complete() else Completable.error(IllegalStateException("Reminder job not scheduled!")) }
+    }
+
+    override fun removeReminder(request: RemoveReminderRequest): Completable {
+        return movieListsService.removeReminder(request)
     }
 }

@@ -72,6 +72,7 @@ class RemindersViewHolder(itemView: View, private val callbacks: RemindersCallba
                 btnTrailer.setOnClickListener { callbacks.onClickTrailer(remindersItem.reminder.movie.trailerUrl)}
                 GlideApp.with(imgPoster).load(remindersItem.reminder.movie.poster).into(imgPoster)
             }
+            btnViewAll.setOnClickListener { callbacks.onClickViewAll() }
         }
     }
 }
@@ -100,4 +101,5 @@ class EmptyUserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) 
 
 interface RemindersCallbacks{
     fun onClickTrailer(url: String)
+    fun onClickViewAll()
 }

@@ -25,12 +25,12 @@ class CreateListViewModel(
                 if (movieId > 0 ) {
                     addMovieToListUseCase.execute(AddMovieToListRequest(movieId, it))
                 } else {
-                    Flowable.just(true)
+                    Flowable.just(Unit)
                 }
             }
             .doOnSubscribe { createListState.value = LoadState.Loading() }
             .subscribeBy(
-                onNext = { createListState.value = LoadState.Data(Unit) },
+                onNext = { createListState.value = LoadState.Data(it) },
                 onError = { createListState.value = LoadState.Error(it) }
             )
         compositeDisposable.add(disposable)

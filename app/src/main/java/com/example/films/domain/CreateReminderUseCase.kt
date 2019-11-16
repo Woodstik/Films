@@ -9,10 +9,10 @@ class CreateReminderUseCase(
     private val movieListDataSource: MovieListDataSource,
     schedulerIO: Scheduler,
     schedulerMainThread: Scheduler
-) : UseCase<CreateReminderRequest, Boolean>(schedulerIO, schedulerMainThread) {
+) : UseCase<CreateReminderRequest, Unit>(schedulerIO, schedulerMainThread) {
 
-    override fun onCreate(parameter: CreateReminderRequest?): Flowable<Boolean> {
+    override fun onCreate(parameter: CreateReminderRequest?): Flowable<Unit> {
         return movieListDataSource.createReminder(parameter!!)
-            .andThen(Flowable.just(true))
+            .andThen(Flowable.just(Unit))
     }
 }

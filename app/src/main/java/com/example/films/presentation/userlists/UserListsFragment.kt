@@ -13,6 +13,7 @@ import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.UsersMovieLists
 import com.example.films.presentation.createlist.CreateListDialogFragment
+import com.example.films.presentation.reminders.remindersIntent
 import com.example.films.presentation.selectlist.SelectListDialogFragment
 import com.example.films.utils.openUrl
 import kotlinx.android.synthetic.main.fragment_lists.*
@@ -87,6 +88,10 @@ class UserListsFragment : Fragment() {
     }
 
     private val remindersCallbacks = object : RemindersCallbacks {
+        override fun onClickViewAll() {
+            startActivity(context?.remindersIntent())
+        }
+
         override fun onClickTrailer(url: String) {
             context?.openUrl(url)
         }

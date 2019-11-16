@@ -67,7 +67,7 @@ class SelectListDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun handleAddMovieToListState(state: LoadState<Boolean>) {
+    private fun handleAddMovieToListState(state: LoadState<Unit>) {
         when (state) {
             is LoadState.Error -> handleError(state.reason())
             is LoadState.Data -> {
