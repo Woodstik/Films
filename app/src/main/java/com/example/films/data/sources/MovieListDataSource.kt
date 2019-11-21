@@ -11,12 +11,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 
 interface MovieListDataSource {
-    fun getMovieLists(): Flowable<List<MovieList>>
+    fun getMovieLists(forceRefresh: Boolean = true): Flowable<List<MovieList>>
     fun createList(request: CreateMovieListRequest): Flowable<Long>
     fun addMovieToList(request: AddMovieToListRequest): Completable
-    fun createReminder(request: CreateReminderRequest): Completable
-    fun deleteReminders(request: DeleteRemindersRequest): Completable
-    fun getNextReminder(): Flowable<Optional<MovieReminder>>
-    fun getReminders(): Flowable<List<MovieReminder>>
-    fun getTodayReminders(): Flowable<List<MovieReminder>>
 }

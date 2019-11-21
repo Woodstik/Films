@@ -11,6 +11,19 @@ class AppJobs(val context: Context) : JobManager {
     private val jobScheduler: JobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
 
     override fun scheduleRemindersJob(): Boolean {
-        return jobScheduler.schedule(remindersJob()) == JobScheduler.RESULT_SUCCESS
+        return if(jobExists(ReminderJob.REMINDER_JOB_ID)){
+            false
+        } else {
+            jobScheduler.schedule(ReminderJob.build(context)) == JobScheduler.RESULT_SUCCESS
+        }
+    }
+
+    private fun jobExists(jobId: Int) : Boolean {
+        for(job in jobScheduler.allPendingJobs){
+            if(job.id == jobId) {
+                return true
+            }
+        }
+        return false
     }
 }

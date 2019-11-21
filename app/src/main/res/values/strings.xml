@@ -7,8 +7,8 @@
 
     <!--NOTIFICATIONS-->
     <plurals name="notification_title_movie_released">
-        <item quantity="one">%s New Movie Released</item>
-        <item quantity="other">%s New Movies Released</item>
+        <item quantity="one">%d New Movie Released</item>
+        <item quantity="other">%d New Movies Released</item>
     </plurals>
     <!--BUTTONS-->
     <string name="btn_retry">Retry</string>
@@ -77,4 +77,5 @@
     <!--REMINDERS-->
     <string name="title_reminders">Reminders</string>
     <string name="empty_reminders">No reminders</string>
+    <string name="delete_reminder_success">Reminder deleted!</string>
 </resources>

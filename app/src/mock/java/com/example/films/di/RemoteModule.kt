@@ -8,4 +8,5 @@ val remoteModule = module {
     single<MovieService> { MockMovieService(TestData.Movies) }
     single<MovieListsService> { MockMovieListsService(TestData.Movies) }
     single<PostService> { MockPostService() }
+    single<ReminderService> { MockReminderService(TestData.Movies) }
 }

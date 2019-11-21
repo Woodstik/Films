@@ -23,23 +23,6 @@ import org.koin.android.ext.android.inject
 import java.util.*
 
 
-private const val REMINDERS_CHANNEL_ID = "reminders_channel"
-private const val REMINDER_JOB_ID = 1
-
-fun AppJobs.remindersJob() : JobInfo{
-    val serviceName = ComponentName(
-        context.packageName,
-        ReminderJob::class.java.name
-    )
-    return JobInfo.Builder(REMINDER_JOB_ID, serviceName)
-        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-        .setRequiresDeviceIdle(false)
-        .setRequiresCharging(false)
-        .setPersisted(true)
-        .setPeriodic(BuildConfig.REMINDERS_JOB_PERIOD)
-        .build()
-}
-
 class ReminderJob : JobService() {
 
     private val getTodayRemindersUseCase: GetTodayRemindersUseCase by inject()
@@ -53,10 +36,10 @@ class ReminderJob : JobService() {
         createNotificationChannel()
         val disposable = getTodayRemindersUseCase.execute()
             .filter { it.isNotEmpty() }
-            .doOnNext{showNotification(it)}
+            .doOnNext { showNotification(it) }
             .map { it.map { reminder -> reminder.id } }
             .flatMap { deleteRemindersUseCase.execute(DeleteRemindersRequest(it)) }
-            .subscribeBy (
+            .subscribeBy(
                 onError = { jobFinished(params, true) },
                 onComplete = { jobFinished(params, false) }
             )
@@ -69,19 +52,23 @@ class ReminderJob : JobService() {
         return false
     }
 
-    private fun showNotification(reminders: List<MovieReminder>){
+    private fun showNotification(reminders: List<MovieReminder>) {
         val pendingIntent = PendingIntent.getActivity(this, 0, splashIntent(), PendingIntent.FLAG_UPDATE_CURRENT)
-        val inboxStyle = NotificationCompat.InboxStyle()
-        reminders.forEach { inboxStyle.addLine(it.movie.title) }
+        val titles = reminders.map { it.movie.title }
         val notification = NotificationCompat.Builder(this, REMINDERS_CHANNEL_ID)
-            .setContentTitle(resources.getQuantityString(R.plurals.notification_title_movie_released, reminders.size))
-            .setContentText("This is the subject")
+            .setContentTitle(
+                resources.getQuantityString(
+                    R.plurals.notification_title_movie_released,
+                    reminders.size,
+                    reminders.size
+                )
+            )
+            .setContentText(titles.joinToString())
             .setSmallIcon(R.drawable.ic_notification)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
-            .setStyle(inboxStyle)
             .build()
         notifyManager.notify(REMINDER_JOB_ID, notification)
     }
@@ -98,6 +85,25 @@ class ReminderJob : JobService() {
             notificationChannel.enableVibration(true)
             notificationChannel.description = getString(R.string.channel_reminders_description)
             notifyManager.createNotificationChannel(notificationChannel)
+        }
+    }
+
+    companion object {
+        private const val REMINDERS_CHANNEL_ID = "reminders_channel"
+        const val REMINDER_JOB_ID = 1
+
+        fun build(context: Context): JobInfo {
+            val serviceName = ComponentName(
+                context.packageName,
+                ReminderJob::class.java.name
+            )
+            return JobInfo.Builder(REMINDER_JOB_ID, serviceName)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setRequiresDeviceIdle(false)
+                .setRequiresCharging(false)
+                .setPersisted(true)
+                .setPeriodic(BuildConfig.REMINDERS_JOB_PERIOD)
+                .build()
         }
     }
 }

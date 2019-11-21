@@ -29,6 +29,8 @@ class RemindersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminders)
         model.remindersState.observe(this, Observer { handleRemindersState(it) })
+        model.deleteReminderState.observe(this, Observer { handleDeleteReminderState(it) })
+
         setSupportActionBar(layoutToolbar.toolbar)
         supportActionBar!!.setTitle(R.string.title_reminders)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -57,6 +59,14 @@ class RemindersActivity : AppCompatActivity() {
                 textEmptyReminders.visibility = if(state.data.isEmpty()) View.VISIBLE else View.GONE
                 adapter.setReminders(state.data)
             }
+        }
+    }
+
+    private fun handleDeleteReminderState(state: LoadState<Unit>) {
+        swipeRefresh.isRefreshing = state is LoadState.Loading
+        when (state) {
+            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Data -> { Toast.makeText(this, getString(R.string.delete_reminder_success), Toast.LENGTH_SHORT).show()}
         }
     }
 

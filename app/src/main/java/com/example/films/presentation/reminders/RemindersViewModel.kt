@@ -16,6 +16,7 @@ class RemindersViewModel(
 ) : ViewModel() {
 
     val remindersState: MutableLiveData<LoadState<List<MovieReminder>>> by lazy { MutableLiveData<LoadState<List<MovieReminder>>>() }
+    val deleteReminderState: MutableLiveData<LoadState<Unit>> by lazy { MutableLiveData<LoadState<Unit>>() }
     private val compositeDisposable = CompositeDisposable()
 
     fun loadReminders(){
@@ -30,11 +31,10 @@ class RemindersViewModel(
 
     fun deleteReminder(reminderId: Long){
         val disposable = deleteRemindersUseCase.execute(DeleteRemindersRequest(listOf(reminderId)))
-            .flatMap { getRemindersUseCase.execute() }
-            .doOnSubscribe { remindersState.value = LoadState.Loading() }
+            .doOnSubscribe { deleteReminderState.value = LoadState.Loading() }
             .subscribeBy(
-                onNext = { remindersState.value = LoadState.Data(it) },
-                onError = { remindersState.value = LoadState.Error(it) }
+                onNext = { deleteReminderState.value = LoadState.Data(it) },
+                onError = { deleteReminderState.value = LoadState.Error(it) }
             )
         compositeDisposable.add(disposable)
     }
