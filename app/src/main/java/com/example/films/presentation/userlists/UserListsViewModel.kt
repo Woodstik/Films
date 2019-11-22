@@ -14,7 +14,7 @@ class UserListsViewModel(private val getUserListsUseCase: GetUserListsUseCase) :
 
     fun loadLists() {
         val disposable = getUserListsUseCase.execute()
-            .doOnSubscribe { usersMovieLists.value = LoadState.Loading() }
+            .doOnSubscribe { usersMovieLists.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { usersMovieLists.value = LoadState.Data(it) },
                 onError = { usersMovieLists.value = LoadState.Error(it) }

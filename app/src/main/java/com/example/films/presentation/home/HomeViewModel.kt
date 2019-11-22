@@ -20,7 +20,7 @@ class HomeViewModel(
 
     fun loadMovies() {
         val disposable = getHomeUseCase.execute()
-            .doOnSubscribe { moviesState.value = LoadState.Loading() }
+            .doOnSubscribe { moviesState.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { moviesState.value = LoadState.Data(it) },
                 onError = { moviesState.value = LoadState.Error(it) }
@@ -30,7 +30,7 @@ class HomeViewModel(
 
     fun createReminder(movieId: Int) {
         val disposable = createReminderUseCase.execute(CreateReminderRequest(movieId))
-            .doOnSubscribe { createReminderState.value = LoadState.Loading() }
+            .doOnSubscribe { createReminderState.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { createReminderState.value = LoadState.Data(Unit) },
                 onError = { createReminderState.value = LoadState.Error(it) }

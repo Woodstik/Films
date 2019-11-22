@@ -21,7 +21,7 @@ class RemindersViewModel(
 
     fun loadReminders(){
         val disposable = getRemindersUseCase.execute()
-            .doOnSubscribe { remindersState.value = LoadState.Loading() }
+            .doOnSubscribe { remindersState.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { remindersState.value = LoadState.Data(it) },
                 onError = { remindersState.value = LoadState.Error(it) }
@@ -31,7 +31,7 @@ class RemindersViewModel(
 
     fun deleteReminder(reminderId: Long){
         val disposable = deleteRemindersUseCase.execute(DeleteRemindersRequest(listOf(reminderId)))
-            .doOnSubscribe { deleteReminderState.value = LoadState.Loading() }
+            .doOnSubscribe { deleteReminderState.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { deleteReminderState.value = LoadState.Data(it) },
                 onError = { deleteReminderState.value = LoadState.Error(it) }

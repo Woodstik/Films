@@ -3,8 +3,8 @@ package com.example.films.data.enums
 import retrofit2.HttpException
 import java.io.IOException
 
-sealed class LoadState<out T> {
-    class Error<T>(private val throwable: Throwable) : LoadState<T>() {
+sealed class LoadState<in T> {
+    data class Error(private val throwable: Throwable) : LoadState<Any?>() {
         fun reason(): ErrorReason {
             return when (throwable) {
                 is IOException -> ErrorReason.NETWORK
@@ -14,6 +14,6 @@ sealed class LoadState<out T> {
         }
     }
 
-    class Loading<T> : LoadState<T>()
+    object Loading : LoadState<Any?>()
     data class Data<T>(val data: T) : LoadState<T>()
 }

@@ -28,7 +28,7 @@ class CreateListViewModel(
                     Flowable.just(Unit)
                 }
             }
-            .doOnSubscribe { createListState.value = LoadState.Loading() }
+            .doOnSubscribe { createListState.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { createListState.value = LoadState.Data(it) },
                 onError = { createListState.value = LoadState.Error(it) }

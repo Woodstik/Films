@@ -41,7 +41,7 @@ class SearchViewModel(private val searchMoviesUseCase: SearchMoviesUseCase) : Vi
             movies.value = LoadState.Data(emptyList())
         } else {
             val disposable = searchMoviesUseCase.execute(query)
-                .doOnSubscribe { movies.value = LoadState.Loading() }
+                .doOnSubscribe { movies.value = LoadState.Loading }
                 .subscribeBy(
                     onNext = { movies.value = LoadState.Data(it) },
                     onError = { movies.value = LoadState.Error(it) }

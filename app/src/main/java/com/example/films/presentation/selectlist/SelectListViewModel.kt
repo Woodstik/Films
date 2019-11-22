@@ -21,7 +21,7 @@ class SelectListViewModel(
 
     fun loadLists() {
         val disposable = getMovieListsUseCase.execute()
-            .doOnSubscribe { movieListsState.value = LoadState.Loading() }
+            .doOnSubscribe { movieListsState.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { movieListsState.value = LoadState.Data(it) },
                 onError = { movieListsState.value = LoadState.Error(it) }
@@ -31,7 +31,7 @@ class SelectListViewModel(
 
     fun addMovieToList(movieId: Int, listId: Long) {
         val disposable = addMovieToListUseCase.execute(AddMovieToListRequest(movieId, listId))
-            .doOnSubscribe { addMovieToListState.value = LoadState.Loading() }
+            .doOnSubscribe { addMovieToListState.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { addMovieToListState.value = LoadState.Data(it) },
                 onError = { addMovieToListState.value = LoadState.Error(it) }
