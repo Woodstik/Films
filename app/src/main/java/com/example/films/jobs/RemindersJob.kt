@@ -63,7 +63,7 @@ class ReminderJob : JobService() {
                     reminders.size
                 )
             )
-            .setContentText(titles.joinToString())
+            .setContentText(titles.joinToString(" · "))
             .setSmallIcon(R.drawable.ic_notification)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
