@@ -10,5 +10,4 @@ class PostRepository(private val postService: PostService) : PostDataSource {
         return postService.getPosts()
             .toFlowable()
     }
-
 }

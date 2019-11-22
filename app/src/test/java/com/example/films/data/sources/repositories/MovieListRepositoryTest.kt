@@ -20,8 +20,8 @@ import java.util.*
 class MovieListRepositoryTest {
 
     @Mock
-    lateinit var movieListsService: MovieListsService
-    lateinit var movieListDataSource: MovieListDataSource
+    private lateinit var movieListsService: MovieListsService
+    private lateinit var movieListDataSource: MovieListDataSource
 
     @Before
     fun onSetup() {

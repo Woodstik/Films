@@ -17,10 +17,13 @@ class ReminderRepository(private val reminderService: ReminderService) : Reminde
 
     override fun getNextReminder(): Flowable<Optional<MovieReminder>> {
         return getReminders()
-            .flatMapIterable { r -> r }
-            .take(1)
-            .map { reminder -> Optional(reminder) }
-            .defaultIfEmpty(Optional(null))
+            .map {
+                return@map if (it.isEmpty()) {
+                    Optional<MovieReminder>(null)
+                } else {
+                    Optional(it.first())
+                }
+            }
     }
 
     override fun getReminders(forceRefresh: Boolean): Flowable<List<MovieReminder>> {
