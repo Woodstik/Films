@@ -27,7 +27,7 @@ class ReminderRepositoryTest {
     private lateinit var reminderDataSource: ReminderDataSource
 
     @Before
-    fun onSetup(){
+    fun setUp(){
         reminderDataSource = ReminderRepository(reminderService)
     }
 

@@ -14,9 +14,9 @@ class GetHomeUseCase(
     private val postDataSource: PostDataSource,
     schedulerIO: Scheduler,
     schedulerMainThread: Scheduler
-) : UseCase<Void, HomeMovies>(schedulerIO, schedulerMainThread) {
+) : UseCase<Unit, HomeMovies>(schedulerIO, schedulerMainThread) {
 
-    override fun onCreate(parameter: Void?): Flowable<HomeMovies> {
+    override fun onCreate(parameter: Unit?): Flowable<HomeMovies> {
         return Flowable.zip(
             movieDataSource.getNewReleases(),
             movieDataSource.getUpcomingMovies(),

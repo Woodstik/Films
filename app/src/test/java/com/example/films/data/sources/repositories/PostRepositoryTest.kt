@@ -21,7 +21,7 @@ class PostRepositoryTest {
     private lateinit var postDataSource: PostDataSource
 
     @Before
-    fun onSetup() {
+    fun setUp() {
         postDataSource = PostRepository(postService)
     }
 

@@ -21,7 +21,7 @@ class MovieRepositoryTest {
     private lateinit var movieDataSource: MovieDataSource
 
     @Before
-    fun onSetup() {
+    fun setUp() {
         movieDataSource = MovieRepository(movieService)
     }
 

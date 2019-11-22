@@ -15,9 +15,9 @@ class GetUserListsUseCase(
     private val reminderDataSource: ReminderDataSource,
     schedulerIO: Scheduler,
     schedulerMainThread: Scheduler
-) : UseCase<Void, UsersMovieLists>(schedulerIO, schedulerMainThread) {
+) : UseCase<Unit, UsersMovieLists>(schedulerIO, schedulerMainThread) {
 
-    override fun onCreate(parameter: Void?): Flowable<UsersMovieLists> {
+    override fun onCreate(parameter: Unit?): Flowable<UsersMovieLists> {
         return Flowable.combineLatest(
             reminderDataSource.getNextReminder(),
             movieListDataSource.getMovieLists(),
