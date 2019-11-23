@@ -107,7 +107,7 @@ class MovieListRepositoryTest {
     fun createList_success() {
         val movieList = MovieList(1, "", Date(), mutableListOf(), "")
         `when`(movieListsService.getMovieLists()).thenReturn(Single.just(listOf(movieList)))
-        val request = CreateMovieListRequest("List")
+        val request = CreateMovieListRequest("List", "")
         `when`(movieListsService.createMovieList(request)).thenReturn(Single.just(2))
         val getSubscriber = movieListDataSource.getMovieLists().test()
         val addSubscriber = movieListDataSource.createList(request).test()
@@ -119,7 +119,7 @@ class MovieListRepositoryTest {
     @Test
     fun createList_serviceError() {
         `when`(movieListsService.getMovieLists()).thenReturn(Single.just(emptyList()))
-        val request = CreateMovieListRequest("List")
+        val request = CreateMovieListRequest("List", "")
         `when`(movieListsService.createMovieList(request)).thenReturn(Single.error(IOException("Connection error")))
         val getSubscriber = movieListDataSource.getMovieLists().test()
         val addSubscriber = movieListDataSource.createList(request).test()
@@ -130,7 +130,7 @@ class MovieListRepositoryTest {
     @Test
     fun createList_getListError() {
         `when`(movieListsService.getMovieLists()).thenReturn(Single.error(IOException("Connection error")))
-        val request = CreateMovieListRequest("List")
+        val request = CreateMovieListRequest("List", "")
         `when`(movieListsService.createMovieList(request)).thenReturn(Single.just(2))
         val getSubscriber = movieListDataSource.getMovieLists().test()
         val addSubscriber = movieListDataSource.createList(request).test()

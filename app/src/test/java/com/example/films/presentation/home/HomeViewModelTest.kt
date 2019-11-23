@@ -41,7 +41,6 @@ class HomeViewModelTest {
     private lateinit var moviesObserver: Observer<LoadState<HomeMovies>>
     @Mock
     private lateinit var createReminderObserver: Observer<LoadState<Unit>>
-
     private lateinit var viewModel: HomeViewModel
 
     @Before

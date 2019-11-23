@@ -7,6 +7,7 @@ import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.domain.AddMovieToListUseCase
 import com.example.films.domain.CreateMovieListUseCase
+import com.example.films.utils.randomListColor
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -19,8 +20,8 @@ class CreateListViewModel(
     private val compositeDisposable = CompositeDisposable()
     val createListState: MutableLiveData<LoadState<Unit>> by lazy { MutableLiveData<LoadState<Unit>>() }
 
-    fun createMovieList(title: String, movieId: Int) {
-        val disposable = createMovieListUseCase.execute(CreateMovieListRequest(title))
+    fun createMovieList(title: String, movieId: Int, color: String = randomListColor()) {
+        val disposable = createMovieListUseCase.execute(CreateMovieListRequest(title, color))
             .flatMap {
                 if (movieId > 0 ) {
                     addMovieToListUseCase.execute(AddMovieToListRequest(movieId, it))

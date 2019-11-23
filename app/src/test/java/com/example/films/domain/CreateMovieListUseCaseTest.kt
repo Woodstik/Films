@@ -30,7 +30,7 @@ class CreateMovieListUseCaseTest {
 
     @Test
     fun createMovieList_success() {
-        val request = CreateMovieListRequest("List")
+        val request = CreateMovieListRequest("List", "")
         `when`(movieListDataSource.createList(request)).thenReturn(Flowable.just(1L))
         val testSubscriber = CreateMovieListUseCase(movieListDataSource, scheduler, scheduler)
             .execute(request)
@@ -41,7 +41,7 @@ class CreateMovieListUseCaseTest {
 
     @Test
     fun createMovieList_error() {
-        val request = CreateMovieListRequest("List")
+        val request = CreateMovieListRequest("List", "")
         `when`(movieListDataSource.createList(request))
             .thenReturn(Flowable.error(IOException("Connection error")))
         val testSubscriber = CreateMovieListUseCase(movieListDataSource, scheduler, scheduler)

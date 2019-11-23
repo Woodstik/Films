@@ -16,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val SCHEDULER_IO = "SCHEDULER_IO"
 const val SCHEDULER_MAIN_THREAD = "SCHEDULER_MAIN_THREAD"
+const val SCHEDULER_COMPUTATION = "SCHEDULER_COMPUTATION"
 
 val appModule = module {
     val loggingInterceptor = HttpLoggingInterceptor()
@@ -36,5 +37,6 @@ val appModule = module {
     }
     single(named(SCHEDULER_IO)) { Schedulers.io() }
     single(named(SCHEDULER_MAIN_THREAD)) { AndroidSchedulers.mainThread() }
+    single(named(SCHEDULER_COMPUTATION)) { Schedulers.computation() }
     single<JobManager> { AppJobs(androidContext()) }
 }
