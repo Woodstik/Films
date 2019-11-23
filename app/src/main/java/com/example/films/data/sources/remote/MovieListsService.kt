@@ -11,6 +11,7 @@ import io.reactivex.Single
 
 interface MovieListsService {
     fun getMovieLists(): Single<List<MovieList>>
+    fun getMovieList(listId: Long): Single<MovieList>
     fun createMovieList(request: CreateMovieListRequest): Single<Long>
     fun addMovieToList(request: AddMovieToListRequest): Completable
 }

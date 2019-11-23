@@ -23,6 +23,11 @@ class MovieListRepository(private val movieListsService: MovieListsService) : Mo
             .andThen(movieListSubject.toFlowable(BackpressureStrategy.DROP))
     }
 
+    override fun getMovieList(listId: Long): Flowable<MovieList> {
+        return movieListsService.getMovieList(listId)
+            .toFlowable()
+    }
+
     override fun addMovieToList(request: AddMovieToListRequest): Completable {
         return movieListsService.addMovieToList(request)
             .andThen(fetchMovieLists())

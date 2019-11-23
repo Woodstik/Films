@@ -69,6 +69,22 @@ class MovieListRepositoryTest {
     }
 
     @Test
+    fun getMovieList_successValue() {
+        val movieList = MovieList(1, "", Date(), mutableListOf(), "")
+        `when`(movieListsService.getMovieList(1)).thenReturn(Single.just(movieList))
+        val testSubscriber = movieListDataSource.getMovieList(1).test()
+        testSubscriber.assertValue { it == movieList }
+        testSubscriber.assertValueCount(1)
+    }
+
+    @Test
+    fun getMovieList_serviceError() {
+        `when`(movieListsService.getMovieList(1)).thenReturn(Single.error(IOException("Connection error")))
+        val testSubscriber = movieListDataSource.getMovieList(1).test()
+        testSubscriber.assertError { it is IOException }
+    }
+
+    @Test
     fun addMovieToList_success() {
         val movieList = MovieList(1, "", Date(), mutableListOf(), "")
         `when`(movieListsService.getMovieLists()).thenReturn(Single.just(listOf(movieList)))

@@ -10,6 +10,7 @@ val domainModule = module {
         get(named(SCHEDULER_MAIN_THREAD)), get(named(SCHEDULER_COMPUTATION))) }
     factory { GetUserListsUseCase(get(), get(), get(named(SCHEDULER_IO)), get(named(SCHEDULER_MAIN_THREAD))) }
     factory { GetMovieListsUseCase(get(), get(named(SCHEDULER_IO)), get(named(SCHEDULER_MAIN_THREAD))) }
+    factory { GetMovieListUseCase(get(), get(named(SCHEDULER_IO)), get(named(SCHEDULER_MAIN_THREAD))) }
     factory { CreateMovieListUseCase(get(), get(named(SCHEDULER_IO)), get(named(SCHEDULER_MAIN_THREAD))) }
     factory { AddMovieToListUseCase(get(), get(named(SCHEDULER_IO)), get(named(SCHEDULER_MAIN_THREAD))) }
     factory { CreateReminderUseCase(get(), get(named(SCHEDULER_IO)), get(named(SCHEDULER_MAIN_THREAD))) }

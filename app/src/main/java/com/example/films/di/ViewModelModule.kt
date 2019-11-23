@@ -2,6 +2,7 @@ package com.example.films.di
 
 import com.example.films.presentation.createlist.CreateListViewModel
 import com.example.films.presentation.home.HomeViewModel
+import com.example.films.presentation.movielist.MovieListViewModel
 import com.example.films.presentation.profile.ProfileViewModel
 import com.example.films.presentation.reminders.RemindersViewModel
 import com.example.films.presentation.search.SearchViewModel
@@ -19,4 +20,5 @@ val viewModelModule = module {
     viewModel { SelectListViewModel(get(), get()) }
     viewModel { CreateListViewModel(get(), get()) }
     viewModel { RemindersViewModel(get(), get()) }
+    viewModel { MovieListViewModel(get()) }
 }

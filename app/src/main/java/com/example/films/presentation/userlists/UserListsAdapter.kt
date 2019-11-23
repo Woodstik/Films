@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.GlideApp
 import com.example.films.R
+import com.example.films.data.models.MovieList
 import com.example.films.data.models.UsersMovieLists
 import com.example.films.presentation.adapter.AdapterItemDiffCallback
 import com.example.films.presentation.adapter.AdapterItemViewHolder
@@ -19,16 +20,16 @@ import com.example.films.utils.lightenColor
 import kotlinx.android.synthetic.main.row_reminders.view.*
 import kotlinx.android.synthetic.main.row_user_list.view.*
 
-class UserListsAdapter(private val remindersCallbacks: RemindersCallbacks) : RecyclerView.Adapter<AdapterItemViewHolder>() {
+class UserListsAdapter(private val callbacks: UserListsCallbacks) : RecyclerView.Adapter<AdapterItemViewHolder>() {
 
     private val items = mutableListOf<AdapterItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterItemViewHolder {
         val rowView = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.row_reminders -> RemindersViewHolder(rowView, remindersCallbacks)
+            R.layout.row_reminders -> RemindersViewHolder(rowView, callbacks)
             R.layout.row_section_label -> SectionLabelViewHolder(rowView)
-            R.layout.row_user_list -> UserListViewHolder(rowView)
+            R.layout.row_user_list -> UserListViewHolder(rowView, callbacks)
             R.layout.row_empty_user_list -> EmptyUserListViewHolder(rowView)
             else -> throw IllegalArgumentException("UserListsAdapter: Unknown viewType: $viewType")
         }
@@ -58,7 +59,7 @@ class UserListsAdapter(private val remindersCallbacks: RemindersCallbacks) : Rec
     }
 }
 
-class RemindersViewHolder(itemView: View, private val callbacks: RemindersCallbacks) : AdapterItemViewHolder(itemView) {
+class RemindersViewHolder(itemView: View, private val callbacks: UserListsCallbacks) : AdapterItemViewHolder(itemView) {
     override fun bindItem(item: AdapterItem) {
         val remindersItem = item as RemindersItem
         itemView.apply {
@@ -69,15 +70,15 @@ class RemindersViewHolder(itemView: View, private val callbacks: RemindersCallba
                 textMovieDescription.text = remindersItem.reminder.movie.description
                 textReleaseDate.text = formatReleaseDate(remindersItem.reminder.movie.releaseDate)
                 btnTrailer.visibility = if (remindersItem.reminder.movie.trailerUrl.isEmpty()) View.GONE else View.VISIBLE
-                btnTrailer.setOnClickListener { callbacks.onClickTrailer(remindersItem.reminder.movie.trailerUrl)}
+                btnTrailer.setOnClickListener { callbacks.onTrailer(remindersItem.reminder.movie.trailerUrl)}
                 GlideApp.with(imgPoster).load(remindersItem.reminder.movie.poster).into(imgPoster)
             }
-            btnViewAll.setOnClickListener { callbacks.onClickViewAll() }
+            btnViewAll.setOnClickListener { callbacks.onViewAllReminders() }
         }
     }
 }
 
-class UserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
+class UserListViewHolder(itemView: View, private val callbacks: UserListsCallbacks) : AdapterItemViewHolder(itemView) {
     override fun bindItem(item: AdapterItem) {
         val movieListItem = item as MovieListItem
         val color = Color.parseColor(movieListItem.movieList.color)
@@ -90,6 +91,7 @@ class UserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) {
             )
             DrawableCompat.setTint(DrawableCompat.wrap(imageMovieList.background), color)
             DrawableCompat.setTint(DrawableCompat.wrap(imageMovieList.drawable.mutate()), lightenColor(color, 0.25f))
+            setOnClickListener { callbacks.onMovieList(movieListItem.movieList) }
         }
     }
 }
@@ -99,7 +101,8 @@ class EmptyUserListViewHolder(itemView: View) : AdapterItemViewHolder(itemView) 
     }
 }
 
-interface RemindersCallbacks{
-    fun onClickTrailer(url: String)
-    fun onClickViewAll()
+interface UserListsCallbacks{
+    fun onTrailer(url: String)
+    fun onViewAllReminders()
+    fun onMovieList(movieList: MovieList)
 }

@@ -32,4 +32,8 @@ class MockMovieListsService(private val movies: TestData.Movies) : MovieListsSer
         movieLists.add(MovieList((movieLists.size + 1).toLong(), request.title, Date(), mutableListOf(), request.color))
         return Single.just(movieLists.size.toLong())
     }
+
+    override fun getMovieList(listId: Long): Single<MovieList> {
+        return Single.just(movieLists.find { it.id == listId })
+    }
 }

@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
+import com.example.films.data.models.MovieList
 import com.example.films.data.models.UsersMovieLists
 import com.example.films.presentation.createlist.CreateListDialogFragment
+import com.example.films.presentation.movielist.movieListIntent
 import com.example.films.presentation.reminders.remindersIntent
 import com.example.films.presentation.selectlist.SelectListDialogFragment
 import com.example.films.utils.openUrl
@@ -23,7 +25,7 @@ import timber.log.Timber
 class UserListsFragment : Fragment() {
 
     private val model: UserListsViewModel by viewModel()
-    private val userListsAdapter by lazy { UserListsAdapter(remindersCallbacks) }
+    private val userListsAdapter by lazy { UserListsAdapter(userListsCallbacks) }
 
     companion object {
         fun newInstance(): UserListsFragment {
@@ -87,13 +89,17 @@ class UserListsFragment : Fragment() {
         dialog.show(activity?.supportFragmentManager, "dialog")
     }
 
-    private val remindersCallbacks = object : RemindersCallbacks {
-        override fun onClickViewAll() {
+    private val userListsCallbacks = object : UserListsCallbacks {
+        override fun onTrailer(url: String) {
+            context?.openUrl(url)
+        }
+
+        override fun onViewAllReminders() {
             startActivity(context?.remindersIntent())
         }
 
-        override fun onClickTrailer(url: String) {
-            context?.openUrl(url)
+        override fun onMovieList(movieList: MovieList) {
+            startActivity(context?.movieListIntent(movieList.id))
         }
     }
 }

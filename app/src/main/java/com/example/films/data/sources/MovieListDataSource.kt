@@ -14,4 +14,5 @@ interface MovieListDataSource {
     fun getMovieLists(forceRefresh: Boolean = true): Flowable<List<MovieList>>
     fun createList(request: CreateMovieListRequest): Flowable<Long>
     fun addMovieToList(request: AddMovieToListRequest): Completable
+    fun getMovieList(listId: Long): Flowable<MovieList>
 }
