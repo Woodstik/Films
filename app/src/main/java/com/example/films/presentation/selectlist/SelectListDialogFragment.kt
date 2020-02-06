@@ -5,19 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.MovieList
-import com.example.films.presentation.createlist.CreateListDialogFragment
+import com.example.films.presentation.editlist.EditListDialogFragment
 import com.example.films.utils.showDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.dialog_select_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class SelectListDialogFragment : BottomSheetDialogFragment() {
 
@@ -50,7 +48,7 @@ class SelectListDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnCreateList.setOnClickListener {
-            activity?.showDialogFragment(CreateListDialogFragment.newInstance(arguments?.getInt(ARG_MOVIE_ID)!!))
+            activity?.showDialogFragment(EditListDialogFragment.createListInstance(arguments?.getInt(ARG_MOVIE_ID)!!))
             dismiss()
         }
         listUserLists.layoutManager = LinearLayoutManager(context)

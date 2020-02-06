@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/option_delete"
+            android:title="@string/movie_delete"/>
+    <item
+            android:id="@+id/option_toggle_watched"
+            android:title="@string/movie_set_watched"/>
+</menu>

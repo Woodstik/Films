@@ -1,4 +1,4 @@
-package com.example.films.presentation.createlist
+package com.example.films.presentation.editlist
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,21 +12,31 @@ import androidx.lifecycle.Observer
 import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
-import kotlinx.android.synthetic.main.dialog_create_list.*
+import com.example.films.data.models.MovieList
+import kotlinx.android.synthetic.main.dialog_edit_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
-class CreateListDialogFragment : DialogFragment() {
+class EditListDialogFragment : DialogFragment() {
 
-    private val model: CreateListViewModel by viewModel()
+    private val model: EditListViewModel by viewModel()
 
     companion object {
         private const val ARG_MOVIE_ID = "arg_movie_id"
+        private const val ARG_LIST_ID = "arg_list_id"
 
-        fun newInstance(movieId: Int = 0): CreateListDialogFragment {
+        fun createListInstance(movieId: Int = 0): EditListDialogFragment {
+            return newInstance(movieId = movieId)
+        }
+
+        fun editListInstance(listId: Long): EditListDialogFragment {
+            return newInstance(listId = listId)
+        }
+
+        private fun newInstance(movieId: Int = 0, listId: Long = 0) : EditListDialogFragment {
             val bundle = Bundle()
             bundle.putInt(ARG_MOVIE_ID, movieId)
-            return CreateListDialogFragment().apply {
+            bundle.putLong(ARG_LIST_ID, listId)
+            return EditListDialogFragment().apply {
                 arguments = bundle
             }
         }
@@ -34,11 +44,12 @@ class CreateListDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        model.createListState.observe(this, Observer { handleCreateListState(it) })
+        model.submitListState.observe(this, Observer { handleCreateListState(it) })
+        model.movieListState.observe(this, Observer { handleLoadListState(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_create_list, container, false)
+        return inflater.inflate(R.layout.dialog_edit_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,13 +62,17 @@ class CreateListDialogFragment : DialogFragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                btnCreate.isEnabled = s?.isNotBlank() ?: false
+                btnSubmit.isEnabled = s?.isNotBlank() ?: false
             }
         })
         btnCancel.setOnClickListener { dismiss() }
-        btnCreate.setOnClickListener {
-            model.createMovieList(inputTitle.text.toString(), arguments?.getInt(ARG_MOVIE_ID)!!)
+        btnSubmit.setOnClickListener {
+            model.submit(inputTitle.text.toString())
         }
+        val listId = arguments?.getLong(ARG_LIST_ID)!!
+        model.initialize(arguments?.getInt(ARG_MOVIE_ID)!!, listId)
+        textTitle.setText(if(listId > 0) R.string.edit_list_title else R.string.create_list_title)
+        btnSubmit.setText(if(listId > 0) R.string.btn_save else R.string.btn_create)
     }
 
     override fun onStart() {
@@ -73,6 +88,13 @@ class CreateListDialogFragment : DialogFragment() {
                 Toast.makeText(context, getString(R.string.create_list_success), Toast.LENGTH_SHORT).show()
                 dismiss()
             }
+        }
+    }
+
+    private fun handleLoadListState(state: LoadState<MovieList>) {
+        when (state) {
+            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Data -> inputTitle.setText(state.data.title)
         }
     }
 

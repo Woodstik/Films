@@ -10,11 +10,13 @@
         <item quantity="one">%d New Movie Released</item>
         <item quantity="other">%d New Movies Released</item>
     </plurals>
+
     <!--BUTTONS-->
     <string name="btn_retry">Retry</string>
     <string name="btn_view_all">View All</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_create">Create</string>
+    <string name="btn_save">Save</string>
     <string name="btn_new_list">+ New List</string>
 
     <!--ERROR-->
@@ -50,6 +52,17 @@
     <string name="no_reminders">No reminders</string>
     <string name="empty_user_lists">You have not created any lists</string>
 
+    <!--MOVIE LIST-->
+    <string name="empty_movie_list">Add movies to this list</string>
+    <string name="watched_count">%1$d/%2$d</string>
+    <string name="movies_watched">Movies Watched</string>
+    <string name="movie_delete">Remove</string>
+    <string name="movie_list_delete">Delete</string>
+    <string name="movie_list_rename">Rename</string>
+    <string name="movie_set_watched">Set Watched</string>
+    <string name="movie_set_unwatched">Set Not Watched</string>
+    <string name="movie_list_deleted">List deleted!</string>
+
     <!--PROFILE-->
     <string name="option_stats_title">Statistics</string>
     <string name="option_stats_description">Statistics on movies watched</string>
@@ -69,8 +82,9 @@
     <string name="save_movie_to">Save movie to…</string>
     <string name="add_movie_to_list_success">Added movie to list!</string>
 
-    <!--CREATE LIST-->
+    <!--EDIT LIST-->
     <string name="create_list_title">New List</string>
+    <string name="edit_list_title">Edit List</string>
     <string name="hint_list_title">Title</string>
     <string name="create_list_success">List created!</string>
 

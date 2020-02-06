@@ -11,5 +11,6 @@ data class Movie(
     val poster: String,
     val backdrop: String,
     val cast: List<String> = emptyList(),
-    val trailerUrl : String = ""
+    val trailerUrl : String = "",
+    val userMovieInfo: UserMovieInfo = UserMovieInfo()
 )

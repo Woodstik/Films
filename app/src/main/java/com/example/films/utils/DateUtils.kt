@@ -7,6 +7,8 @@ import kotlin.math.roundToInt
 
 fun formatReleaseDate(releaseDate: Date): String = formatDate(releaseDate, "MMMM d, yyyy")
 
+fun formatCreatedDate(releaseDate: Date): String = formatDate(releaseDate, "MMMM d, yyyy")
+
 fun formatReleaseDateShort(releaseDate: Date): String = formatDate(releaseDate, "M/d/yyyy")
 
 fun formatReleaseYear(joinedDate: Date): String = formatDate(joinedDate, "yyyy")

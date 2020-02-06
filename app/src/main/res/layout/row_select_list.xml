@@ -38,7 +38,6 @@
             android:layout_marginStart="@dimen/spacing_normal"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textStyle="bold"
             android:textAppearance="@style/Text.Normal"
             tools:text="Favorites List"/>
 

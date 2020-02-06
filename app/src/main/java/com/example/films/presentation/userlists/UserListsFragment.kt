@@ -13,14 +13,13 @@ import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.MovieList
 import com.example.films.data.models.UsersMovieLists
-import com.example.films.presentation.createlist.CreateListDialogFragment
+import com.example.films.presentation.editlist.EditListDialogFragment
 import com.example.films.presentation.movielist.movieListIntent
 import com.example.films.presentation.reminders.remindersIntent
-import com.example.films.presentation.selectlist.SelectListDialogFragment
 import com.example.films.utils.openUrl
+import com.example.films.utils.showDialogFragment
 import kotlinx.android.synthetic.main.fragment_lists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class UserListsFragment : Fragment() {
 
@@ -47,7 +46,7 @@ class UserListsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnCreateList.setOnClickListener { createList() }
+        btnCreateList.setOnClickListener { activity?.showDialogFragment(EditListDialogFragment.createListInstance()) }
         listUserLists.also {
             it.layoutManager = LinearLayoutManager(context)
             it.adapter = userListsAdapter
@@ -78,17 +77,6 @@ class UserListsFragment : Fragment() {
         }
     }
 
-    private fun createList() {
-        val transaction = activity?.supportFragmentManager?.beginTransaction()
-        val prev = activity?.supportFragmentManager?.findFragmentByTag("dialog")
-        if(prev != null){
-            transaction?.remove(prev)
-        }
-        transaction?.addToBackStack(null)
-        val dialog = CreateListDialogFragment.newInstance()
-        dialog.show(activity?.supportFragmentManager, "dialog")
-    }
-
     private val userListsCallbacks = object : UserListsCallbacks {
         override fun onTrailer(url: String) {
             context?.openUrl(url)
@@ -99,7 +87,7 @@ class UserListsFragment : Fragment() {
         }
 
         override fun onMovieList(movieList: MovieList) {
-            startActivity(context?.movieListIntent(movieList.id))
+            startActivity(context?.movieListIntent(movieList.id, movieList.title))
         }
     }
 }

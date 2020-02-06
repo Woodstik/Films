@@ -3,6 +3,8 @@ package com.example.films.data.sources.repositories
 import com.example.films.data.models.MovieList
 import com.example.films.data.requests.AddMovieToListRequest
 import com.example.films.data.requests.CreateMovieListRequest
+import com.example.films.data.requests.DeleteMovieFromListRequest
+import com.example.films.data.requests.EditListRequest
 import com.example.films.data.sources.MovieListDataSource
 import com.example.films.data.sources.remote.MovieListsService
 import io.reactivex.BackpressureStrategy
@@ -26,6 +28,21 @@ class MovieListRepository(private val movieListsService: MovieListsService) : Mo
     override fun getMovieList(listId: Long): Flowable<MovieList> {
         return movieListsService.getMovieList(listId)
             .toFlowable()
+    }
+
+    override fun deleteMovieFromList(request: DeleteMovieFromListRequest): Completable {
+        return movieListsService.deleteMovieFromList(request)
+            .andThen(fetchMovieLists())
+    }
+
+    override fun deleteMovieList(listId: Long): Completable {
+        return movieListsService.deleteMovieList(listId)
+            .andThen(fetchMovieLists())
+    }
+
+    override fun editMovieList(request: EditListRequest): Completable {
+        return movieListsService.editMovieList(request)
+            .andThen(fetchMovieLists())
     }
 
     override fun addMovieToList(request: AddMovieToListRequest): Completable {

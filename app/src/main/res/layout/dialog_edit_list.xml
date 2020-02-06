@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:padding="?dialogPreferredPadding">
 
     <TextView
@@ -13,7 +13,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textAppearance="@style/Text.Title"
-            android:text="@string/create_list_title"/>
+            tools:text="@string/create_list_title"/>
 
     <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputTitle"
@@ -34,14 +34,14 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_cancel"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnCreate"
+            app:layout_constraintEnd_toStartOf="@+id/btnSubmit"
             style="@style/Button.Borderless"/>
 
     <Button
-            android:id="@+id/btnCreate"
+            android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_create"
+            tools:text="@string/btn_create"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputTitle"
