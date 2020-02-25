@@ -13,5 +13,7 @@ class MovieListHeaderItem(val movieList: MovieList)  : AdapterItem {
 
     override fun isSameContent(otherItem: AdapterItem): Boolean {
         return movieList == (otherItem as MovieListHeaderItem).movieList
+                && movieList.watchedCount() != otherItem.movieList.watchedCount()
+                && movieList.playtime() != otherItem.movieList.playtime()
     }
 }

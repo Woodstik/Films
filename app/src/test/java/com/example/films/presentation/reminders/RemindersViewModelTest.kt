@@ -52,7 +52,7 @@ class RemindersViewModelTest {
 
     @Test
     fun loadReminders_success() {
-        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", ""), Date(0))
+        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", "",0), Date(0))
         `when`(reminderDataSource.getReminders()).thenReturn(Flowable.just(listOf(reminder)))
         viewModel.loadReminders()
         verify(remindersObserver).onChanged(LoadState.Loading)

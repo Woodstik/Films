@@ -35,7 +35,7 @@ class MovieRepositoryTest {
 
     @Test
     fun getNewReleases_successValue() {
-        val movie = Movie(1, "", "", Date(), 0.0, "", "")
+        val movie = Movie(1, "", "", Date(), 0.0, "", "", 0)
         `when`(movieService.newReleases()).thenReturn(Single.just(listOf(movie)))
         val testSubscriber = movieDataSource.getNewReleases().test()
         testSubscriber.assertValue { it.contains(movie) }
@@ -59,7 +59,7 @@ class MovieRepositoryTest {
 
     @Test
     fun getUpcomingMovies_successValue() {
-        val movie = Movie(1, "", "", Date(), 0.0, "", "")
+        val movie = Movie(1, "", "", Date(), 0.0, "", "", 0)
         `when`(movieService.upcomingMovies()).thenReturn(Single.just(listOf(movie)))
         val testSubscriber = movieDataSource.getUpcomingMovies().test()
         testSubscriber.assertValue { it.contains(movie) }
@@ -83,7 +83,7 @@ class MovieRepositoryTest {
 
     @Test
     fun search_successValue() {
-        val movie = Movie(1, "", "", Date(), 0.0, "", "")
+        val movie = Movie(1, "", "", Date(), 0.0, "", "", 0)
         `when`(movieService.search("")).thenReturn(Single.just(listOf(movie)))
         val testSubscriber = movieDataSource.search("").test()
         testSubscriber.assertValue { it.contains(movie) }

@@ -33,7 +33,7 @@ class GetRemindersUseCaseTest {
 
     @Test
     fun getReminders_success(){
-        val reminder = MovieReminder(1L, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1L, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderDataSource.getReminders()).thenReturn(Flowable.just(listOf(reminder)))
         val testSubscriber = GetRemindersUseCase(reminderDataSource, scheduler, scheduler)
             .execute()

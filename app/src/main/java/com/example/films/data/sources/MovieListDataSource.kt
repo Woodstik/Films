@@ -15,4 +15,5 @@ interface MovieListDataSource {
     fun deleteMovieFromList(request: DeleteMovieFromListRequest) : Completable
     fun deleteMovieList(listId: Long): Completable
     fun editMovieList(request: EditListRequest): Completable
+    fun toggleMovieWatched(movieId: Int): Completable
 }

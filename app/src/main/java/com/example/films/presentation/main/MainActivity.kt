@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         }
         navigation.selectedItemId = R.id.item_home
         cardSearch.setOnClickListener { startActivity(searchIntent()) }
-        setUpAd()
+        //TODO: Enable ads
+//        setUpAd()
     }
 
     private fun showFragment(menuId: Int) {
@@ -44,14 +45,6 @@ class MainActivity : AppCompatActivity() {
             R.id.item_home -> replaceFragment(R.id.fragmentContainer, HomeFragment.newInstance())
             R.id.item_lists -> replaceFragment(R.id.fragmentContainer, UserListsFragment.newInstance())
             R.id.item_profile -> replaceFragment(R.id.fragmentContainer, ProfileFragment.newInstance())
-        }
-    }
-
-    private fun showTitle(menuId: Int) {
-        when (menuId) {
-            R.id.item_home -> supportActionBar!!.setTitle(R.string.menu_item_home)
-            R.id.item_lists -> supportActionBar!!.setTitle(R.string.menu_item_lists)
-            R.id.item_profile -> supportActionBar!!.setTitle(R.string.menu_item_profile)
         }
     }
 

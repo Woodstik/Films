@@ -36,7 +36,7 @@ class GetUserListsUseCaseTest {
     fun getUserLists_success() {
         val movieList = MovieList(1L, "", Date(), mutableListOf(), "")
         `when`(movieListDataSource.getMovieLists()).thenReturn(Flowable.just(listOf(movieList)))
-        val reminder = MovieReminder(1L, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1L, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderDataSource.getNextReminder()).thenReturn(Flowable.just(Optional(reminder)))
         val testSubscriber =
             GetUserListsUseCase(movieListDataSource, reminderDataSource, scheduler, scheduler)
@@ -92,7 +92,7 @@ class GetUserListsUseCaseTest {
     @Test
     fun getUserLists_emptyMovieList() {
         `when`(movieListDataSource.getMovieLists()).thenReturn(Flowable.just(emptyList()))
-        val reminder = MovieReminder(1L, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1L, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderDataSource.getNextReminder()).thenReturn(Flowable.just(Optional(reminder)))
         val testSubscriber =
             GetUserListsUseCase(movieListDataSource, reminderDataSource, scheduler, scheduler)

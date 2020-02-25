@@ -19,22 +19,6 @@ const val SCHEDULER_MAIN_THREAD = "SCHEDULER_MAIN_THREAD"
 const val SCHEDULER_COMPUTATION = "SCHEDULER_COMPUTATION"
 
 val appModule = module {
-    val loggingInterceptor = HttpLoggingInterceptor()
-    loggingInterceptor.level =
-        if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE
-    single {
-        OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
-    }
-    single {
-        Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(get())
-            .build()
-    }
     single(named(SCHEDULER_IO)) { Schedulers.io() }
     single(named(SCHEDULER_MAIN_THREAD)) { AndroidSchedulers.mainThread() }
     single(named(SCHEDULER_COMPUTATION)) { Schedulers.computation() }

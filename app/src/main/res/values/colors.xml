@@ -11,5 +11,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
+    <color name="colorBackgroundWatched">#40000000</color>
+
     <color name="colorDivider">#1FFFFFFF</color>
 </resources>

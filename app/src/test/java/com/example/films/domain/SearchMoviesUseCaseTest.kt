@@ -50,7 +50,7 @@ class SearchMoviesUseCaseTest {
 
     @Test
     fun searchMovies_success() {
-        val movie = Movie(1, "", "", Date(), 0.0, "", "")
+        val movie = Movie(1, "", "", Date(), 0.0, "", "",0)
         `when`(movieDataSource.search("E")).thenReturn(Flowable.just(listOf(movie)))
         useCase.search("E")
         debounceScheduler.advanceTimeBy(

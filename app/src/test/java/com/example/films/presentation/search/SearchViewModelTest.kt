@@ -54,7 +54,7 @@ class SearchViewModelTest {
 
     @Test
     fun queryChanged_success() {
-        val movie = Movie(1, "", "", Date(), 0.0,"", "")
+        val movie = Movie(1, "", "", Date(), 0.0,"", "",0)
         `when`(movieDataSource.search("E")).thenReturn(Flowable.just(listOf(movie)))
         viewModel.queryChanged("E")
         debounceScheduler.advanceTimeBy(SearchMoviesUseCase.SEARCH_DEBOUNCE_TIME, SearchMoviesUseCase.SEARCH_DEBOUNCE_TIME_UNIT)

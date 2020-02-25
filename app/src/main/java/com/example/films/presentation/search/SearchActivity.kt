@@ -16,6 +16,9 @@ import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.Movie
+import com.example.films.presentation.selectlist.SelectListDialogFragment
+import com.example.films.utils.displayError
+import com.example.films.utils.showDialogFragment
 import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -57,19 +60,11 @@ class SearchActivity : AppCompatActivity() {
     private fun handleSearchState(state: LoadState<List<Movie>>) {
         swipeRefresh.isRefreshing = state is LoadState.Loading
         when (state) {
-            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Error -> displayError(state.reason())
             is LoadState.Data -> {
                 textSearchStatus.visibility = if (state.data.isEmpty()) View.VISIBLE else View.GONE
                 searchAdapter.setMovies(state.data)
             }
-        }
-    }
-
-    private fun handleError(reason: ErrorReason) {
-        when (reason) {
-            ErrorReason.HTTP -> Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
-            ErrorReason.NETWORK -> Toast.makeText(this, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
-            ErrorReason.UNKNOWN -> Toast.makeText(this, getString(R.string.error_generic), Toast.LENGTH_SHORT).show()
         }
     }
 }

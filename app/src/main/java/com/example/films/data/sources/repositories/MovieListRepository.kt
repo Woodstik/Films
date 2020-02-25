@@ -45,6 +45,11 @@ class MovieListRepository(private val movieListsService: MovieListsService) : Mo
             .andThen(fetchMovieLists())
     }
 
+    override fun toggleMovieWatched(movieId: Int): Completable {
+        return movieListsService.toggleMovieWatched(movieId)
+            .andThen(fetchMovieLists())
+    }
+
     override fun addMovieToList(request: AddMovieToListRequest): Completable {
         return movieListsService.addMovieToList(request)
             .andThen(fetchMovieLists())

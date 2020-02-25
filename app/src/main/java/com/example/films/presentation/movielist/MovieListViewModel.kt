@@ -6,10 +6,7 @@ import com.example.films.data.enums.LoadState
 import com.example.films.data.models.MovieList
 import com.example.films.data.requests.DeleteMovieFromListRequest
 import com.example.films.data.requests.EditListRequest
-import com.example.films.domain.DeleteMovieFromListUseCase
-import com.example.films.domain.DeleteMovieListUseCase
-import com.example.films.domain.EditListUseCase
-import com.example.films.domain.GetMovieListUseCase
+import com.example.films.domain.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -58,9 +55,5 @@ class MovieListViewModel(
                 onError = { deleteMovieListState.value = LoadState.Error(it) }
             )
         compositeDisposable.add(disposable)
-    }
-
-    fun toggleMovieWatched(movieId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

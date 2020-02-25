@@ -30,9 +30,9 @@ class GetHomeUseCaseTest {
 
     @Test
     fun getHome_success() {
-        val newMovie = Movie(1, "", "", Date(), 0.0, "", "")
+        val newMovie = Movie(1, "", "", Date(), 0.0, "", "",0)
         `when`(movieDataSource.getNewReleases()).thenReturn(Flowable.just(listOf(newMovie)))
-        val upcomingMovie = Movie(2, "", "", Date(), 0.0, "", "")
+        val upcomingMovie = Movie(2, "", "", Date(), 0.0, "", "",0)
         `when`(movieDataSource.getUpcomingMovies()).thenReturn(Flowable.just(listOf(upcomingMovie)))
         val post = Post("", "", Date(), "", "", 1L, emptyList())
         `when`(postDataSource.getPosts()).thenReturn(Flowable.just(listOf(post)))

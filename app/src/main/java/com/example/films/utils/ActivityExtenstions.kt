@@ -29,3 +29,11 @@ fun FragmentActivity.showDialogFragment(dialogFragment: DialogFragment, tag:Stri
 fun Context.openUrl(url: String) {
     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
 }
+
+fun Context.displayError(errorReason: ErrorReason) {
+    when (errorReason) {
+        ErrorReason.HTTP -> Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
+        ErrorReason.NETWORK -> Toast.makeText(this, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
+        ErrorReason.UNKNOWN -> Toast.makeText(this, getString(R.string.error_generic), Toast.LENGTH_SHORT).show()
+    }
+}

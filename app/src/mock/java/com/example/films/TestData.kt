@@ -15,6 +15,7 @@ object TestData {
                6.0,
                "https://image.tmdb.org/t/p/w185/kZv92eTc0Gg3mKxqjjDAM73z9cy.jpg",
                "https://image.tmdb.org/t/p/w780/phxiKFDvPeQj4AbkvJLmuZEieDU.jpg",
+               105,
                listOf("Jessica Chastain, James McAvoy, Micheal Fassbender"),
                "https://youtu.be/QWbMckU3AOQ"
            ),
@@ -26,6 +27,7 @@ object TestData {
                6.1,
                "https://image.tmdb.org/t/p/w185/q3mKnSkzp1doIsCye6ap4KIUAbu.jpg",
                "https://image.tmdb.org/t/p/w780/etaok7q2E5tV36oXe7GQzhUQ4fX.jpg",
+               93,
                listOf("Kevin Hart", "Jenny Slate", "Eric Stonestreet"),
                "https://youtu.be/pKLGUuJftl0"
            ),
@@ -37,6 +39,7 @@ object TestData {
                5.7,
                "https://image.tmdb.org/t/p/w185/ycMSfP8KRFsVUWfbSxSFpD97QfD.jpg",
                "https://image.tmdb.org/t/p/w780/cXyfAViYly0Lk2CVpEKgYbt9wKQ.jpg",
+               102,
                listOf("Bill Murray", "Adam Driver", "Selena Gomez"),
                "https://youtu.be/bs5ZOcU6Bnw"
            ),
@@ -48,6 +51,7 @@ object TestData {
                6.6,
                "https://image.tmdb.org/t/p/w185/279PwJAcelI4VuBtdzrZASqDPQr.jpg",
                "https://image.tmdb.org/t/p/w780/5tFt6iuGnKapHl5tw0X0cKcnuVo.jpg",
+               97,
                listOf("Eva Green", "Colin Farrell", "Danny DeVito")
            ),
            Movie(
@@ -58,6 +62,7 @@ object TestData {
                0.8,
                "https://image.tmdb.org/t/p/w185/pDCiYUc09wnmg855P3gFTZOoBCv.jpg",
                "https://image.tmdb.org/t/p/w780/3FXLxOnd5LnvK8F5jUbIXOF9p9Y.jpg",
+               121,
                listOf("Keanu Reeves", "Tom Hanks", "Tim Allen"),
                "https://youtu.be/wmiIUN-7qhE"
            ),
@@ -69,6 +74,7 @@ object TestData {
                 7.2,
                 "https://image.tmdb.org/t/p/w185/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg",
                 "https://image.tmdb.org/t/p/w780/v4yVTbbl8dE1UP2dWu5CLyaXOku.jpg",
+                105,
                 trailerUrl = "https://youtu.be/foyufD52aog"
             ),
             Movie(
@@ -78,7 +84,8 @@ object TestData {
                 getFutureDate(minute = 30),
                 6.5,
                 "https://image.tmdb.org/t/p/w185/pU3bnutJU91u3b4IeRPQTOP8jhV.jpg",
-                "https://image.tmdb.org/t/p/w780/uovH5k4BAEPqXqxgwVrTtqH169g.jpg"
+                "https://image.tmdb.org/t/p/w780/uovH5k4BAEPqXqxgwVrTtqH169g.jpg",
+                143
             ),
             Movie(
                 458156,
@@ -87,7 +94,8 @@ object TestData {
                 getFutureDate(hour = 2),
                 7.3,
                 "https://image.tmdb.org/t/p/w185/ziEuG1essDuWuC5lpWUaw1uXY2O.jpg",
-                "https://image.tmdb.org/t/p/w780/vVpEOvdxVBP2aV166j5Xlvb5Cdc.jpg"
+                "https://image.tmdb.org/t/p/w780/vVpEOvdxVBP2aV166j5Xlvb5Cdc.jpg",
+                101
             ),
             Movie(
                 299534,
@@ -96,7 +104,8 @@ object TestData {
                 getFutureDate(day = 1),
                 8.5,
                 "https://image.tmdb.org/t/p/w185/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
-                "https://image.tmdb.org/t/p/w780/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg"
+                "https://image.tmdb.org/t/p/w780/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+                165
             ),
             Movie(
                 502416,
@@ -105,7 +114,8 @@ object TestData {
                 getFutureDate(day = 2),
                 5.7,
                 "https://image.tmdb.org/t/p/w185/6n7ASmQ1wY2cxTubFFGlcvPpyk7.jpg",
-                "https://image.tmdb.org/t/p/w780/mBOv5YrX5QGr5CusK0PKSHuxOt9.jpg"
+                "https://image.tmdb.org/t/p/w780/mBOv5YrX5QGr5CusK0PKSHuxOt9.jpg",
+                99
             )
        )
 

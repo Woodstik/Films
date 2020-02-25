@@ -7,6 +7,9 @@ data class MovieList(
     val title: String,
     val createdDate: Date,
     val movies:  List<Movie>,
-    val color: String,
-    val watchedCount: Int = 0
-)
+    val color: String
+){
+    fun watchedCount() = movies.sumBy { if(it.userMovieInfo.watched) 1 else 0 }
+
+    fun playtime() = movies.sumBy { it.playtime }
+}

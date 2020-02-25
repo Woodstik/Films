@@ -3,6 +3,7 @@ package com.example.films.presentation.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.films.GlideApp
@@ -15,7 +16,7 @@ import com.example.films.presentation.adapter.items.SearchMovieItem
 import com.example.films.utils.formatReleaseYear
 import kotlinx.android.synthetic.main.row_search_movie.view.*
 
-class SearchAdapter : RecyclerView.Adapter<AdapterItemViewHolder>() {
+class SearchAdapter() : RecyclerView.Adapter<AdapterItemViewHolder>() {
 
     private val items = mutableListOf<AdapterItem>()
 

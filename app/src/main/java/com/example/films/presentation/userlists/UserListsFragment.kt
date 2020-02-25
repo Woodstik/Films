@@ -16,6 +16,7 @@ import com.example.films.data.models.UsersMovieLists
 import com.example.films.presentation.editlist.EditListDialogFragment
 import com.example.films.presentation.movielist.movieListIntent
 import com.example.films.presentation.reminders.remindersIntent
+import com.example.films.utils.displayError
 import com.example.films.utils.openUrl
 import com.example.films.utils.showDialogFragment
 import kotlinx.android.synthetic.main.fragment_lists.*
@@ -69,11 +70,8 @@ class UserListsFragment : Fragment() {
 
     private fun handleError(reason: ErrorReason) {
         when (reason) {
-            ErrorReason.HTTP -> Toast.makeText(context, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
-            ErrorReason.NETWORK -> Toast.makeText(context, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
-            ErrorReason.UNKNOWN -> {
-                groupLoadStatus.visibility = View.VISIBLE
-            }
+            ErrorReason.UNKNOWN -> groupLoadStatus.visibility = View.VISIBLE
+            else -> context?.displayError(reason)
         }
     }
 

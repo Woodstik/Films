@@ -16,6 +16,7 @@ import com.example.films.presentation.adapter.items.AdapterItem
 import com.example.films.presentation.adapter.items.MovieListHeaderItem
 import com.example.films.presentation.adapter.items.MovieListMovieItem
 import com.example.films.utils.formatCreatedDate
+import com.example.films.utils.formatPlaytime
 import com.example.films.utils.formatReleaseYear
 import kotlinx.android.synthetic.main.row_movie_list_header.view.*
 import kotlinx.android.synthetic.main.row_movie_list_movie.view.*
@@ -79,13 +80,14 @@ class MovieListHeaderViewHolder(itemView: View) : AdapterItemViewHolder(itemView
         val listItem = item as MovieListHeaderItem
         itemView.apply {
             progressWatched.progress =
-                listItem.movieList.watchedCount / listItem.movieList.movies.size
+                (listItem.movieList.watchedCount() / listItem.movieList.movies.size) * 100
             textWatchedCount.text = context.getString(
                 R.string.watched_count,
-                listItem.movieList.watchedCount,
+                listItem.movieList.watchedCount(),
                 listItem.movieList.movies.size
             )
             textCreatedDate.text = formatCreatedDate(listItem.movieList.createdDate)
+            textPlaytime.text = context.getString(R.string.format_playtime, formatPlaytime(listItem.movieList.playtime()))
         }
     }
 }
@@ -103,33 +105,12 @@ class MovieListMovieViewHolder(itemView: View, private val movieListCallbacks: M
             )
             textMovieCast.text = movieItem.movie.cast.joinToString { it }
             GlideApp.with(imagePoster).load(movieItem.movie.poster).into(imagePoster)
-            btnOptions.setOnClickListener { showOptions(movieItem.movie.id, movieItem.movie.userMovieInfo) }
+            btnDelete.setOnClickListener { movieListCallbacks.deleteMovie(movieItem.movie.id) }
+            imageWatched.visibility = if(movieItem.movie.userMovieInfo.watched) View.VISIBLE else View.GONE
         }
-    }
-
-    private fun showOptions(movieId: Int, userMovieInfo: UserMovieInfo) {
-        val popup = PopupMenu(itemView.context, itemView.btnOptions)
-        popup.menuInflater.inflate(R.menu.movie_list_movie_options, popup.menu)
-        val toggleItem = popup.menu.findItem(R.id.option_toggle_watched)
-        toggleItem.setTitle(if (userMovieInfo.watched) R.string.movie_set_unwatched else R.string.movie_set_watched)
-        popup.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.option_delete -> {
-                    movieListCallbacks.deleteMovie(movieId)
-                    true
-                }
-                R.id.option_toggle_watched -> {
-                    movieListCallbacks.toggleMovieWatched(movieId)
-                    true
-                }
-                else -> false
-            }
-        }
-        popup.show()
     }
 }
 
 interface MovieListCallbacks {
     fun deleteMovie(movieId: Int)
-    fun toggleMovieWatched(movieId: Int)
 }

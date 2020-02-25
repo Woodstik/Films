@@ -12,6 +12,7 @@ import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.MovieList
 import com.example.films.presentation.editlist.EditListDialogFragment
+import com.example.films.utils.displayError
 import com.example.films.utils.showDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.dialog_select_list.*
@@ -58,7 +59,7 @@ class SelectListDialogFragment : BottomSheetDialogFragment() {
 
     private fun handleMovieListsState(state: LoadState<List<MovieList>>) {
         when (state) {
-            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Error -> context?.displayError(state.reason())
             is LoadState.Data -> {
                 adapter.setMovieLists(state.data)
             }
@@ -67,19 +68,11 @@ class SelectListDialogFragment : BottomSheetDialogFragment() {
 
     private fun handleAddMovieToListState(state: LoadState<Unit>) {
         when (state) {
-            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Error -> context?.displayError(state.reason())
             is LoadState.Data -> {
                 Toast.makeText(context, getString(R.string.add_movie_to_list_success), Toast.LENGTH_SHORT).show()
                 dismiss()
             }
-        }
-    }
-
-    private fun handleError(reason: ErrorReason) {
-        when (reason) {
-            ErrorReason.HTTP -> Toast.makeText(context, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
-            ErrorReason.NETWORK -> Toast.makeText(context, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
-            ErrorReason.UNKNOWN -> Toast.makeText(context, getString(R.string.error_generic), Toast.LENGTH_SHORT).show()
         }
     }
 

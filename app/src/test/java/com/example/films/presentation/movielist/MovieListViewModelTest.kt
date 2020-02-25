@@ -5,6 +5,8 @@ import androidx.lifecycle.Observer
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.MovieList
 import com.example.films.data.sources.MovieListDataSource
+import com.example.films.domain.DeleteMovieFromListUseCase
+import com.example.films.domain.DeleteMovieListUseCase
 import com.example.films.domain.GetMovieListUseCase
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
@@ -37,7 +39,9 @@ class MovieListViewModelTest {
     fun setUp() {
         val scheduler = Schedulers.trampoline()
         val getMovieListUseCase = GetMovieListUseCase(movieListDataSource, scheduler, scheduler)
-        viewModel = MovieListViewModel(getMovieListUseCase)
+        val deleteMovieListUseCase = DeleteMovieListUseCase(movieListDataSource, scheduler, scheduler)
+        val deleteMovieFromListUseCase = DeleteMovieFromListUseCase(movieListDataSource, scheduler, scheduler)
+        viewModel = MovieListViewModel(getMovieListUseCase, deleteMovieFromListUseCase, deleteMovieListUseCase)
         viewModel.movieListState.observeForever(movieListObserver)
     }
 

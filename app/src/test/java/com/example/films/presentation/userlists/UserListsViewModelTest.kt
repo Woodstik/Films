@@ -9,6 +9,7 @@ import com.example.films.data.models.MovieReminder
 import com.example.films.data.models.UsersMovieLists
 import com.example.films.data.sources.MovieListDataSource
 import com.example.films.data.sources.ReminderDataSource
+import com.example.films.domain.DeleteMovieListUseCase
 import com.example.films.domain.GetUserListsUseCase
 import com.example.films.utils.Optional
 import io.reactivex.Flowable
@@ -43,7 +44,8 @@ class UserListsViewModelTest {
     fun setUp() {
         val scheduler = Schedulers.trampoline()
         val getUsersListsUseCase = GetUserListsUseCase(movieListDataSource, reminderDataSource, scheduler, scheduler)
-        viewModel = UserListsViewModel(getUsersListsUseCase)
+        val deleteMovieListUseCase = DeleteMovieListUseCase(movieListDataSource, scheduler, scheduler)
+        viewModel = UserListsViewModel(getUsersListsUseCase, deleteMovieListUseCase)
         viewModel.usersMovieLists.observeForever(userListsObserver)
     }
 
@@ -51,7 +53,7 @@ class UserListsViewModelTest {
     fun loadLists_success() {
         val movieList = MovieList(1, "", Date(), mutableListOf(), "")
         `when`(movieListDataSource.getMovieLists()).thenReturn(Flowable.just(listOf(movieList)))
-        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderDataSource.getNextReminder()).thenReturn(Flowable.just(Optional(reminder)))
         viewModel.loadLists()
         verify(userListsObserver).onChanged(LoadState.Loading)

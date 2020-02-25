@@ -13,12 +13,15 @@ import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.MovieList
+import com.example.films.utils.displayError
 import kotlinx.android.synthetic.main.dialog_edit_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditListDialogFragment : DialogFragment() {
 
     private val model: EditListViewModel by viewModel()
+
+    var listener: EditListListener? = null
 
     companion object {
         private const val ARG_MOVIE_ID = "arg_movie_id"
@@ -44,7 +47,7 @@ class EditListDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        model.submitListState.observe(this, Observer { handleCreateListState(it) })
+        model.submitListState.observe(this, Observer { handleSaveListState(it) })
         model.movieListState.observe(this, Observer { handleLoadListState(it) })
     }
 
@@ -78,14 +81,19 @@ class EditListDialogFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
     }
 
-    private fun handleCreateListState(state: LoadState<Unit>) {
+    override fun onDestroy() {
+        super.onDestroy()
+        listener = null
+    }
+
+    private fun handleSaveListState(state: LoadState<Unit>) {
         when (state) {
-            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Error -> context?.displayError(state.reason())
             is LoadState.Data -> {
-                Toast.makeText(context, getString(R.string.create_list_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.save_list_success), Toast.LENGTH_SHORT).show()
+                listener?.onSuccess()
                 dismiss()
             }
         }
@@ -93,16 +101,12 @@ class EditListDialogFragment : DialogFragment() {
 
     private fun handleLoadListState(state: LoadState<MovieList>) {
         when (state) {
-            is LoadState.Error -> handleError(state.reason())
+            is LoadState.Error -> context?.displayError(state.reason())
             is LoadState.Data -> inputTitle.setText(state.data.title)
         }
     }
 
-    private fun handleError(reason: ErrorReason) {
-        when (reason) {
-            ErrorReason.HTTP -> Toast.makeText(context, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
-            ErrorReason.NETWORK -> Toast.makeText(context, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
-            ErrorReason.UNKNOWN -> Toast.makeText(context, getString(R.string.error_generic), Toast.LENGTH_SHORT).show()
-        }
+    interface EditListListener{
+        fun onSuccess()
     }
 }

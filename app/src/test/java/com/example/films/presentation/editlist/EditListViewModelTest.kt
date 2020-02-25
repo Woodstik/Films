@@ -1,4 +1,4 @@
-package com.example.films.presentation.createlist
+package com.example.films.presentation.editlist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
@@ -8,6 +8,8 @@ import com.example.films.data.requests.CreateMovieListRequest
 import com.example.films.data.sources.MovieListDataSource
 import com.example.films.domain.AddMovieToListUseCase
 import com.example.films.domain.CreateMovieListUseCase
+import com.example.films.domain.EditListUseCase
+import com.example.films.domain.GetMovieListUseCase
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
@@ -22,7 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import java.io.IOException
 
 @RunWith(MockitoJUnitRunner::class)
-class CreateListViewModelTest {
+class EditListViewModelTest {
 
     @Rule
     @JvmField
@@ -32,16 +34,18 @@ class CreateListViewModelTest {
     private lateinit var movieListDataSource: MovieListDataSource
     @Mock
     private lateinit var createListObserver: Observer<LoadState<Unit>>
-    private lateinit var viewModel: CreateListViewModel
+    private lateinit var viewModel: EditListViewModel
 
     @Before
     fun setUp() {
         val scheduler = Schedulers.trampoline()
-        val createMovieListUseCase =
-            CreateMovieListUseCase(movieListDataSource, scheduler, scheduler)
+        val createMovieListUseCase = CreateMovieListUseCase(movieListDataSource, scheduler, scheduler)
         val addMovieToListUseCase = AddMovieToListUseCase(movieListDataSource, scheduler, scheduler)
-        viewModel = CreateListViewModel(createMovieListUseCase, addMovieToListUseCase)
-        viewModel.createListState.observeForever(createListObserver)
+        val getMovieListUseCase = GetMovieListUseCase(movieListDataSource, scheduler, scheduler)
+        val editListUseCase = EditListUseCase(movieListDataSource, scheduler, scheduler)
+
+        viewModel = EditListViewModel(createMovieListUseCase, addMovieToListUseCase, getMovieListUseCase, editListUseCase)
+        viewModel.submitListState.observeForever(createListObserver)
     }
 
     @Test
@@ -49,7 +53,7 @@ class CreateListViewModelTest {
         val request = CreateMovieListRequest("Title", "")
         `when`(movieListDataSource.createList(request))
             .thenReturn(Flowable.just(1))
-        viewModel.createMovieList("Title", 0, "")
+        viewModel.submit("Title")
         verify(createListObserver).onChanged(LoadState.Loading)
         verify(createListObserver).onChanged(LoadState.Data(Unit))
     }
@@ -60,7 +64,7 @@ class CreateListViewModelTest {
         val request = CreateMovieListRequest("Title", "")
         `when`(movieListDataSource.createList(request))
             .thenReturn(Flowable.error(connectionError))
-        viewModel.createMovieList(request.title, 0, "")
+        viewModel.submit(request.title)
         verify(createListObserver).onChanged(LoadState.Loading)
         verify(createListObserver).onChanged(LoadState.Error(connectionError))
     }
@@ -73,7 +77,7 @@ class CreateListViewModelTest {
         val addMovieRequest = AddMovieToListRequest(1, 1)
         `when`(movieListDataSource.addMovieToList(addMovieRequest))
             .thenReturn(Completable.complete())
-        viewModel.createMovieList(createRequest.title, 1, "")
+        viewModel.submit(createRequest.title)
         verify(createListObserver).onChanged(LoadState.Loading)
         verify(createListObserver).onChanged(LoadState.Data(Unit))
     }
@@ -84,7 +88,7 @@ class CreateListViewModelTest {
         val createRequest = CreateMovieListRequest("Title", "")
         `when`(movieListDataSource.createList(createRequest))
             .thenReturn(Flowable.error(connectionError))
-        viewModel.createMovieList(createRequest.title, 1, "")
+        viewModel.submit(createRequest.title)
         verify(createListObserver).onChanged(LoadState.Loading)
         verify(createListObserver).onChanged(LoadState.Error(connectionError))
     }

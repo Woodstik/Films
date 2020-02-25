@@ -15,10 +15,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/btnCreateList"
             app:layout_constraintEnd_toStartOf="@+id/btnCreateList"
-            android:textAppearance="@style/Text.Medium"
+            android:textAppearance="@style/Text.Title"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:textStyle="bold"
-            android:text="@string/save_movie_to"/>
+            android:text="@string/add_movie_to"/>
 
     <Button
             android:id="@+id/btnCreateList"

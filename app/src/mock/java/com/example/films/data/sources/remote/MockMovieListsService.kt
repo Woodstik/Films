@@ -53,6 +53,17 @@ class MockMovieListsService(private val testMovies: TestData.Movies) : MovieList
         return Completable.complete()
     }
 
+    override fun toggleMovieWatched(movieId: Int): Completable {
+        val movie = testMovies.getById(movieId)
+        movie.userMovieInfo.watched = !movie.userMovieInfo.watched
+        if(movie.userMovieInfo.watched){
+            movie.userMovieInfo.watchedDate = null
+        }else{
+            movie.userMovieInfo.watchedDate = Date()
+        }
+        return Completable.complete()
+    }
+
     override fun createMovieList(request: CreateMovieListRequest): Single<Long> {
         movieLists.add(MovieList((movieLists.size + 1).toLong(), request.title, Date(), mutableListOf(), request.color))
         return Single.just(movieLists.size.toLong())

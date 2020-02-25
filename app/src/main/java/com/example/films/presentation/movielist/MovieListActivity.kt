@@ -17,6 +17,7 @@ import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.MovieList
 import com.example.films.presentation.editlist.EditListDialogFragment
+import com.example.films.utils.displayError
 import com.example.films.utils.showDialogFragment
 import kotlinx.android.synthetic.main.activity_movie_list.*
 import kotlinx.android.synthetic.main.activity_movie_list.layoutToolbar
@@ -75,51 +76,14 @@ class MovieListActivity : AppCompatActivity(), SwipeToDeleteMovieCallback.SwipeL
                 true
             }
             R.id.item_rename -> {
-                showDialogFragment(EditListDialogFragment.editListInstance(listId))
+                val dialog = EditListDialogFragment.editListInstance(listId)
+                dialog.listener = object : EditListDialogFragment.EditListListener {
+                    override fun onSuccess() = viewModel.loadMovieList(listId)
+                }
+                showDialogFragment(dialog)
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun handleLoadMovieListState(state: LoadState<MovieList>) {
-        swipeRefresh.isRefreshing = state is LoadState.Loading
-        when (state) {
-            is LoadState.Error -> handleError(state.reason())
-            is LoadState.Data -> {
-                supportActionBar!!.title = state.data.title
-                textListStatus.visibility = if(state.data.movies.isEmpty()) View.VISIBLE else View.GONE
-                adapter.setMovieList(state.data)
-            }
-        }
-    }
-
-    private fun handleDeleteListState(state: LoadState<Unit>) {
-        swipeRefresh.isRefreshing = state is LoadState.Loading
-        when (state) {
-            is LoadState.Error -> handleError(state.reason())
-            is LoadState.Data -> {
-                Toast.makeText(this, getString(R.string.movie_list_deleted), Toast.LENGTH_SHORT).show()
-                finish()
-            }
-        }
-    }
-
-    private fun handleError(reason: ErrorReason) {
-        when (reason) {
-            ErrorReason.HTTP -> Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
-            ErrorReason.NETWORK -> Toast.makeText(this, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
-            ErrorReason.UNKNOWN -> Toast.makeText(this, getString(R.string.error_generic), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private val movieListCallbacks = object : MovieListCallbacks{
-        override fun deleteMovie(movieId: Int) {
-            viewModel.deleteMovie(listId, movieId)
-        }
-
-        override fun toggleMovieWatched(movieId: Int) {
-            viewModel.toggleMovieWatched(movieId)
         }
     }
 
@@ -127,5 +91,36 @@ class MovieListActivity : AppCompatActivity(), SwipeToDeleteMovieCallback.SwipeL
         val movieId = adapter.getMovieId(position)
         adapter.remove(position)
         viewModel.deleteMovie(listId, movieId)
+    }
+
+    private fun handleLoadMovieListState(state: LoadState<MovieList>) {
+        swipeRefresh.isRefreshing = state is LoadState.Loading
+        when (state) {
+            is LoadState.Error -> displayError(state.reason())
+            is LoadState.Data -> displayMovieList(state.data)
+        }
+    }
+
+    private fun handleDeleteListState(state: LoadState<Unit>) {
+        swipeRefresh.isRefreshing = state is LoadState.Loading
+        when (state) {
+            is LoadState.Error -> displayError(state.reason())
+            is LoadState.Data -> {
+                Toast.makeText(this, getString(R.string.movie_list_deleted), Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+    }
+
+    private fun displayMovieList(moveList: MovieList) {
+        supportActionBar!!.title = moveList.title
+        textListStatus.visibility = if(moveList.movies.isEmpty()) View.VISIBLE else View.GONE
+        adapter.setMovieList(moveList)
+    }
+
+    private val movieListCallbacks = object : MovieListCallbacks{
+        override fun deleteMovie(movieId: Int) {
+            viewModel.deleteMovie(listId, movieId)
+        }
     }
 }

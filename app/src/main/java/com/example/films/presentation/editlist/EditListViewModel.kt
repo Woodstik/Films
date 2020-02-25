@@ -71,7 +71,6 @@ class EditListViewModel(
 
     private fun renameList(listId: Long, newTitle: String) {
         val disposable = editListUseCase.execute(EditListRequest(listId, title = newTitle))
-            .flatMap { getMovieListUseCase.execute(listId) }
             .doOnSubscribe { submitListState.value = LoadState.Loading }
             .subscribeBy(
                 onNext = { submitListState.value = LoadState.Data(it) },

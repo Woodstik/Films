@@ -14,6 +14,7 @@ import com.example.films.R
 import com.example.films.data.enums.ErrorReason
 import com.example.films.data.enums.LoadState
 import com.example.films.data.models.MovieReminder
+import com.example.films.utils.displayError
 import kotlinx.android.synthetic.main.activity_reminders.*
 import kotlinx.android.synthetic.main.toolbar.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -72,9 +73,8 @@ class RemindersActivity : AppCompatActivity() {
 
     private fun handleError(reason: ErrorReason) {
         when (reason) {
-            ErrorReason.HTTP -> Toast.makeText(this, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
-            ErrorReason.NETWORK -> Toast.makeText(this, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
             ErrorReason.UNKNOWN -> textEmptyReminders.visibility = View.VISIBLE
+            else -> displayError(reason)
         }
     }
 

@@ -40,8 +40,8 @@ class ReminderRepositoryTest {
 
     @Test
     fun getNextReminder_success() {
-        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", ""), Date())
-        val reminder2 = MovieReminder(2, Movie(2, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", "", 0), Date())
+        val reminder2 = MovieReminder(2, Movie(2, "", "", Date(), 0.0, "", "", 0), Date())
         `when`(reminderService.getReminders()).thenReturn(Single.just(listOf(reminder, reminder2)))
         val testSubscriber = reminderDataSource.getNextReminder().test()
         testSubscriber.assertValueCount(1)
@@ -64,7 +64,7 @@ class ReminderRepositoryTest {
 
     @Test
     fun getReminders_successValue() {
-        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderService.getReminders()).thenReturn(Single.just(listOf(reminder)))
         val testSubscriber = reminderDataSource.getReminders().test()
         testSubscriber.assertValue { it.contains(reminder) }
@@ -77,7 +77,7 @@ class ReminderRepositoryTest {
         var testSubscriber = reminderDataSource.getReminders().test()
         testSubscriber.assertValue { it.isEmpty() }
         testSubscriber.assertValueCount(1)
-        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderService.getReminders()).thenReturn(Single.just(listOf(reminder)))
         testSubscriber = reminderDataSource.getReminders(forceRefresh = false).test()
         testSubscriber.assertValue { it.isEmpty() }
@@ -104,7 +104,7 @@ class ReminderRepositoryTest {
 
     @Test
     fun getTodayReminders_successValue() {
-        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderService.getTodayReminders()).thenReturn(Single.just(listOf(reminder)))
         val testSubscriber = reminderDataSource.getTodayReminders().test()
         testSubscriber.assertValue { it.contains(reminder) }
@@ -121,7 +121,7 @@ class ReminderRepositoryTest {
 
     @Test
     fun createReminder_success() {
-        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderService.getReminders()).thenReturn(Single.just(listOf(reminder)))
         val request = CreateReminderRequest(1)
         `when`(reminderService.createReminder(request)).thenReturn(Single.just(2))
@@ -155,7 +155,7 @@ class ReminderRepositoryTest {
 
     @Test
     fun deleteReminder_success() {
-        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", ""), Date())
+        val reminder = MovieReminder(1, Movie(1, "", "", Date(), 0.0, "", "",0), Date())
         `when`(reminderService.getReminders()).thenReturn(Single.just(listOf(reminder)))
         val request = DeleteRemindersRequest(listOf(1))
         `when`(reminderService.deleteReminders(request)).thenReturn(Completable.complete())

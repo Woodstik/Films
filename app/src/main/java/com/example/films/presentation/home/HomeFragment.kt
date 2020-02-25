@@ -14,10 +14,12 @@ import com.example.films.data.enums.LoadState
 import com.example.films.data.models.HomeMovies
 import com.example.films.data.models.Movie
 import com.example.films.presentation.selectlist.SelectListDialogFragment
+import com.example.films.utils.displayError
 import com.example.films.utils.openUrl
 import com.example.films.utils.showDialogFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class HomeFragment : Fragment() {
@@ -39,6 +41,7 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel.moviesState.observe(this, Observer { handleMovieState(it) })
         viewModel.createReminderState.observe(this, Observer { handleCreateReminderState(it) })
+        viewModel.loadMovies()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,7 +54,6 @@ class HomeFragment : Fragment() {
             it.layoutManager = LinearLayoutManager(context)
             it.adapter = homeAdapter
         }
-        viewModel.loadMovies()
         swipeRefresh.setOnRefreshListener { viewModel.loadMovies() }
         btnRetry.setOnClickListener { viewModel.loadMovies() }
     }
@@ -77,11 +79,8 @@ class HomeFragment : Fragment() {
 
     private fun handleError(reason: ErrorReason) {
         when (reason) {
-            ErrorReason.HTTP -> Toast.makeText(context, getString(R.string.error_server), Toast.LENGTH_SHORT).show()
-            ErrorReason.NETWORK -> Toast.makeText(context, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
-            ErrorReason.UNKNOWN -> {
-                groupLoadStatus.visibility = View.VISIBLE
-            }
+            ErrorReason.UNKNOWN -> groupLoadStatus.visibility = View.VISIBLE
+            else -> context?.displayError(reason)
         }
     }
 

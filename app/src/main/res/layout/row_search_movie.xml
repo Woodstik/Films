@@ -28,7 +28,7 @@
             android:textAppearance="@style/Text.Normal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imagePoster"
-            app:layout_constraintEnd_toStartOf="@+id/btnOptions"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/textMovieCast"
             app:layout_constraintVertical_chainStyle="packed"
             android:textStyle="bold"
@@ -43,19 +43,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textMovieTitle"
             app:layout_constraintStart_toEndOf="@+id/imagePoster"
-            app:layout_constraintEnd_toStartOf="@+id/btnOptions"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/spacing_normal"
             android:layout_marginStart="@dimen/spacing_normal"
             tools:text="Mike Myers, Eddie Murphy, Cameron Diaz"
             android:textAppearance="@style/Text.Small"/>
-
-    <ImageButton
-            android:id="@+id/btnOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_more"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="?selectableItemBackground"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,8 +55,10 @@
     <!--MOVIE LIST-->
     <string name="empty_movie_list">Add movies to this list</string>
     <string name="watched_count">%1$d/%2$d</string>
-    <string name="movies_watched">Movies Watched</string>
     <string name="movie_delete">Remove</string>
+    <string name="movie_share">Share</string>
+    <string name="movie_add_to_list">Add to list</string>
+    <string name="format_playtime">%s playtime</string>
     <string name="movie_list_delete">Delete</string>
     <string name="movie_list_rename">Rename</string>
     <string name="movie_set_watched">Set Watched</string>
@@ -79,14 +81,14 @@
     <string name="no_search_results">No movie results</string>
 
     <!--SELECT LIST-->
-    <string name="save_movie_to">Save movie to…</string>
+    <string name="add_movie_to">Add movie to…</string>
     <string name="add_movie_to_list_success">Added movie to list!</string>
 
     <!--EDIT LIST-->
     <string name="create_list_title">New List</string>
     <string name="edit_list_title">Edit List</string>
     <string name="hint_list_title">Title</string>
-    <string name="create_list_success">List created!</string>
+    <string name="save_list_success">List saved!</string>
 
     <!--REMINDERS-->
     <string name="title_reminders">Reminders</string>
