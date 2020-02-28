@@ -8,9 +8,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.films.R
+import com.example.films.presentation.auth.authMenuIntent
 import com.example.films.presentation.home.HomeFragment
 import com.example.films.presentation.profile.ProfileFragment
 import com.example.films.presentation.search.searchIntent
+import com.example.films.presentation.signup.signUpIntent
 import com.example.films.presentation.userlists.UserListsFragment
 import com.example.films.utils.replaceFragment
 import com.google.android.gms.ads.AdListener
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         cardSearch.setOnClickListener { startActivity(searchIntent()) }
         //TODO: Enable ads
 //        setUpAd()
+        startActivity(authMenuIntent())
     }
 
     private fun showFragment(menuId: Int) {
